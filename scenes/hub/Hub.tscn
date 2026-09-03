@@ -1,0 +1,428 @@
+[gd_scene format=3 uid="uid://dd42shydqwrj6"]
+
+[ext_resource type="PackedScene" uid="uid://b6mudu7j3kw7p" path="res://scenes/player/Player.tscn" id="1_gau5l"]
+[ext_resource type="PackedScene" uid="uid://d2yu73begolac" path="res://scenes/hub/PrimordialTree.tscn" id="2_yojxd"]
+[ext_resource type="Texture2D" uid="uid://bcwytj4os3vrk" path="res://assets/environment/background_state1.png" id="3_bgny"]
+[ext_resource type="Texture2D" uid="uid://mnee4j7mwmi5" path="res://assets/environment/altars/altar.png" id="4_altar"]
+[ext_resource type="Texture2D" uid="uid://8ypslrd11lq" path="res://assets/environment/trees/dead_tree_small.png" id="5_small_tree"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_34wtv"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 98, 0)
+
+[sub_resource type="Gradient" id="Gradient_3eo6u"]
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_j6mgk"]
+gradient = SubResource("Gradient_3eo6u")
+
+[sub_resource type="Curve" id="Curve_3eo6u"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_iwbf0"]
+curve = SubResource("Curve_3eo6u")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ljh7b"]
+emission_shape_scale = Vector3(1, 0, 1)
+direction = Vector3(0, -1, 0)
+spread = 30.0
+initial_velocity_min = 46.23
+initial_velocity_max = 66.229996
+gravity = Vector3(0, 0, 0)
+scale_min = 6.0
+scale_max = 13.28
+scale_curve = SubResource("CurveTexture_iwbf0")
+color = Color(0.473589, 0.10352142, 0.15660071, 0.95300007)
+color_ramp = SubResource("GradientTexture1D_j6mgk")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3eo6u"]
+radius = 24.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_le482"]
+radius = 43.0
+height = 132.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rpma5"]
+radius = 24.33105
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mo1wo"]
+radius = 42.0
+height = 122.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_altar_body"]
+size = Vector2(70, 44)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_y54b8"]
+radius = 45.0
+height = 138.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_mgqhn"]
+radius = 23.0
+height = 46.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_6423h"]
+radius = 40.0
+height = 118.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_n2mjb"]
+radius = 25.317978
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3eo6u"]
+radius = 45.0
+height = 126.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_horizontal_boundary"]
+size = Vector2(1193, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vertical_boundary"]
+size = Vector2(48, 720.5)
+
+[node name="Hub" type="Node2D" unique_id=1319461677]
+y_sort_enabled = true
+
+[node name="Background" type="Sprite2D" parent="." unique_id=1416160275]
+z_index = -100
+texture_filter = 1
+position = Vector2(684.5, 364.49994)
+scale = Vector2(1.2888756, 1.4760891)
+texture = ExtResource("3_bgny")
+
+[node name="Environment" type="Node2D" parent="." unique_id=1043736270]
+y_sort_enabled = true
+
+[node name="PrimordialTree" parent="Environment" unique_id=266033396 instance=ExtResource("2_yojxd")]
+position = Vector2(570, 313)
+
+[node name="DeadTrees" type="Node2D" parent="Environment" unique_id=1108167729]
+y_sort_enabled = true
+
+[node name="DeadTree01" type="Sprite2D" parent="Environment/DeadTrees" unique_id=1439679844]
+texture_filter = 1
+position = Vector2(154, 184)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("5_small_tree")
+
+[node name="DeadTree02" type="Sprite2D" parent="Environment/DeadTrees" unique_id=1254701048]
+texture_filter = 1
+position = Vector2(442, 116.000015)
+scale = Vector2(-0.085, 0.085)
+texture = ExtResource("5_small_tree")
+
+[node name="DeadTree03" type="Sprite2D" parent="Environment/DeadTrees" unique_id=1624157470]
+texture_filter = 1
+position = Vector2(1085, 210)
+scale = Vector2(0.095, 0.095)
+texture = ExtResource("5_small_tree")
+
+[node name="DeadTree04" type="Sprite2D" parent="Environment/DeadTrees" unique_id=257886355]
+texture_filter = 1
+position = Vector2(1087, 398)
+scale = Vector2(-0.105, 0.105)
+texture = ExtResource("5_small_tree")
+
+[node name="DeadTree05" type="Sprite2D" parent="Environment/DeadTrees" unique_id=428208448]
+texture_filter = 1
+position = Vector2(111.99988, 327.99997)
+scale = Vector2(0.09, 0.09)
+texture = ExtResource("5_small_tree")
+
+[node name="DeadTree06" type="Sprite2D" parent="Environment/DeadTrees" unique_id=1902948980]
+texture_filter = 1
+position = Vector2(170, 620)
+scale = Vector2(-0.095, 0.095)
+texture = ExtResource("5_small_tree")
+
+[node name="DeadTree07" type="Sprite2D" parent="Environment/DeadTrees" unique_id=1316636687]
+texture_filter = 1
+position = Vector2(827, 619.0001)
+scale = Vector2(0.085, 0.085)
+texture = ExtResource("5_small_tree")
+
+[node name="SmokeFX" type="GPUParticles2D" parent="Environment" unique_id=820672096]
+process_material = SubResource("ParticleProcessMaterial_34wtv")
+
+[node name="SmokeColumn01" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1025384883]
+light_mask = 7
+position = Vector2(309, 233)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn02" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1554461639]
+light_mask = 7
+position = Vector2(736, 409)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn03" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1223213448]
+light_mask = 7
+position = Vector2(877, 258)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn05" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=355323701]
+light_mask = 7
+position = Vector2(248, 506)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn06" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=164711037]
+light_mask = 7
+position = Vector2(449, 382)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn14" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1024296747]
+light_mask = 7
+position = Vector2(597, 213)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn15" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=690594695]
+light_mask = 7
+position = Vector2(569, 441)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn16" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1663096457]
+light_mask = 7
+position = Vector2(905, 528)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn07" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=87103094]
+light_mask = 7
+position = Vector2(1087, 449)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn09" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1569505716]
+light_mask = 7
+position = Vector2(835, 621)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn10" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1680196976]
+light_mask = 7
+position = Vector2(165, 224)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn11" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1286698698]
+light_mask = 7
+position = Vector2(130, 383)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn12" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1540143168]
+light_mask = 7
+position = Vector2(141, 673)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn13" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=90537894]
+light_mask = 7
+position = Vector2(593, 579)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn08" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=1044231522]
+light_mask = 7
+position = Vector2(1082, 261)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="SmokeColumn04" type="GPUParticles2D" parent="Environment/SmokeFX" unique_id=2103801823]
+light_mask = 7
+position = Vector2(1105, 650)
+amount = 30
+lifetime = 2.0
+randomness = 0.3
+process_material = SubResource("ParticleProcessMaterial_ljh7b")
+
+[node name="Player" parent="." unique_id=1854473966 instance=ExtResource("1_gau5l")]
+position = Vector2(398, 447)
+
+[node name="WaterAltar" type="Node2D" parent="." unique_id=400293371]
+position = Vector2(314, 186)
+
+[node name="AltarVisual" type="Sprite2D" parent="WaterAltar" unique_id=1670124874]
+texture_filter = 1
+position = Vector2(1.9999847, 4.9999824)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_altar")
+
+[node name="Body" type="StaticBody2D" parent="WaterAltar" unique_id=773332995]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterAltar/Body" unique_id=363767920]
+position = Vector2(0, 34)
+shape = SubResource("CircleShape2D_3eo6u")
+
+[node name="InteractionArea" type="Area2D" parent="WaterAltar" unique_id=1862345033]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WaterAltar/InteractionArea" unique_id=748505096]
+position = Vector2(0, 4)
+shape = SubResource("CapsuleShape2D_le482")
+
+[node name="EarthAltar" type="Node2D" parent="." unique_id=1151152240]
+position = Vector2(878, 191)
+
+[node name="AltarVisual" type="Sprite2D" parent="EarthAltar" unique_id=1948492266]
+texture_filter = 1
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_altar")
+
+[node name="Body" type="StaticBody2D" parent="EarthAltar" unique_id=174774159]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EarthAltar/Body" unique_id=2061549742]
+position = Vector2(0, 28)
+shape = SubResource("CircleShape2D_rpma5")
+
+[node name="InteractionArea" type="Area2D" parent="EarthAltar" unique_id=1662079378]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EarthAltar/InteractionArea" unique_id=1897748170]
+position = Vector2(1, -3)
+shape = SubResource("CapsuleShape2D_mo1wo")
+
+[node name="LightAltar" type="Node2D" parent="." unique_id=432694539]
+position = Vector2(908, 456)
+
+[node name="AltarVisual" type="Sprite2D" parent="LightAltar" unique_id=1962700019]
+texture_filter = 1
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_altar")
+
+[node name="Body" type="StaticBody2D" parent="LightAltar" unique_id=638816624]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightAltar/Body" unique_id=235326637]
+position = Vector2(0, 28)
+shape = SubResource("RectangleShape2D_altar_body")
+
+[node name="InteractionArea" type="Area2D" parent="LightAltar" unique_id=1707197993]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LightAltar/InteractionArea" unique_id=498756231]
+shape = SubResource("CapsuleShape2D_y54b8")
+
+[node name="AirAltar" type="Node2D" parent="." unique_id=1103873875]
+position = Vector2(255, 464)
+
+[node name="AltarVisual" type="Sprite2D" parent="AirAltar" unique_id=1452970679]
+texture_filter = 1
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_altar")
+
+[node name="Body" type="StaticBody2D" parent="AirAltar" unique_id=558847884]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AirAltar/Body" unique_id=993356311]
+position = Vector2(0, 27)
+shape = SubResource("CapsuleShape2D_mgqhn")
+
+[node name="InteractionArea" type="Area2D" parent="AirAltar" unique_id=1102962762]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AirAltar/InteractionArea" unique_id=349283606]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_6423h")
+
+[node name="LifeAltar" type="Node2D" parent="." unique_id=320408410]
+position = Vector2(579, 531)
+
+[node name="AltarVisual" type="Sprite2D" parent="LifeAltar" unique_id=1141255073]
+texture_filter = 1
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("4_altar")
+
+[node name="Body" type="StaticBody2D" parent="LifeAltar" unique_id=770449305]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LifeAltar/Body" unique_id=912988257]
+position = Vector2(0, 28)
+shape = SubResource("CircleShape2D_n2mjb")
+
+[node name="InteractionArea" type="Area2D" parent="LifeAltar" unique_id=1875800498]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LifeAltar/InteractionArea" unique_id=1398539545]
+position = Vector2(-2, -6)
+shape = SubResource("CapsuleShape2D_3eo6u")
+
+[node name="Boundaries" type="Node2D" parent="." unique_id=791787712]
+
+[node name="TopBoundary" type="StaticBody2D" parent="Boundaries" unique_id=321406797]
+position = Vector2(836, -20)
+
+[node name="PlaceholderVisual" type="Polygon2D" parent="Boundaries/TopBoundary" unique_id=1434315012]
+visible = false
+color = Color(0.05, 0.07, 0.055, 1)
+polygon = PackedVector2Array(-836, -20, 836, -20, 836, 20, -836, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/TopBoundary" unique_id=926664677]
+position = Vector2(-239.5, 0)
+shape = SubResource("RectangleShape2D_horizontal_boundary")
+
+[node name="BottomBoundary" type="StaticBody2D" parent="Boundaries" unique_id=1605094112]
+position = Vector2(836, 961)
+
+[node name="PlaceholderVisual" type="Polygon2D" parent="Boundaries/BottomBoundary" unique_id=1728313104]
+visible = false
+color = Color(0.05, 0.07, 0.055, 1)
+polygon = PackedVector2Array(-836, -20, 836, -20, 836, 20, -836, 20)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/BottomBoundary" unique_id=502833960]
+position = Vector2(-236, -228)
+shape = SubResource("RectangleShape2D_horizontal_boundary")
+
+[node name="LeftBoundary" type="StaticBody2D" parent="Boundaries" unique_id=1886621500]
+position = Vector2(-20, 470.5)
+
+[node name="PlaceholderVisual" type="Polygon2D" parent="Boundaries/LeftBoundary" unique_id=681712160]
+visible = false
+color = Color(0.05, 0.07, 0.055, 1)
+polygon = PackedVector2Array(-20, -470.5, 20, -470.5, 20, 470.5, -20, 470.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/LeftBoundary" unique_id=2073097544]
+position = Vector2(3, -124.5)
+shape = SubResource("RectangleShape2D_vertical_boundary")
+
+[node name="RightBoundary" type="StaticBody2D" parent="Boundaries" unique_id=187386984]
+position = Vector2(1692, 470.5)
+
+[node name="PlaceholderVisual" type="Polygon2D" parent="Boundaries/RightBoundary" unique_id=762693079]
+visible = false
+color = Color(0.05, 0.07, 0.055, 1)
+polygon = PackedVector2Array(-20, -470.5, 20, -470.5, 20, 470.5, -20, 470.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Boundaries/RightBoundary" unique_id=536448776]
+position = Vector2(-470, -123.5)
+shape = SubResource("RectangleShape2D_vertical_boundary")

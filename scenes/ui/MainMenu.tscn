@@ -1,0 +1,189 @@
+[gd_scene format=3 uid="uid://coerh56at88e"]
+
+[ext_resource type="Script" uid="uid://57nr4bvwndq6" path="res://scripts/ui/main_menu.gd" id="1_4ksn6"]
+[ext_resource type="Texture2D" uid="uid://dl336n0r375jx" path="res://assets/ui/main_menu_background.png" id="2_426nm"]
+[ext_resource type="Texture2D" uid="uid://v1h3lh6iq6lo" path="res://assets/ui/sprite_sheet_button.webp" id="3_0p3m7"]
+[ext_resource type="Texture2D" uid="uid://pmhtjahv3tob" path="res://assets/ui/banner.png" id="4_2ysvc"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_new_game"]
+atlas = ExtResource("3_0p3m7")
+region = Rect2(34, 71, 126, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_continue"]
+atlas = ExtResource("3_0p3m7")
+region = Rect2(34, 111, 126, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_exit"]
+atlas = ExtResource("3_0p3m7")
+region = Rect2(34, 190, 126, 39)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_confirm_panel"]
+content_margin_left = 20.0
+content_margin_top = 18.0
+content_margin_right = 20.0
+content_margin_bottom = 18.0
+bg_color = Color(0.067, 0.084, 0.08, 0.94)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.58, 0.82, 0.61, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yes"]
+atlas = ExtResource("3_0p3m7")
+region = Rect2(191, 33, 41, 41)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_no"]
+atlas = ExtResource("3_0p3m7")
+region = Rect2(233, 33, 41, 41)
+
+[node name="MainMenu" type="Control" unique_id=1078680222]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4ksn6")
+
+[node name="Background" type="TextureRect" parent="." unique_id=921814865]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 2.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("2_426nm")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="MenuButtons" type="HBoxContainer" parent="." unique_id=1796774285]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.503
+anchor_top = 0.26700002
+anchor_right = 0.503
+anchor_bottom = 0.26700002
+offset_left = -241.45605
+offset_top = -25.016006
+offset_right = 240.54395
+offset_bottom = 24.983994
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="NewGameButton" type="TextureButton" parent="MenuButtons" unique_id=1266349132]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_new_game")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ContinueButton" type="TextureButton" parent="MenuButtons" unique_id=1846052156]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_continue")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ExitButton" type="TextureButton" parent="MenuButtons" unique_id=1526325781]
+texture_filter = 1
+custom_minimum_size = Vector2(150, 50)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_exit")
+ignore_texture_size = true
+stretch_mode = 0
+
+[node name="ConfirmOverlay" type="Control" parent="." unique_id=2066519562]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="DarkBackground" type="ColorRect" parent="ConfirmOverlay" unique_id=1092245384]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.58)
+
+[node name="ConfirmPanel" type="PanelContainer" parent="ConfirmOverlay" unique_id=1160406944]
+custom_minimum_size = Vector2(400, 150)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -150.0
+offset_top = -66.0
+offset_right = 150.0
+offset_bottom = 66.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_confirm_panel")
+
+[node name="DialogLayout" type="VBoxContainer" parent="ConfirmOverlay/ConfirmPanel" unique_id=1478976596]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="MessageLabel" type="Label" parent="ConfirmOverlay/ConfirmPanel/DialogLayout" unique_id=1015357628]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.916, 0.965, 0.835, 1)
+theme_override_font_sizes/font_size = 14
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="DialogButtons" type="HBoxContainer" parent="ConfirmOverlay/ConfirmPanel/DialogLayout" unique_id=1852686589]
+layout_mode = 2
+theme_override_constants/separation = 150
+alignment = 1
+
+[node name="YesButton" type="TextureButton" parent="ConfirmOverlay/ConfirmPanel/DialogLayout/DialogButtons" unique_id=115236824]
+texture_filter = 1
+custom_minimum_size = Vector2(41, 41)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_yes")
+
+[node name="NoButton" type="TextureButton" parent="ConfirmOverlay/ConfirmPanel/DialogLayout/DialogButtons" unique_id=523976141]
+texture_filter = 1
+custom_minimum_size = Vector2(41, 41)
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_no")
+
+[node name="TitleBanner" type="TextureRect" parent="." unique_id=729914824]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -225.0
+offset_right = 225.0
+offset_bottom = 150.0
+grow_horizontal = 2
+texture = ExtResource("4_2ysvc")
+expand_mode = 1
+
+[connection signal="pressed" from="MenuButtons/NewGameButton" to="." method="_on_new_game_pressed"]
+[connection signal="pressed" from="MenuButtons/ContinueButton" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="MenuButtons/ExitButton" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="ConfirmOverlay/ConfirmPanel/DialogLayout/DialogButtons/YesButton" to="." method="_on_confirm_yes_pressed"]
+[connection signal="pressed" from="ConfirmOverlay/ConfirmPanel/DialogLayout/DialogButtons/NoButton" to="." method="_on_confirm_no_pressed"]
