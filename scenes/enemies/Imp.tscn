@@ -336,8 +336,8 @@ radius = 180.0
 radius = 55.0
 
 [node name="Imp" type="CharacterBody2D" unique_id=970021736]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_enemy")
 attack_range = 55.0
 
@@ -351,14 +351,14 @@ position = Vector2(2, 16)
 shape = SubResource("CircleShape2D_body")
 
 [node name="EnemyHurtbox" type="Area2D" parent="." unique_id=831599511]
-collision_layer = 2
+collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox" unique_id=596824535]
 shape = SubResource("CircleShape2D_body")
 
 [node name="EnemyDetectionArea" type="Area2D" parent="." unique_id=388444900]
-collision_layer = 2
+collision_layer = 128
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea" unique_id=1637930825]
@@ -366,8 +366,8 @@ position = Vector2(1, 1.5)
 shape = SubResource("CircleShape2D_detection")
 
 [node name="EnemyAttackHitbox" type="Area2D" parent="." unique_id=1652399659]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 16
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAttackHitbox" unique_id=2146599841]
 shape = SubResource("CircleShape2D_enemy_hitbox")

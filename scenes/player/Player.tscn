@@ -11,8 +11,8 @@ radius = 71.19691
 
 [node name="Player" type="CharacterBody2D" unique_id=1859360934]
 y_sort_enabled = true
-collision_layer = 3
-collision_mask = 3
+collision_layer = 2
+collision_mask = 5
 script = ExtResource("1_gfjak")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2075765696]
@@ -56,7 +56,7 @@ color = Color(0.145098, 0.827451, 0.321569, 1)
 metadata/_edit_use_anchors_ = true
 
 [node name="PlayerHurtbox" type="Area2D" parent="." unique_id=1458154015]
-collision_layer = 2
+collision_layer = 32
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox" unique_id=1924078639]
@@ -67,8 +67,8 @@ shape = SubResource("CircleShape2D_ohjih")
 
 [node name="PlayerAttackHitbox" type="Area2D" parent="." unique_id=482249444]
 position = Vector2(31, 0)
-collision_layer = 2
-collision_mask = 2
+collision_layer = 8
+collision_mask = 64
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackHitbox" unique_id=1723202691]
 position = Vector2(-30, -1)

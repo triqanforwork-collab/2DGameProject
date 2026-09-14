@@ -313,8 +313,8 @@ radius = 182.85786
 radius = 55.00909
 
 [node name="Bumblebee" type="CharacterBody2D" unique_id=1875650636]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 4
+collision_mask = 7
 script = ExtResource("1_enemy")
 health = 2
 speed = 140.0
@@ -331,22 +331,22 @@ position = Vector2(0, 18)
 shape = SubResource("CircleShape2D_body")
 
 [node name="EnemyHurtbox" type="Area2D" parent="." unique_id=493730107]
-collision_layer = 2
+collision_layer = 64
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHurtbox" unique_id=818864367]
 shape = SubResource("CircleShape2D_body")
 
 [node name="EnemyDetectionArea" type="Area2D" parent="." unique_id=652317730]
-collision_layer = 2
+collision_layer = 128
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyDetectionArea" unique_id=763035634]
 shape = SubResource("CircleShape2D_detection")
 
 [node name="EnemyAttackHitbox" type="Area2D" parent="." unique_id=710232956]
-collision_layer = 2
-collision_mask = 2
+collision_layer = 16
+collision_mask = 32
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyAttackHitbox" unique_id=1525763625]
 shape = SubResource("CircleShape2D_jpyye")
