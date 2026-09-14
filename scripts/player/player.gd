@@ -3,6 +3,9 @@ extends CharacterBody2D
 @export var speed: float = 220.0
 
 @export var max_health: int = 100
+@export var heal_amount: int = 10
+@export var health_bar_width: float = 28.0
+@export var health_bar_height: float = 4.0
 @export var attack_damage: int = 1
 
 @export var dash_speed: float = 1000.0
@@ -17,6 +20,8 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
 @onready var attack_hitbox: Area2D = get_hitbox_node("PlayerAttackHitbox", "AttackArea")
 @onready var hurtbox: Area2D = get_hitbox_node("PlayerHurtbox", "Hurtbox")
+@onready var health_bar_fill: ColorRect = get_node_or_null("HealthBar/Fill")
+@onready var heal_effect_sprite: AnimatedSprite2D = get_node_or_null("HealEffect")
 
 var health: int
 
@@ -24,6 +29,7 @@ var facing_direction: Vector2 = Vector2.DOWN
 var facing_animation_direction_name: String = "down"
 
 var is_attacking: bool = false
+var is_casting: bool = false
 
 var is_dashing: bool = false
 var dash_time_left: float = 0.0
@@ -40,6 +46,7 @@ var knockback_direction: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	add_to_group("player")
 	health = max_health
+	update_health_bar()
 	update_attack_area()
 	update_player_animation(Vector2.ZERO)
 
@@ -48,6 +55,10 @@ func _ready() -> void:
 
 	if animated_sprite != null:
 		animated_sprite.animation_finished.connect(_on_animated_sprite_animation_finished)
+
+	if heal_effect_sprite != null:
+		heal_effect_sprite.visible = false
+		heal_effect_sprite.animation_finished.connect(_on_heal_effect_animation_finished)
 
 
 func _physics_process(delta: float) -> void:
@@ -73,6 +84,9 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):
 		attack()
 
+	if Input.is_action_just_pressed("heal"):
+		heal()
+
 	if is_knocked_back:
 		velocity = knockback_direction * knockback_force
 
@@ -84,7 +98,7 @@ func _physics_process(delta: float) -> void:
 
 	move_and_slide()
 
-	if not is_attacking:
+	if not is_attacking and not is_casting:
 		update_player_animation(facing_direction if is_dashing else direction, is_dashing)
 
 
@@ -133,7 +147,7 @@ func get_cardinal_animation_direction(direction: Vector2) -> String:
 
 
 func attack() -> void:
-	if is_attacking:
+	if is_attacking or is_casting:
 		return
 
 	if not play_attack_animation():
@@ -141,6 +155,48 @@ func attack() -> void:
 
 	is_attacking = true
 	apply_attack_damage()
+
+
+func heal() -> void:
+	if is_attacking or is_casting:
+		return
+
+	if health >= max_health:
+		return
+
+	health = min(health + heal_amount, max_health)
+	update_health_bar()
+	print("Player HP: ", health)
+	play_castspell_animation()
+
+
+func play_castspell_animation() -> void:
+	if animated_sprite == null:
+		return
+
+	if animated_sprite.sprite_frames == null:
+		return
+
+	if not animated_sprite.sprite_frames.has_animation("castspell"):
+		return
+
+	is_casting = true
+	animated_sprite.play("castspell")
+	play_heal_effect_animation()
+
+
+func play_heal_effect_animation() -> void:
+	if heal_effect_sprite == null:
+		return
+
+	if heal_effect_sprite.sprite_frames == null:
+		return
+
+	if not heal_effect_sprite.sprite_frames.has_animation("heal_effect"):
+		return
+
+	heal_effect_sprite.visible = true
+	heal_effect_sprite.play("heal_effect")
 
 
 func apply_attack_damage() -> void:
@@ -192,6 +248,9 @@ func play_attack_animation() -> bool:
 
 
 func start_dash() -> void:
+	if is_casting:
+		return
+
 	if dash_cooldown_left > 0.0:
 		return
 
@@ -234,11 +293,20 @@ func update_knockback(delta: float) -> void:
 		is_knocked_back = false
 
 
+func update_health_bar() -> void:
+	if health_bar_fill == null:
+		return
+
+	var health_ratio := clampf(float(health) / float(max_health), 0.0, 1.0)
+	health_bar_fill.size = Vector2(health_bar_width * health_ratio, health_bar_height)
+
+
 func take_damage(damage: int, attacker_position: Vector2) -> void:
 	if is_invincible:
 		return
 
 	health -= damage
+	update_health_bar()
 	print("Player HP: ", health)
 
 	if health <= 0:
@@ -259,8 +327,19 @@ func die() -> void:
 
 
 func _on_animated_sprite_animation_finished() -> void:
-	if not is_attacking:
+	if is_attacking:
+		is_attacking = false
+		update_player_animation(Vector2.ZERO)
 		return
 
-	is_attacking = false
-	update_player_animation(Vector2.ZERO)
+	if is_casting:
+		is_casting = false
+		update_player_animation(Vector2.ZERO)
+
+
+func _on_heal_effect_animation_finished() -> void:
+	if heal_effect_sprite == null:
+		return
+
+	heal_effect_sprite.visible = false
+	heal_effect_sprite.stop()

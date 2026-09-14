@@ -20,30 +20,56 @@ texture_filter = 1
 position = Vector2(0, -18)
 scale = Vector2(1.5, 1.5)
 sprite_frames = ExtResource("2_frames")
-animation = &"up_attack"
+animation = &"idle_down"
 autoplay = "idle_down"
+
+[node name="HealEffect" type="AnimatedSprite2D" parent="." unique_id=1119751624]
+visible = false
+z_index = 10
+texture_filter = 1
+position = Vector2(0, -18)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("2_frames")
+animation = &"heal_effect"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1117615316]
 position = Vector2(0, 15)
 shape = SubResource("CircleShape2D_ohjih")
 
-[node name="PlayerHurtbox" type="Area2D" parent="."]
+[node name="HealthBar" type="Node2D" parent="." unique_id=802923085]
+z_index = 20
+position = Vector2(0, 36)
+scale = Vector2(2, 2)
+
+[node name="Background" type="ColorRect" parent="HealthBar" unique_id=1757058044]
+offset_left = -14.0
+offset_right = 14.0
+offset_bottom = 4.0
+color = Color(0.0666667, 0.0666667, 0.0666667, 0.85)
+metadata/_edit_use_anchors_ = true
+
+[node name="Fill" type="ColorRect" parent="HealthBar" unique_id=1311662109]
+offset_left = -14.0
+offset_right = 14.0
+offset_bottom = 4.0
+color = Color(0.145098, 0.827451, 0.321569, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="PlayerHurtbox" type="Area2D" parent="." unique_id=1458154015]
 collision_layer = 2
 collision_mask = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHurtbox" unique_id=1924078639]
 position = Vector2(0, 15)
 shape = SubResource("CircleShape2D_ohjih")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=917518226]
 
 [node name="PlayerAttackHitbox" type="Area2D" parent="." unique_id=482249444]
+position = Vector2(31, 0)
 collision_layer = 2
 collision_mask = 2
-position = Vector2(31, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerAttackHitbox" unique_id=1723202691]
 position = Vector2(-30, -1)
 shape = SubResource("CircleShape2D_spqxb")
-
-

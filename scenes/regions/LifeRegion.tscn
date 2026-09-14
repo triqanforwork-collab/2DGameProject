@@ -232,6 +232,8 @@ position = Vector2(991, 780)
 
 [node name="Imp" parent="TileMap" unique_id=970021736 instance=ExtResource("14_kp8qt")]
 position = Vector2(1231, 923)
+collision_mask = 2
 
 [node name="Bumblebee" parent="TileMap" unique_id=1393803582 instance=ExtResource("15_spqxb")]
 position = Vector2(936, 542)
+collision_mask = 2
