@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-@export var health: int = 10
+@export var health: int = 5
 @export var speed: float = 100.0
 
 @export var attack_damage: int = 1
@@ -15,12 +15,15 @@ extends CharacterBody2D
 @export var attack_animation: StringName = &"Attack"
 @export var death_animation: StringName = &"death"
 
+@export var hit_flash_duration: float = 0.16
+
 @export var flip_sprite_to_direction: bool = true
 
 @onready var animated_sprite: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
 @onready var detection_area: Area2D = get_area_node("EnemyDetectionArea", "detection_area")
 @onready var attack_hitbox: Area2D = get_area_node("EnemyAttackHitbox", "enemy_hitbox")
 @onready var hurtbox: Area2D = get_area_node("EnemyHurtbox", "Hurtbox")
+@onready var slash_effect: AnimatedSprite2D = get_node_or_null("slash_effect")
 
 var player: CharacterBody2D
 var has_detected_player: bool = false
@@ -32,6 +35,7 @@ var is_dead: bool = false
 var is_knocked_back: bool = false
 var knockback_time_left: float = 0.0
 var knockback_direction: Vector2 = Vector2.ZERO
+var hit_flash_tween: Tween
 
 
 func _ready() -> void:
@@ -45,6 +49,11 @@ func _ready() -> void:
 
 	if animated_sprite != null:
 		animated_sprite.animation_finished.connect(_on_animated_sprite_animation_finished)
+
+	if slash_effect != null:
+		slash_effect.visible = false
+		slash_effect.stop()
+		slash_effect.animation_finished.connect(_on_slash_effect_animation_finished)
 
 	if detection_area != null:
 		detection_area.body_entered.connect(_on_detection_area_body_entered)
@@ -142,12 +151,52 @@ func take_damage(damage: int, attacker_position: Vector2 = Vector2.ZERO) -> void
 
 	print("Enemy HP: ", health)
 
+	play_hit_feedback()
+
 	if health <= 0:
 		die()
 		return
 
 	apply_knockback(attacker_position)
 
+
+func play_hit_feedback() -> void:
+	play_hit_flash()
+	play_slash_effect()
+
+
+func play_hit_flash() -> void:
+	if animated_sprite == null:
+		return
+
+	if hit_flash_tween != null and hit_flash_tween.is_valid():
+		hit_flash_tween.kill()
+
+	animated_sprite.modulate = Color.WHITE
+	hit_flash_tween = create_tween()
+	hit_flash_tween.tween_property(animated_sprite, "modulate", Color(1.0, 0.25, 0.25, 0.45), hit_flash_duration * 0.25)
+	hit_flash_tween.tween_property(animated_sprite, "modulate", Color.WHITE, hit_flash_duration * 0.25)
+	hit_flash_tween.tween_property(animated_sprite, "modulate", Color(1.0, 0.25, 0.25, 0.45), hit_flash_duration * 0.25)
+	hit_flash_tween.tween_property(animated_sprite, "modulate", Color.WHITE, hit_flash_duration * 0.25)
+
+func play_slash_effect() -> void:
+	if slash_effect == null:
+		return
+
+	if slash_effect.sprite_frames == null:
+		return
+
+	var animation_name := slash_effect.animation
+	if animation_name == &"":
+		animation_name = &"default"
+
+	if not slash_effect.sprite_frames.has_animation(animation_name):
+		return
+
+	slash_effect.visible = true
+	slash_effect.stop()
+	slash_effect.frame = 0
+	slash_effect.play(animation_name)
 
 func die() -> void:
 	if is_dead:
@@ -392,3 +441,11 @@ func _on_animated_sprite_animation_finished() -> void:
 		return
 
 	is_playing_attack_animation = false
+
+
+func _on_slash_effect_animation_finished() -> void:
+	if slash_effect == null:
+		return
+
+	slash_effect.visible = false
+	slash_effect.stop()

@@ -1,11 +1,18 @@
 extends CharacterBody2D
 
+signal health_changed(current_health: int, maximum_health: int)
+signal mana_changed(current_mana: int, maximum_mana: int)
+
+const MAIN_AREA_SCENE_PATH := "res://scenes/maps/main.tscn"
+const DEATH_DIALOG_MESSAGE := "Bạn muốn tiếp tục chiến đấu hay quay về đảo hồi sinh?"
+const CONTINUE_BUTTON_TEXT := "Tiếp tục chiến đấu"
+const RETURN_BUTTON_TEXT := "Quay về đảo hồi sinh"
+
 @export var speed: float = 220.0
 
 @export var max_health: int = 100
+@export var max_mana: int = 100
 @export var heal_amount: int = 10
-@export var health_bar_width: float = 28.0
-@export var health_bar_height: float = 4.0
 @export var attack_damage: int = 1
 
 @export var dash_speed: float = 1000.0
@@ -20,16 +27,17 @@ extends CharacterBody2D
 @onready var animated_sprite: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
 @onready var attack_hitbox: Area2D = get_hitbox_node("PlayerAttackHitbox", "AttackArea")
 @onready var hurtbox: Area2D = get_hitbox_node("PlayerHurtbox", "Hurtbox")
-@onready var health_bar_fill: ColorRect = get_node_or_null("HealthBar/Fill")
 @onready var heal_effect_sprite: AnimatedSprite2D = get_node_or_null("HealEffect")
 
 var health: int
+var mana: int
 
 var facing_direction: Vector2 = Vector2.DOWN
 var facing_animation_direction_name: String = "down"
 
 var is_attacking: bool = false
 var is_casting: bool = false
+var is_dead: bool = false
 
 var is_dashing: bool = false
 var dash_time_left: float = 0.0
@@ -42,11 +50,15 @@ var is_knocked_back: bool = false
 var knockback_time_left: float = 0.0
 var knockback_direction: Vector2 = Vector2.ZERO
 
+var nearby_interactables: Array[Node] = []
+
 
 func _ready() -> void:
 	add_to_group("player")
 	health = max_health
+	mana = max_mana
 	update_health_bar()
+	update_mana_bar()
 	update_attack_area()
 	update_player_animation(Vector2.ZERO)
 
@@ -62,6 +74,10 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if is_dead:
+		velocity = Vector2.ZERO
+		return
+
 	var direction := Input.get_vector(
 		"move_left",
 		"move_right",
@@ -82,7 +98,8 @@ func _physics_process(delta: float) -> void:
 		start_dash()
 
 	if Input.is_action_just_pressed("attack"):
-		attack()
+		if not try_interact():
+			attack()
 
 	if Input.is_action_just_pressed("heal"):
 		heal()
@@ -109,6 +126,41 @@ func get_hitbox_node(primary_name: String, fallback_name: String) -> Area2D:
 
 	return get_node_or_null(fallback_name) as Area2D
 
+
+func register_interactable(interactable: Node) -> void:
+	if interactable not in nearby_interactables:
+		nearby_interactables.append(interactable)
+
+
+func unregister_interactable(interactable: Node) -> void:
+	nearby_interactables.erase(interactable)
+
+
+func try_interact() -> bool:
+	var closest_interactable: Node2D = null
+	var closest_distance := INF
+
+	for interactable in nearby_interactables.duplicate():
+		if not is_instance_valid(interactable):
+			nearby_interactables.erase(interactable)
+			continue
+
+		if not interactable is Node2D:
+			continue
+
+		var distance := global_position.distance_squared_to(interactable.global_position)
+		if distance < closest_distance:
+			closest_distance = distance
+			closest_interactable = interactable
+
+	if closest_interactable == null:
+		return false
+
+	if not closest_interactable.has_method("interact"):
+		return false
+
+	closest_interactable.interact(self)
+	return true
 
 func update_attack_area() -> void:
 	if attack_hitbox == null:
@@ -294,15 +346,33 @@ func update_knockback(delta: float) -> void:
 
 
 func update_health_bar() -> void:
-	if health_bar_fill == null:
+	health_changed.emit(health, max_health)
+
+
+func update_mana_bar() -> void:
+	mana_changed.emit(mana, max_mana)
+
+
+func use_mana(amount: int) -> bool:
+	var mana_cost := maxi(amount, 0)
+	if mana < mana_cost:
+		return false
+
+	mana -= mana_cost
+	update_mana_bar()
+	return true
+
+
+func restore_mana(amount: int) -> void:
+	if amount <= 0 or mana >= max_mana:
 		return
 
-	var health_ratio := clampf(float(health) / float(max_health), 0.0, 1.0)
-	health_bar_fill.size = Vector2(health_bar_width * health_ratio, health_bar_height)
+	mana = mini(mana + amount, max_mana)
+	update_mana_bar()
 
 
 func take_damage(damage: int, attacker_position: Vector2) -> void:
-	if is_invincible:
+	if is_dead or is_invincible:
 		return
 
 	health -= damage
@@ -316,14 +386,77 @@ func take_damage(damage: int, attacker_position: Vector2) -> void:
 	is_invincible = true
 	invincibility_time_left = invincibility_duration
 
-	knockback_direction = attacker_position.direction_to(global_position)
-	is_knocked_back = true
-	knockback_time_left = knockback_duration
 
 
 func die() -> void:
+	if is_dead:
+		return
+
+	is_dead = true
+	health = 0
+	velocity = Vector2.ZERO
+	is_attacking = false
+	is_casting = false
+	is_dashing = false
+	is_knocked_back = false
+	nearby_interactables.clear()
+	update_health_bar()
 	print("Player died")
-	queue_free()
+
+	var dialog := get_tree().get_first_node_in_group("confirmation_dialog")
+	if dialog == null:
+		push_error("Player death could not find the shared confirmation dialog.")
+		SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
+		return
+
+	var callback := Callable(self, "_on_death_dialog_choice_made")
+	dialog.connect("choice_made", callback, CONNECT_ONE_SHOT)
+	var opened := bool(dialog.call(
+		"open_dialog",
+		DEATH_DIALOG_MESSAGE,
+		CONTINUE_BUTTON_TEXT,
+		RETURN_BUTTON_TEXT,
+		false
+	))
+	if not opened:
+		if dialog.is_connected("choice_made", callback):
+			dialog.disconnect("choice_made", callback)
+		SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
+
+
+func _on_death_dialog_choice_made(continue_fighting: bool) -> void:
+	if not continue_fighting:
+		SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
+		return
+
+	var respawn_point := get_tree().get_first_node_in_group("region_respawn_point") as Node2D
+	if respawn_point == null:
+		push_error("Current Region does not have a respawn point.")
+		SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
+		return
+
+	respawn_at(respawn_point.global_position)
+
+
+func respawn_at(respawn_position: Vector2) -> void:
+	global_position = respawn_position
+	health = max_health
+	mana = max_mana
+	is_dead = false
+	is_invincible = true
+	invincibility_time_left = invincibility_duration
+	dash_time_left = 0.0
+	dash_cooldown_left = 0.0
+	knockback_time_left = 0.0
+	knockback_direction = Vector2.ZERO
+	update_health_bar()
+	update_mana_bar()
+	update_attack_area()
+	update_player_animation(Vector2.ZERO)
+
+	if heal_effect_sprite != null:
+		heal_effect_sprite.visible = false
+		heal_effect_sprite.stop()
 
 
 func _on_animated_sprite_animation_finished() -> void:

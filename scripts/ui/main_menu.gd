@@ -1,6 +1,6 @@
 extends Control
 
-const HUB_SCENE_PATH := "res://scenes/hub/Hub.tscn"
+const MAIN_SCENE_PATH := "res://scenes/maps/main.tscn"
 const BACKGROUND_BASE_ZOOM := 1.06
 const BACKGROUND_ZOOM_RANGE := 0.012
 const BACKGROUND_DRIFT_RANGE := Vector2(12.0, 8.0)
@@ -86,13 +86,13 @@ func _on_confirm_no_pressed() -> void:
 
 
 func new_game() -> void:
-	# Later: reset old save data, reset progression, create a new save, then enter the hub.
-	get_tree().change_scene_to_file(HUB_SCENE_PATH)
+	# Later: reset old save data, reset progression, create a new save, then enter the main area.
+	SceneLoader.change_scene(MAIN_SCENE_PATH)
 
 
 func continue_game() -> void:
 	# Later: load the saved scene, player position, and progression before continuing.
-	get_tree().change_scene_to_file(HUB_SCENE_PATH)
+	SceneLoader.change_scene(MAIN_SCENE_PATH)
 
 
 func exit_game() -> void:

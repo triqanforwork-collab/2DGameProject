@@ -1,0 +1,336 @@
+[gd_scene format=3 uid="uid://chb7sdo3tbtos"]
+
+[ext_resource type="Texture2D" uid="uid://bnj7qgb8krlbb" path="res://assets/enemies/Paddle Shark/Paddle Shark_Run.png" id="1_0l1xk"]
+[ext_resource type="Script" uid="uid://tfodqlxr0wik" path="res://scripts/ui/loading_screen.gd" id="1_loading"]
+[ext_resource type="Texture2D" uid="uid://c0dgw2q40h055" path="res://assets/enemies/Harpoon Shark/Harpoon Shark_Run.png" id="2_jr15b"]
+[ext_resource type="Texture2D" uid="uid://cx2yr3nfndpwo" path="res://assets/enemies/Bomb Fish/Bomb Fish_Run.png" id="3_mu3ej"]
+[ext_resource type="Texture2D" uid="uid://lnuy7i0eotra" path="res://assets/npc/Monk/Run.png" id="4_yqhm2"]
+[ext_resource type="SpriteFrames" uid="uid://rewc0pdhsc6" path="res://resources/effects/dust_01_spriteframes.tres" id="5_dust"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ijonw"]
+atlas = ExtResource("1_0l1xk")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w6byu"]
+atlas = ExtResource("1_0l1xk")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_17vla"]
+atlas = ExtResource("1_0l1xk")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hq2hq"]
+atlas = ExtResource("1_0l1xk")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ss8ft"]
+atlas = ExtResource("1_0l1xk")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kk7pr"]
+atlas = ExtResource("1_0l1xk")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7hkig"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ijonw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w6byu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_17vla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hq2hq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ss8ft")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kk7pr")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dmk2"]
+atlas = ExtResource("2_jr15b")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mq4tj"]
+atlas = ExtResource("2_jr15b")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4hi6"]
+atlas = ExtResource("2_jr15b")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3eawe"]
+atlas = ExtResource("2_jr15b")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qjasn"]
+atlas = ExtResource("2_jr15b")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fkub6"]
+atlas = ExtResource("2_jr15b")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e0rf1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dmk2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mq4tj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4hi6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3eawe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qjasn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fkub6")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aqtvw"]
+atlas = ExtResource("3_mu3ej")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy6vd"]
+atlas = ExtResource("3_mu3ej")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p6cco"]
+atlas = ExtResource("3_mu3ej")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4dp1"]
+atlas = ExtResource("3_mu3ej")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5ft2"]
+atlas = ExtResource("3_mu3ej")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2c4bi"]
+atlas = ExtResource("3_mu3ej")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_e6fsg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aqtvw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dy6vd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p6cco")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4dp1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x5ft2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2c4bi")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xxvor"]
+atlas = ExtResource("4_yqhm2")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wxw3i"]
+atlas = ExtResource("4_yqhm2")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gm0nu"]
+atlas = ExtResource("4_yqhm2")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubapp"]
+atlas = ExtResource("4_yqhm2")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_t81c2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xxvor")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wxw3i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gm0nu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubapp")
+}],
+"loop": 1,
+"name": &"run",
+"speed": 10.0
+}]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ongsa"]
+bg_color = Color(1, 1, 1, 0.16)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_huk1p"]
+bg_color = Color(1, 1, 1, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="LoadingScreen" type="Control" unique_id=579292545]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_loading")
+
+[node name="Background" type="ColorRect" parent="." unique_id=1921376040]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -3.0
+offset_top = -1.0
+offset_right = -3.0
+offset_bottom = -1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.025, 0.03, 0.035, 1)
+
+[node name="LoadingContent" type="VBoxContainer" parent="." unique_id=1332269029]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -360.0
+offset_top = -95.0
+offset_right = 360.0
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="CharacterRow" type="HBoxContainer" parent="LoadingContent" unique_id=388518637]
+custom_minimum_size = Vector2(720, 120)
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="PaddleShark" type="Control" parent="LoadingContent/CharacterRow" unique_id=993693789]
+custom_minimum_size = Vector2(160, 120)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DustEffect" type="AnimatedSprite2D" parent="LoadingContent/CharacterRow/PaddleShark" unique_id=1511707885]
+position = Vector2(317, 100)
+scale = Vector2(1.5, 1.527)
+sprite_frames = ExtResource("5_dust")
+animation = &"dust"
+autoplay = "dust"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LoadingContent/CharacterRow/PaddleShark" unique_id=1675795885]
+position = Vector2(345, 75)
+sprite_frames = SubResource("SpriteFrames_7hkig")
+animation = &"run"
+autoplay = "run"
+
+[node name="HarpoonShark" type="Control" parent="LoadingContent/CharacterRow" unique_id=2069605462]
+custom_minimum_size = Vector2(160, 120)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DustEffect" type="AnimatedSprite2D" parent="LoadingContent/CharacterRow/HarpoonShark" unique_id=1368259563]
+position = Vector2(-96, 99)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("5_dust")
+animation = &"dust"
+autoplay = "dust"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LoadingContent/CharacterRow/HarpoonShark" unique_id=1000858945]
+position = Vector2(-63, 79)
+sprite_frames = SubResource("SpriteFrames_e0rf1")
+animation = &"run"
+autoplay = "run"
+
+[node name="BombFish" type="Control" parent="LoadingContent/CharacterRow" unique_id=920468190]
+custom_minimum_size = Vector2(160, 120)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DustEffect" type="AnimatedSprite2D" parent="LoadingContent/CharacterRow/BombFish" unique_id=158679106]
+position = Vector2(-151, 100)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("5_dust")
+animation = &"dust"
+autoplay = "dust"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LoadingContent/CharacterRow/BombFish" unique_id=800114991]
+position = Vector2(-127, 83)
+sprite_frames = SubResource("SpriteFrames_e6fsg")
+animation = &"run"
+autoplay = "run"
+
+[node name="Monk" type="Control" parent="LoadingContent/CharacterRow" unique_id=89687232]
+custom_minimum_size = Vector2(160, 120)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="DustEffect" type="AnimatedSprite2D" parent="LoadingContent/CharacterRow/Monk" unique_id=66285229]
+position = Vector2(-15, 98)
+scale = Vector2(1.5, 1.5)
+sprite_frames = ExtResource("5_dust")
+animation = &"dust"
+autoplay = "dust"
+frame_progress = 0.06168467
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LoadingContent/CharacterRow/Monk" unique_id=1919456182]
+position = Vector2(11, 79)
+sprite_frames = SubResource("SpriteFrames_t81c2")
+animation = &"run"
+autoplay = "run"
+
+[node name="ProgressBar" type="ProgressBar" parent="LoadingContent" unique_id=1976884729]
+custom_minimum_size = Vector2(720, 18)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_ongsa")
+theme_override_styles/fill = SubResource("StyleBoxFlat_huk1p")
+show_percentage = false

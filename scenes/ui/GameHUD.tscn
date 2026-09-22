@@ -1,0 +1,254 @@
+[gd_scene format=3 uid="uid://nv6fvvk2wsps"]
+
+[ext_resource type="Script" uid="uid://dsxavwib47446" path="res://scripts/ui/game_hud.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://dgscbgp1wcv12" path="res://assets/ui/hud/player_avatar.png" id="2_avatar"]
+[ext_resource type="Texture2D" uid="uid://b81jkj6wtxks5" path="res://assets/ui/hud/health_bar_base.png" id="3_bar_base"]
+[ext_resource type="Texture2D" uid="uid://cm3bllykd1qve" path="res://assets/ui/hud/health_bar_fill.png" id="4_bar_fill"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7ddf4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBox_avatar_back"]
+bg_color = Color(0.08, 0.15, 0.17, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.29, 0.65, 0.68, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bar_left"]
+atlas = ExtResource("3_bar_base")
+region = Rect2(40.685966, 8.849125, 23.314034, 50.90003)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bar_center"]
+atlas = ExtResource("3_bar_base")
+region = Rect2(128, 8.891827, 64, 50.738712)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bar_right"]
+atlas = ExtResource("3_bar_base")
+region = Rect2(256, 9.0048275, 24.38681, 51.177986)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bar_fill"]
+atlas = ExtResource("4_bar_fill")
+region = Rect2(0, 30, 64, 3)
+
+[sub_resource type="Gradient" id="Gradient_mana_fill"]
+colors = PackedColorArray(0.176471, 0.619608, 1, 1, 0.176471, 0.619608, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture_mana_fill"]
+gradient = SubResource("Gradient_mana_fill")
+height = 3
+
+[node name="GameHUD" type="CanvasLayer" unique_id=411748538]
+layer = 30
+script = ExtResource("1_script")
+
+[node name="ScreenAnchor" type="MarginContainer" parent="." unique_id=1291234908]
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 450.0
+offset_bottom = 124.0
+scale = Vector2(0.7, 0.7)
+mouse_filter = 2
+
+[node name="HUDPanel" type="PanelContainer" parent="ScreenAnchor" unique_id=1168199382]
+custom_minimum_size = Vector2(430, 104)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_7ddf4")
+
+[node name="InnerMargin" type="MarginContainer" parent="ScreenAnchor/HUDPanel" unique_id=117475528]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="Content" type="HBoxContainer" parent="ScreenAnchor/HUDPanel/InnerMargin" unique_id=899691060]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="AvatarFrame" type="PanelContainer" parent="ScreenAnchor/HUDPanel/InnerMargin/Content" unique_id=1307409877]
+custom_minimum_size = Vector2(86, 86)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBox_avatar_back")
+
+[node name="Avatar" type="TextureRect" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/AvatarFrame" unique_id=1241447215]
+texture_filter = 1
+layout_mode = 2
+mouse_filter = 2
+texture = ExtResource("2_avatar")
+expand_mode = 1
+stretch_mode = 3
+
+[node name="HealthSection" type="VBoxContainer" parent="ScreenAnchor/HUDPanel/InnerMargin/Content" unique_id=1632984414]
+custom_minimum_size = Vector2(316, 86)
+propagate_maximum_size = false
+layout_mode = 2
+localize_numeral_system = false
+theme_override_constants/separation = 0
+
+[node name="HealthBar" type="Control" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection" unique_id=572359355]
+texture_filter = 1
+custom_minimum_size = Vector2(316, 43)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="FrameLeft" type="TextureRect" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/HealthBar" unique_id=167360652]
+texture_filter = 1
+layout_mode = 0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bar_left")
+expand_mode = 1
+
+[node name="FrameCenter1" type="TextureRect" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/HealthBar" unique_id=707980384]
+texture_filter = 1
+layout_mode = 0
+offset_left = 30.0
+offset_top = 2.0
+offset_right = 158.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bar_center")
+expand_mode = 1
+
+[node name="FrameCenter2" type="TextureRect" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/HealthBar" unique_id=554124619]
+texture_filter = 1
+layout_mode = 0
+offset_left = 158.0
+offset_top = 2.0
+offset_right = 286.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bar_center")
+expand_mode = 1
+
+[node name="FrameRight" type="TextureRect" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/HealthBar" unique_id=1715763111]
+texture_filter = 1
+layout_mode = 0
+offset_left = 286.0
+offset_top = 2.0
+offset_right = 316.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bar_right")
+expand_mode = 1
+
+[node name="Fill" type="TextureProgressBar" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/HealthBar" unique_id=90100499]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 305.0
+offset_bottom = 29.0
+mouse_filter = 2
+value = 100.0
+nine_patch_stretch = true
+texture_under = SubResource("AtlasTexture_bar_fill")
+texture_progress = SubResource("AtlasTexture_bar_fill")
+tint_under = Color(0.16, 0.07, 0.08, 1)
+
+[node name="HealthValue" type="Label" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/HealthBar" unique_id=285903528]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.96, 0.92, 1)
+theme_override_colors/font_outline_color = Color(0.12, 0.035, 0.035, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 17
+text = "100 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ManaBar" type="Control" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection" unique_id=475874353]
+texture_filter = 1
+custom_minimum_size = Vector2(316, 43)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="FrameLeft" type="TextureRect" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/ManaBar" unique_id=1260096834]
+texture_filter = 1
+layout_mode = 0
+offset_top = 2.0
+offset_right = 30.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bar_left")
+expand_mode = 1
+
+[node name="FrameCenter1" type="TextureRect" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/ManaBar" unique_id=1325575791]
+texture_filter = 1
+layout_mode = 0
+offset_left = 30.0
+offset_top = 2.0
+offset_right = 158.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bar_center")
+expand_mode = 1
+
+[node name="FrameCenter2" type="TextureRect" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/ManaBar" unique_id=1871621059]
+texture_filter = 1
+layout_mode = 0
+offset_left = 158.0
+offset_top = 2.0
+offset_right = 286.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bar_center")
+expand_mode = 1
+
+[node name="FrameRight" type="TextureRect" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/ManaBar" unique_id=955259511]
+texture_filter = 1
+layout_mode = 0
+offset_left = 286.0
+offset_top = 2.0
+offset_right = 316.0
+offset_bottom = 40.0
+mouse_filter = 2
+texture = SubResource("AtlasTexture_bar_right")
+expand_mode = 1
+
+[node name="Fill" type="TextureProgressBar" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/ManaBar" unique_id=1397214617]
+texture_filter = 1
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 305.0
+offset_bottom = 29.0
+mouse_filter = 2
+value = 100.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture_mana_fill")
+texture_progress = SubResource("GradientTexture_mana_fill")
+tint_under = Color(0.12, 0.2, 0.28, 1)
+
+[node name="ManaValue" type="Label" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/ManaBar" unique_id=678761308]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 4.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.86, 0.95, 1, 1)
+theme_override_colors/font_outline_color = Color(0.02, 0.08, 0.16, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 17
+text = "100 / 100"
+horizontal_alignment = 1
+vertical_alignment = 1

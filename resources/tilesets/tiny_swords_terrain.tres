@@ -1,9 +1,11 @@
 [gd_resource type="TileSet" format=3 uid="uid://ddt1uihsqd7bw"]
 
 [ext_resource type="Texture2D" uid="uid://bi14xkco308w1" path="res://assets/tiny_swords/terrain/tileset/Water Background color.png" id="1_yphya"]
+[ext_resource type="Texture2D" uid="uid://dv6ew3hjivxit" path="res://assets/tiny_swords/terrain/tileset/Tilemap_color1.png" id="2_foh1v"]
 [ext_resource type="Texture2D" uid="uid://bq4ti0qsofjca" path="res://assets/tiny_swords/terrain/tileset/Shadow.png" id="3_jgkhg"]
 [ext_resource type="Texture2D" uid="uid://bjf4io15267kb" path="res://assets/tiny_swords/terrain/tileset/Water Foam.png" id="4_foh1v"]
 [ext_resource type="Texture2D" uid="uid://ci5vo5wmrlwsw" path="res://assets/tiny_swords/terrain/tileset/Tilemap_color3.png" id="6_6hd6i"]
+[ext_resource type="Texture2D" uid="uid://cs41fwvji26p" path="res://assets/tiny_swords/terrain/tileset/Tilemap_color2.png" id="6_cjs63"]
 [ext_resource type="Texture2D" uid="uid://cnou441fq6p4t" path="res://assets/tiny_swords/terrain/tileset/Tilemap_color4.png" id="7_y1fu2"]
 [ext_resource type="Texture2D" uid="uid://x6j6a7ig25ht" path="res://assets/tiny_swords/terrain/tileset/Tilemap_color5.png" id="8_uglpf"]
 
@@ -11,6 +13,12 @@
 texture = ExtResource("1_yphya")
 texture_region_size = Vector2i(64, 64)
 0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6hd6i"]
+texture = ExtResource("2_foh1v")
+texture_region_size = Vector2i(64, 64)
+6:4/0 = 0
+1:1/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_uglpf"]
 texture = ExtResource("4_foh1v")
@@ -40,6 +48,60 @@ texture = ExtResource("3_jgkhg")
 texture_region_size = Vector2i(64, 64)
 0:0/size_in_atlas = Vector2i(3, 3)
 0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_foh1v"]
+texture = ExtResource("7_y1fu2")
+texture_region_size = Vector2i(64, 64)
+7:1/0 = 0
+5:1/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_5xwb0"]
+texture = ExtResource("6_cjs63")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+5:2/0 = 0
+6:2/0 = 0
+7:2/0 = 0
+8:2/0 = 0
+0:3/0 = 0
+1:3/0 = 0
+2:3/0 = 0
+3:3/0 = 0
+5:3/0 = 0
+6:3/0 = 0
+7:3/0 = 0
+8:3/0 = 0
+0:4/0 = 0
+3:4/0 = 0
+5:4/0 = 0
+8:4/0 = 0
+0:5/0 = 0
+3:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+7:5/0 = 0
+8:5/0 = 0
+6:4/0 = 0
+7:4/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_16k2m"]
 texture = ExtResource("6_6hd6i")
@@ -176,11 +238,11 @@ texture_region_size = Vector2i(64, 64)
 0:4/0 = 0
 3:4/0 = 0
 5:4/0 = 0
-5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
+5:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 6:4/0 = 0
-6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
+6:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 7:4/0 = 0
-7:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
+7:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
 8:4/0 = 0
 8:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
 0:5/0 = 0
@@ -219,7 +281,6 @@ texture_region_size = Vector2i(64, 64)
 2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(28.676765, -32, 28.039507, 32, 32, 32, 32, -32)
 3:1/0 = 0
 5:1/0 = 0
-6:1/0 = 0
 7:1/0 = 0
 7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(28.676765, -32, 28.039507, 32, 32, 32, 32, -32)
 8:1/0 = 0
@@ -267,6 +328,7 @@ texture_region_size = Vector2i(64, 64)
 7:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
 8:5/0 = 0
 8:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, -32, 32, 32, 32, 32, -32)
+6:1/0 = 0
 
 [resource]
 tile_size = Vector2i(64, 64)
@@ -277,3 +339,6 @@ sources/5 = SubResource("TileSetAtlasSource_16k2m")
 sources/6 = SubResource("TileSetAtlasSource_x3sqs")
 sources/7 = SubResource("TileSetAtlasSource_qeexw")
 sources/13 = SubResource("TileSetAtlasSource_uglpf")
+sources/1 = SubResource("TileSetAtlasSource_6hd6i")
+sources/3 = SubResource("TileSetAtlasSource_foh1v")
+sources/4 = SubResource("TileSetAtlasSource_5xwb0")
