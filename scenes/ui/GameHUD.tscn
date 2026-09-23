@@ -44,6 +44,8 @@ colors = PackedColorArray(0.176471, 0.619608, 1, 1, 0.176471, 0.619608, 1, 1)
 gradient = SubResource("Gradient_mana_fill")
 height = 3
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_524rm"]
+
 [node name="GameHUD" type="CanvasLayer" unique_id=411748538]
 layer = 30
 script = ExtResource("1_script")
@@ -52,12 +54,12 @@ script = ExtResource("1_script")
 offset_left = 20.0
 offset_top = 20.0
 offset_right = 450.0
-offset_bottom = 124.0
-scale = Vector2(0.7, 0.7)
+offset_bottom = 150.0
+scale = Vector2(0.8, 0.8)
 mouse_filter = 2
 
 [node name="HUDPanel" type="PanelContainer" parent="ScreenAnchor" unique_id=1168199382]
-custom_minimum_size = Vector2(430, 104)
+custom_minimum_size = Vector2(430, 130)
 layout_mode = 2
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7ddf4")
@@ -77,6 +79,7 @@ alignment = 1
 [node name="AvatarFrame" type="PanelContainer" parent="ScreenAnchor/HUDPanel/InnerMargin/Content" unique_id=1307409877]
 custom_minimum_size = Vector2(86, 86)
 layout_mode = 2
+size_flags_vertical = 0
 mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBox_avatar_back")
 
@@ -86,10 +89,10 @@ layout_mode = 2
 mouse_filter = 2
 texture = ExtResource("2_avatar")
 expand_mode = 1
-stretch_mode = 3
+stretch_mode = 1
 
 [node name="HealthSection" type="VBoxContainer" parent="ScreenAnchor/HUDPanel/InnerMargin/Content" unique_id=1632984414]
-custom_minimum_size = Vector2(316, 86)
+custom_minimum_size = Vector2(316, 114)
 propagate_maximum_size = false
 layout_mode = 2
 localize_numeral_system = false
@@ -255,6 +258,51 @@ text = "100 / 100"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MobileControls" parent="." instance=ExtResource("6_mobile")]
+[node name="EnergyRow" type="PanelContainer" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection" unique_id=1249741508]
+custom_minimum_size = Vector2(316, 28)
+layout_mode = 2
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_524rm")
 
-[node name="SettingsMenu" parent="." instance=ExtResource("5_settings")]
+[node name="EnergyMargin" type="MarginContainer" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/EnergyRow" unique_id=136974720]
+layout_mode = 2
+theme_override_constants/margin_left = 7
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 2
+
+[node name="EnergyContent" type="HBoxContainer" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/EnergyRow/EnergyMargin" unique_id=569611559]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="EnergyIcon" type="Control" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/EnergyRow/EnergyMargin/EnergyContent" unique_id=1408108604]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 2
+mouse_filter = 2
+
+[node name="Glow" type="Polygon2D" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/EnergyRow/EnergyMargin/EnergyContent/EnergyIcon" unique_id=930473812]
+position = Vector2(12, 12)
+scale = Vector2(1.5, 1.5)
+color = Color(0.2, 0.9, 1, 0.28)
+polygon = PackedVector2Array(0, -10, 8, 0, 0, 10, -8, 0)
+
+[node name="Core" type="Polygon2D" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/EnergyRow/EnergyMargin/EnergyContent/EnergyIcon" unique_id=1888332505]
+position = Vector2(12, 12)
+scale = Vector2(1.5, 1.5)
+color = Color(0.82, 1, 0.58, 1)
+polygon = PackedVector2Array(0, -7, 5, 0, 0, 7, -5, 0)
+
+[node name="EnergyValue" type="Label" parent="ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/EnergyRow/EnergyMargin/EnergyContent" unique_id=1495186958]
+custom_minimum_size = Vector2(72, 0)
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 0.78, 1)
+theme_override_colors/font_outline_color = Color(0.08, 0.08, 0.02, 1)
+theme_override_constants/outline_size = 3
+theme_override_font_sizes/font_size = 24
+text = "0
+"
+vertical_alignment = 1
+
+[node name="MobileControls" parent="." unique_id=1156921158 instance=ExtResource("6_mobile")]
+
+[node name="SettingsMenu" parent="." unique_id=250147176 instance=ExtResource("5_settings")]

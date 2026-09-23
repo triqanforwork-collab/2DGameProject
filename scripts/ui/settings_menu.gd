@@ -1,9 +1,12 @@
 extends Control
 
+const MAIN_MENU_SCENE_PATH := "res://scenes/ui/MainMenu.tscn"
+
 @onready var settings_button: TextureButton = $SettingsButton
 @onready var overlay: ColorRect = $Overlay
 @onready var close_button: TextureButton = $Overlay/SettingsPanel/InnerMargin/Content/Header/CloseButton
 @onready var sound_toggle: CheckButton = $Overlay/SettingsPanel/InnerMargin/Content/SoundToggle
+@onready var main_menu_button: Button = $Overlay/SettingsPanel/InnerMargin/Content/MainMenuButton
 @onready var exit_button: Button = $Overlay/SettingsPanel/InnerMargin/Content/ExitButton
 
 var was_tree_paused: bool = false
@@ -13,6 +16,7 @@ func _ready() -> void:
 	settings_button.pressed.connect(open_settings)
 	close_button.pressed.connect(close_settings)
 	sound_toggle.toggled.connect(_on_sound_toggled)
+	main_menu_button.pressed.connect(_on_main_menu_pressed)
 	exit_button.pressed.connect(_on_exit_pressed)
 	SettingsManager.sound_enabled_changed.connect(_on_sound_enabled_changed)
 
@@ -58,6 +62,11 @@ func _on_sound_toggled(enabled: bool) -> void:
 func _on_sound_enabled_changed(enabled: bool) -> void:
 	sound_toggle.set_pressed_no_signal(enabled)
 
+
+func _on_main_menu_pressed() -> void:
+	overlay.visible = false
+	get_tree().paused = false
+	SceneLoader.change_scene(MAIN_MENU_SCENE_PATH)
 
 func _on_exit_pressed() -> void:
 	get_tree().paused = false

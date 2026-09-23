@@ -18,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://qdmqkj8jaml4" path="res://scenes/bosses/Water/Turtle.tscn" id="16_turtle"]
 [ext_resource type="PackedScene" uid="uid://dhp5xxaesww8q" path="res://scenes/portals/ReturnWhirlpool.tscn" id="17_return_portal"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ConfirmationDialog.tscn" id="18_dialog"]
+[ext_resource type="PackedScene" path="res://scenes/ui/RegionVictoryController.tscn" id="19_victory"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("2_oj3g5")
@@ -320,3 +321,6 @@ position = Vector2(1671, 625)
 layer = 50
 
 [node name="ConfirmationDialog" parent="RegionUI" unique_id=1812725098 instance=ExtResource("18_dialog")]
+
+[node name="RegionVictoryController" parent="." instance=ExtResource("19_victory")]
+replay_scene_path = "res://scenes/maps/WaterRegion.tscn"

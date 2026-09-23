@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/pickups/energy_pickup.gd" id="1_pickup"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pickup"]
+radius = 11.0
+
+[node name="EnergyPickup" type="Area2D" groups=["energy_pickup"]]
+z_index = 4
+collision_layer = 256
+collision_mask = 2
+monitoring = false
+monitorable = false
+script = ExtResource("1_pickup")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="Core" type="Polygon2D" parent="Visuals"]
+polygon = PackedVector2Array(0, -6, 4, 0, 0, 6, -4, 0)
+color = Color(0.82, 1, 0.58, 1)
+[node name="Orb" type="Sprite2D" parent="Visuals"]
+texture_filter = 1
+
+[node name="AuraParticles" type="GPUParticles2D" parent="Visuals"]
+amount = 10
+lifetime = 1.2
+randomness = 0.35
+visibility_rect = Rect2(-24, -24, 48, 48)
+
+[node name="CollectParticles" type="GPUParticles2D" parent="."]
+process_mode = 3
+z_index = 1
+emitting = false
+amount = 14
+lifetime = 0.45
+one_shot = true
+explosiveness = 1.0
+visibility_rect = Rect2(-80, -80, 160, 160)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pickup")

@@ -2,7 +2,8 @@
 
 [ext_resource type="Script" uid="uid://ct8o6lmqiqb4m" path="res://scripts/player/player.gd" id="1_gfjak"]
 [ext_resource type="SpriteFrames" uid="uid://2hty3e4kclu0" path="res://assets/characters/player_lpc/player_lpc_spriteframes.tres" id="2_frames"]
-[ext_resource type="PackedScene" path="res://scenes/ui/GameHUD.tscn" id="3_hud"]
+[ext_resource type="PackedScene" uid="uid://nv6fvvk2wsps" path="res://scenes/ui/GameHUD.tscn" id="3_hud"]
+[ext_resource type="AudioStream" uid="uid://jbajsy5pwgb1" path="res://assets/audio/sfx/player_defeated.wav" id="4_defeated"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_ohjih"]
 radius = 14.56022
@@ -55,4 +56,9 @@ collision_mask = 64
 position = Vector2(-30, -1)
 shape = SubResource("CircleShape2D_spqxb")
 
-[node name="GameHUD" parent="." instance=ExtResource("3_hud")]
+[node name="DeathSound" type="AudioStreamPlayer" parent="." unique_id=1989735015]
+process_mode = 3
+stream = ExtResource("4_defeated")
+volume_db = -4.0
+
+[node name="GameHUD" parent="." unique_id=1561652746 instance=ExtResource("3_hud")]

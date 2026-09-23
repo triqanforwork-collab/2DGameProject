@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/confirmation_dialog.gd" id="1_dialog"]
+[ext_resource type="PackedScene" path="res://scenes/ui/VictoryFireworks.tscn" id="2_fireworks"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBox_panel"]
 bg_color = Color(0.045, 0.055, 0.06, 0.98)
@@ -84,6 +85,8 @@ grow_vertical = 2
 mouse_filter = 1
 color = Color(0, 0, 0, 0.62)
 
+[node name="VictoryFireworks" parent="." instance=ExtResource("2_fireworks")]
+
 [node name="Center" type="CenterContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -94,7 +97,7 @@ grow_vertical = 2
 mouse_filter = 1
 
 [node name="Panel" type="PanelContainer" parent="Center"]
-custom_minimum_size = Vector2(620, 190)
+custom_minimum_size = Vector2(760, 190)
 layout_mode = 2
 theme_override_styles/panel = SubResource("StyleBox_panel")
 
@@ -122,11 +125,11 @@ autowrap_mode = 3
 
 [node name="DialogButtons" type="HBoxContainer" parent="Center/Panel/Margin/DialogLayout"]
 layout_mode = 2
-theme_override_constants/separation = 28
+theme_override_constants/separation = 18
 alignment = 1
 
 [node name="YesButton" type="Button" parent="Center/Panel/Margin/DialogLayout/DialogButtons"]
-custom_minimum_size = Vector2(240, 46)
+custom_minimum_size = Vector2(210, 46)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_yes")
@@ -135,7 +138,7 @@ theme_override_styles/pressed = SubResource("StyleBox_yes_hover")
 text = "Yes"
 
 [node name="NoButton" type="Button" parent="Center/Panel/Margin/DialogLayout/DialogButtons"]
-custom_minimum_size = Vector2(240, 46)
+custom_minimum_size = Vector2(210, 46)
 layout_mode = 2
 theme_override_font_sizes/font_size = 18
 theme_override_styles/normal = SubResource("StyleBox_no")
@@ -143,5 +146,16 @@ theme_override_styles/hover = SubResource("StyleBox_no_hover")
 theme_override_styles/pressed = SubResource("StyleBox_no_hover")
 text = "No"
 
+[node name="ThirdButton" type="Button" parent="Center/Panel/Margin/DialogLayout/DialogButtons"]
+visible = false
+custom_minimum_size = Vector2(210, 46)
+layout_mode = 2
+theme_override_font_sizes/font_size = 18
+theme_override_styles/normal = SubResource("StyleBox_no")
+theme_override_styles/hover = SubResource("StyleBox_no_hover")
+theme_override_styles/pressed = SubResource("StyleBox_no_hover")
+text = "Third"
+
 [connection signal="pressed" from="Center/Panel/Margin/DialogLayout/DialogButtons/YesButton" to="." method="_on_yes_button_pressed"]
 [connection signal="pressed" from="Center/Panel/Margin/DialogLayout/DialogButtons/NoButton" to="." method="_on_no_button_pressed"]
+[connection signal="pressed" from="Center/Panel/Margin/DialogLayout/DialogButtons/ThirdButton" to="." method="_on_third_button_pressed"]

@@ -1,7 +1,11 @@
 extends "res://scripts/enemies/enemy.gd"
 
+signal defeated(boss: Node)
+
 @export var boss_name: String = "Boss"
 @export var max_health: int = 40
+@export var boss_energy_drop := 30
+@export_range(1, 10, 1) var energy_per_pickup := 5
 
 @onready var boss_health_bar: Control = get_node_or_null("BossHealthUI/BossHealthBar")
 @onready var health_background: ColorRect = get_node_or_null("BossHealthUI/BossHealthBar/Background")
@@ -39,10 +43,28 @@ func take_damage(damage: int, attacker_position: Vector2 = Vector2.ZERO) -> void
 
 
 func die() -> void:
+	if is_dead:
+		return
+
 	if boss_health_bar != null:
 		boss_health_bar.visible = false
 
 	super()
+	defeated.emit(self)
+
+
+func get_energy_drop_amount() -> int:
+	return boss_energy_drop
+
+
+func get_energy_per_pickup() -> int:
+	return energy_per_pickup
+
+
+func configure_energy_pickup(pickup: Node) -> void:
+	pickup.add_to_group("boss_energy_pickup")
+	pickup.set("magnet_radius", 320.0)
+	pickup.set("magnet_speed", 360.0)
 
 
 func update_health_bar() -> void:

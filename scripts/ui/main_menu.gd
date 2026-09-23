@@ -86,7 +86,8 @@ func _on_confirm_no_pressed() -> void:
 
 
 func new_game() -> void:
-	# Later: reset old save data, reset progression, create a new save, then enter the main area.
+	# Later: reset save data and the remaining progression state before entering the main area.
+	EnergyManager.reset_energy()
 	SceneLoader.change_scene(MAIN_SCENE_PATH)
 
 

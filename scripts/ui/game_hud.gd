@@ -4,6 +4,7 @@ extends CanvasLayer
 @onready var health_value: Label = $ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/HealthBar/HealthValue
 @onready var mana_bar: TextureProgressBar = $ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/ManaBar/Fill
 @onready var mana_value: Label = $ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/ManaBar/ManaValue
+@onready var energy_value: Label = $ScreenAnchor/HUDPanel/InnerMargin/Content/HealthSection/EnergyRow/EnergyMargin/EnergyContent/EnergyValue
 
 var player: Node
 
@@ -18,6 +19,9 @@ func _ready() -> void:
 	if player.has_signal("mana_changed"):
 		player.connect("mana_changed", _on_mana_changed)
 
+	if not EnergyManager.energy_changed.is_connected(_on_energy_changed):
+		EnergyManager.energy_changed.connect(_on_energy_changed)
+	_on_energy_changed(EnergyManager.carried_energy)
 	_sync_from_player.call_deferred()
 
 
@@ -43,3 +47,6 @@ func _on_mana_changed(current_mana: int, maximum_mana: int) -> void:
 	mana_bar.max_value = safe_maximum
 	mana_bar.value = display_mana
 	mana_value.text = "%d / %d" % [display_mana, safe_maximum]
+
+func _on_energy_changed(current_energy: int) -> void:
+	energy_value.text = str(maxi(current_energy, 0))

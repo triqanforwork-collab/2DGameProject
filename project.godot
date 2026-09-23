@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneLoader="*res://scripts/ui/scene_loader.gd"
 SettingsManager="*res://scripts/ui/settings_manager.gd"
+EnergyManager="*res://scripts/managers/energy_manager.gd"
 
 [display]
 
@@ -88,6 +89,7 @@ return_to_main={
 2d_physics/layer_6="PlayerHurtbox"
 2d_physics/layer_7="EnemyHurtbox"
 2d_physics/layer_8="Detection"
+2d_physics/layer_9="EnergyPickup"
 
 [physics]
 

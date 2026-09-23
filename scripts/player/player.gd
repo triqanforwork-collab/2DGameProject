@@ -5,22 +5,26 @@ signal mana_changed(current_mana: int, maximum_mana: int)
 signal interaction_availability_changed(available: bool)
 
 const MAIN_AREA_SCENE_PATH := "res://scenes/maps/main.tscn"
+const MAIN_MENU_SCENE_PATH := "res://scenes/ui/MainMenu.tscn"
 const DEATH_DIALOG_MESSAGE := "Bạn muốn tiếp tục chiến đấu hay quay về đảo hồi sinh?"
 const CONTINUE_BUTTON_TEXT := "Tiếp tục chiến đấu"
 const RETURN_BUTTON_TEXT := "Quay về đảo hồi sinh"
+const MAIN_MENU_BUTTON_TEXT := "Về Main Menu"
 
 @export var speed: float = 220.0
 
 @export var max_health: int = 100
 @export var max_mana: int = 100
 @export var heal_amount: int = 10
-@export var attack_damage: int = 1
+@export var attack_damage: int = 50
 
 @export var dash_speed: float = 1000.0
 @export var dash_duration: float = 0.15
 @export var dash_cooldown: float = 0.6
 
 @export var invincibility_duration: float = 0.5
+@export var death_effect_duration: float = 3.0
+@export var death_blink_interval: float = 0.15
 
 @export var knockback_force: float = 350.0
 @export var knockback_duration: float = 0.15
@@ -29,6 +33,7 @@ const RETURN_BUTTON_TEXT := "Quay về đảo hồi sinh"
 @onready var attack_hitbox: Area2D = get_hitbox_node("PlayerAttackHitbox", "AttackArea")
 @onready var hurtbox: Area2D = get_hitbox_node("PlayerHurtbox", "Hurtbox")
 @onready var heal_effect_sprite: AnimatedSprite2D = get_node_or_null("HealEffect")
+@onready var death_sound: AudioStreamPlayer = get_node_or_null("DeathSound")
 
 var health: int
 var mana: int
@@ -420,29 +425,70 @@ func die() -> void:
 	update_health_bar()
 	print("Player died")
 
+	if heal_effect_sprite != null:
+		heal_effect_sprite.visible = false
+		heal_effect_sprite.stop()
+
+	if death_sound != null:
+		death_sound.play()
+
+	play_death_sequence()
+
+
+func play_death_sequence() -> void:
+	var effect_duration := maxf(death_effect_duration, 0.0)
+	var blink_interval := maxf(death_blink_interval, 0.05)
+	var started_at := Time.get_ticks_msec()
+
+	while true:
+		var elapsed := float(Time.get_ticks_msec() - started_at) / 1000.0
+		var remaining := effect_duration - elapsed
+		if remaining <= 0.0:
+			break
+
+		if animated_sprite != null:
+			animated_sprite.visible = not animated_sprite.visible
+
+		await get_tree().create_timer(minf(blink_interval, remaining)).timeout
+
+	if animated_sprite != null:
+		animated_sprite.visible = true
+
+	if is_dead:
+		open_death_dialog()
+
+
+func open_death_dialog() -> void:
 	var dialog := get_tree().get_first_node_in_group("confirmation_dialog")
 	if dialog == null:
 		push_error("Player death could not find the shared confirmation dialog.")
 		SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
 		return
 
-	var callback := Callable(self, "_on_death_dialog_choice_made")
-	dialog.connect("choice_made", callback, CONNECT_ONE_SHOT)
+	var callback := Callable(self, "_on_death_dialog_option_selected")
+	dialog.connect("option_selected", callback, CONNECT_ONE_SHOT)
 	var opened := bool(dialog.call(
 		"open_dialog",
 		DEATH_DIALOG_MESSAGE,
 		CONTINUE_BUTTON_TEXT,
 		RETURN_BUTTON_TEXT,
-		false
+		false,
+		MAIN_MENU_BUTTON_TEXT
 	))
 	if not opened:
-		if dialog.is_connected("choice_made", callback):
-			dialog.disconnect("choice_made", callback)
+		if dialog.is_connected("option_selected", callback):
+			dialog.disconnect("option_selected", callback)
 		SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
 
 
-func _on_death_dialog_choice_made(continue_fighting: bool) -> void:
-	if not continue_fighting:
+func _on_death_dialog_option_selected(option_index: int) -> void:
+	var destination := get_death_destination(option_index)
+	if not destination.is_empty():
+		SceneLoader.change_scene(destination)
+		return
+
+	if option_index != 0:
+		push_warning("Unknown death dialog option: %d" % option_index)
 		SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
 		return
 
@@ -453,6 +499,14 @@ func _on_death_dialog_choice_made(continue_fighting: bool) -> void:
 		return
 
 	respawn_at(respawn_point.global_position)
+
+
+func get_death_destination(option_index: int) -> String:
+	if option_index == 1:
+		return MAIN_AREA_SCENE_PATH
+	if option_index == 2:
+		return MAIN_MENU_SCENE_PATH
+	return ""
 
 
 func respawn_at(respawn_position: Vector2) -> void:
@@ -466,6 +520,9 @@ func respawn_at(respawn_position: Vector2) -> void:
 	dash_cooldown_left = 0.0
 	knockback_time_left = 0.0
 	knockback_direction = Vector2.ZERO
+	if animated_sprite != null:
+		animated_sprite.visible = true
+		animated_sprite.modulate = Color.WHITE
 	update_health_bar()
 	update_mana_bar()
 	update_attack_area()
@@ -474,6 +531,9 @@ func respawn_at(respawn_position: Vector2) -> void:
 	if heal_effect_sprite != null:
 		heal_effect_sprite.visible = false
 		heal_effect_sprite.stop()
+
+	if death_sound != null:
+		death_sound.stop()
 
 
 func _on_animated_sprite_animation_finished() -> void:

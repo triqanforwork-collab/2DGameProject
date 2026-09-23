@@ -1,6 +1,10 @@
 extends CharacterBody2D
 
+const ENERGY_PICKUP_SCENE := preload("res://scenes/pickups/EnergyPickup.tscn")
+
 @export var health: int = 5
+@export_range(1, 5, 1) var min_energy_drop := 1
+@export_range(1, 5, 1) var max_energy_drop := 5
 @export var speed: float = 100.0
 
 @export var attack_damage: int = 1
@@ -36,6 +40,7 @@ var is_knocked_back: bool = false
 var knockback_time_left: float = 0.0
 var knockback_direction: Vector2 = Vector2.ZERO
 var hit_flash_tween: Tween
+var energy_has_dropped := false
 
 
 func _ready() -> void:
@@ -210,6 +215,7 @@ func die() -> void:
 	is_knocked_back = false
 	stop_moving()
 	disable_combat_areas()
+	drop_energy()
 
 	print("Enemy died")
 
@@ -227,6 +233,50 @@ func die() -> void:
 
 	animated_sprite.play(death_animation)
 
+
+func get_energy_drop_amount() -> int:
+	return randi_range(min_energy_drop, max_energy_drop)
+
+
+func get_energy_per_pickup() -> int:
+	return 1
+
+
+func configure_energy_pickup(_pickup: Node) -> void:
+	pass
+
+
+func drop_energy() -> void:
+	if energy_has_dropped:
+		return
+
+	energy_has_dropped = true
+	var total_energy := maxi(get_energy_drop_amount(), 0)
+	if total_energy == 0:
+		return
+
+	var drop_parent := get_parent()
+	if drop_parent == null:
+		return
+
+	var value_per_pickup := maxi(get_energy_per_pickup(), 1)
+	var pickup_count := int(ceil(float(total_energy) / float(value_per_pickup)))
+	var remaining_energy := total_energy
+	var drop_position := global_position
+
+	for index in range(pickup_count):
+		var pickup := ENERGY_PICKUP_SCENE.instantiate()
+		var pickup_value := mini(value_per_pickup, remaining_energy)
+		var angle := (TAU * float(index) / float(pickup_count)) + randf_range(-0.28, 0.28)
+		var direction := Vector2.from_angle(angle)
+		var launch_speed := randf_range(65.0, 105.0)
+
+		pickup.call("set_energy_value", pickup_value)
+		configure_energy_pickup(pickup)
+		drop_parent.add_child(pickup)
+		pickup.global_position = drop_position
+		pickup.call("launch", direction, launch_speed)
+		remaining_energy -= pickup_value
 
 func disable_combat_areas() -> void:
 	set_deferred("collision_layer", 0)

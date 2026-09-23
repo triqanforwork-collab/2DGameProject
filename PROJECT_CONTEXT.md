@@ -201,11 +201,13 @@ Không mặc định kỹ năng hiện có của Player là phần thưởng c�
 
 Khi Player chết trong một Region:
 
-- Dialog dùng chung hiển thị câu hỏi `"Bạn muốn tiếp tục chiến đấu hay quay về đảo hồi sinh?"`.
-- Nút `Tiếp tục chiến đấu` hồi sinh Player với đầy HP tại Return Whirlpool của Region hiện tại; scene và trạng thái quái hiện tại được giữ nguyên.
-- Nút `Quay về đảo hồi sinh` chuyển Player về Main Area qua Loading Screen.
+- Player bị khóa điều khiển, phát âm thanh thất bại và nhấp nháy trong 3 giây trước khi mở Game Over dialog.
+- Dialog dùng chung hiển thị câu hỏi "Bạn muốn tiếp tục chiến đấu hay quay về đảo hồi sinh?" với 3 lựa chọn.
+- Nút "Tiếp tục chiến đấu" hồi sinh Player với đầy HP tại Return Whirlpool của Region hiện tại; scene và trạng thái quái hiện tại được giữ nguyên.
+- Nút "Quay về đảo hồi sinh" chuyển Player về Main Area qua Loading Screen.
+- Nút "Về Main Menu" chuyển Player về res://scenes/ui/MainMenu.tscn qua Loading Screen.
 - Region và cổng đã mở vẫn giữ nguyên trạng thái progression.
-- Cách xử lý lượng Energy Player đang mang theo là **TBD / Chưa chốt**.
+- Energy Player đang mang được giữ nguyên khi chết hoặc chuyển map; chỉ New Game mới reset về 0.
 
 Không hồi sinh Player tại Hub cũ hoặc tại cây.
 
@@ -255,7 +257,10 @@ Enemy cơ bản có hoặc đang định hướng gồm:
 - Death.
 - Rơi Energy khi chết.
 
-Enemy hiện tại dùng chung base script và có 5 HP. Hệ thống rơi Energy là **Planned / Chưa triển khai**.
+Enemy hiện tại dùng chung base script và có 5 HP. Khi chết, mỗi enemy luôn rơi ngẫu nhiên 1-5 Energy dưới dạng pickup; pickup dùng Area2D để nhặt, GPUParticles2D để hiển thị, hút về Player khi đến gần và không tự biến mất.
+
+EnergyManager.gd lưu lượng Energy đang mang trong AutoLoad để dữ liệu tồn tại khi chuyển map; New Game reset lượng này về 0.
+HUD hiển thị Energy đang mang và cập nhật qua signal energy_changed. Energy chỉ giảm khi Monk gọi deposit_energy để nộp vào Energy Stone; phần giao diện nộp đá chưa triển khai.
 
 ## 11. Boss
 
@@ -273,8 +278,12 @@ Boss prototype hiện có:
 - Logic kế thừa Enemy: phát hiện, truy đuổi, đánh gần, nhận sát thương và chết.
 - HP và Attack Damage cao hơn enemy thường.
 - Thanh máu boss lớn hiển thị trên màn hình khi boss phát hiện Player.
+- Khi boss bị hạ, boss phát signal defeated; Region phát âm thanh chiến thắng và mở dialog chúc mừng dùng chung.
+- Victory dialog có ba lựa chọn: chơi lại Region hiện tại, quay về đảo hồi sinh (main.tscn), hoặc về MainMenu.tscn; mọi chuyển scene đi qua Loading Screen.
+- RegionVictoryController.tscn là component tái sử dụng. Water Region đã được kết nối; các Region sau chỉ cần instance component và đặt replay_scene_path.
+- Victory dialog phát pháo hoa trong khoảng 4,5 giây bằng VictoryFireworks.tscn; hiệu ứng vẫn chạy khi game pause và được giới hạn số particle cho Android.
 
-Boss phải bị đánh bại để hoàn thành Region. Lượng Energy cụ thể boss cung cấp là **TBD / Chưa chốt**.
+Boss phải bị đánh bại để hoàn thành Region. Mỗi boss rơi cố định 30 Energy dưới dạng 6 pickup, mỗi pickup trị giá 5; Victory dialog chỉ mở sau khi Player đã nhặt hết phần thưởng boss.
 
 Mỗi boss dự kiến có:
 
@@ -343,7 +352,7 @@ Không tiếp tục xây dựng các hệ thống này nếu chưa có yêu cầ
 
 - Player prototype và combat cơ bản.
 - HUD gameplay tái sử dụng đã có avatar, thanh HP và thanh Mana dùng khung SmallBar ở góc trên trái; HP/Mana được cập nhật qua signal từ Player.
-- Settings gameplay có nút bánh răng ở góc trên phải, hỗ trợ bật/tắt âm thanh và thoát trò chơi.
+- Settings gameplay có nút bánh răng ở góc trên phải, hỗ trợ bật/tắt âm thanh, quay về Main Menu qua Loading Screen và thoát trò chơi.
 - Trạng thái âm thanh được áp dụng qua `AudioServer` và lưu riêng trong `user://settings.cfg`.
 - Main Area phát lặp `res://assets/audio/music/bgm_main_area.mp3` qua bus `Music`; các Region và boss sẽ dùng một bản nhạc chiến đấu chung được bổ sung sau.
 - 10 enemy chia theo 5 Region.
@@ -371,7 +380,7 @@ Thứ tự dưới đây có thể thay đổi khi có yêu cầu mới rõ ràn
 2. **Đã hoàn thành:** Thêm Mana vào Player và kết nối thanh Mana với HUD.
 3. Tạo `WeaponData` cùng logic đổi vũ khí và kết nối các ô vũ khí trên HUD.
 4. Hoàn thiện Energy pickup, lượng Energy dùng chung đang mang và bộ đếm trên HUD. Icon Energy để thiết kế sau.
-5. **Đã hoàn thành:** Làm Settings bằng `AudioServer`, hỗ trợ bật/tắt âm thanh, thoát trò chơi và lưu lựa chọn âm thanh.
+5. **Đã hoàn thành:** Làm Settings bằng `AudioServer`, hỗ trợ bật/tắt âm thanh, quay về Main Menu, thoát trò chơi và lưu lựa chọn âm thanh.
 
 ## 16. Quy Tắc Phát Triển Project
 
