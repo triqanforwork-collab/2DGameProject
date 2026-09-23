@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" path="res://scenes/npc/RedLancer.tscn" id="18_red"]
 [ext_resource type="PackedScene" path="res://scenes/npc/YellowLancer.tscn" id="19_yellow"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ConfirmationDialog.tscn" id="20_dialog"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/bgm_main_area.mp3" id="21_bgm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("2_drsin")
@@ -179,6 +180,12 @@ sources/10 = SubResource("TileSetAtlasSource_og0nh")
 
 [node name="Main" type="Node2D" unique_id=1065976659]
 metadata/_edit_horizontal_guides_ = [-322.0]
+
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("21_bgm")
+volume_db = -8.0
+autoplay = true
+bus = &"Music"
 
 [node name="TileMap" type="TileMap" parent="." unique_id=465286985]
 y_sort_enabled = true

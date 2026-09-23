@@ -7,6 +7,7 @@ extends Area2D
 
 var player_in_range := false
 var interaction_in_progress := false
+var current_player: Node
 
 
 func _ready() -> void:
@@ -24,7 +25,14 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event.is_action_pressed("return_to_main"):
 		get_viewport().set_input_as_handled()
-		_open_confirmation_dialog()
+		interact(current_player)
+
+
+func interact(_player: Node) -> void:
+	if not player_in_range or interaction_in_progress:
+		return
+
+	_open_confirmation_dialog()
 
 
 func _open_confirmation_dialog() -> void:
@@ -58,6 +66,9 @@ func _on_body_entered(body: Node2D) -> void:
 		return
 
 	player_in_range = true
+	current_player = body
+	if body.has_method("register_interactable"):
+		body.register_interactable(self)
 	if not interaction_in_progress:
 		interaction_prompt.visible = true
 
@@ -67,4 +78,7 @@ func _on_body_exited(body: Node2D) -> void:
 		return
 
 	player_in_range = false
+	if body.has_method("unregister_interactable"):
+		body.unregister_interactable(self)
+	current_player = null
 	interaction_prompt.visible = false

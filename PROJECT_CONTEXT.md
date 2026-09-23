@@ -230,6 +230,14 @@ Prototype Player hiện có hoặc đang định hướng gồm:
 - Attack Button.
 - Dash / Skill Button.
 
+Mobile Controls prototype hiện đã được triển khai trong GameHUD:
+
+- Joystick động bên trái điều khiển di chuyển 8 hướng.
+- Attack, Dash và Skill nằm bên phải; Dash hiển thị cooldown.
+- Skill hiện bị khóa vì thiết kế 5 kỹ năng đặc biệt vẫn chưa chốt.
+- Interact Button chỉ xuất hiện khi Player ở gần một interactable như Gatekeeper hoặc Return Whirlpool.
+- Bàn phím và cảm ứng dùng chung các InputMap action, không tách gameplay thành hai hệ thống.
+
 Không thiết kế gameplay phụ thuộc cố định vào WASD hoặc các phím prototype.
 
 ## 10. Enemy
@@ -335,6 +343,9 @@ Không tiếp tục xây dựng các hệ thống này nếu chưa có yêu cầ
 
 - Player prototype và combat cơ bản.
 - HUD gameplay tái sử dụng đã có avatar, thanh HP và thanh Mana dùng khung SmallBar ở góc trên trái; HP/Mana được cập nhật qua signal từ Player.
+- Settings gameplay có nút bánh răng ở góc trên phải, hỗ trợ bật/tắt âm thanh và thoát trò chơi.
+- Trạng thái âm thanh được áp dụng qua `AudioServer` và lưu riêng trong `user://settings.cfg`.
+- Main Area phát lặp `res://assets/audio/music/bgm_main_area.mp3` qua bus `Music`; các Region và boss sẽ dùng một bản nhạc chiến đấu chung được bổ sung sau.
 - 10 enemy chia theo 5 Region.
 - 5 boss scene và boss health bar cơ bản.
 - 5 Region scene ở các mức độ hoàn thiện khác nhau.
@@ -354,13 +365,13 @@ Chưa triển khai:
 
 ### Roadmap Triển Khai Tiếp Theo
 
-Thực hiện lần lượt, không đảo thứ tự nếu chưa có yêu cầu mới:
+Thứ tự dưới đây có thể thay đổi khi có yêu cầu mới rõ ràng. Settings được ưu tiên làm trước WeaponData và Energy theo yêu cầu hiện tại:
 
 1. **Đã hoàn thành:** Dựng giao diện HUD và kết nối thanh HP với health thật của Player.
 2. **Đã hoàn thành:** Thêm Mana vào Player và kết nối thanh Mana với HUD.
 3. Tạo `WeaponData` cùng logic đổi vũ khí và kết nối các ô vũ khí trên HUD.
 4. Hoàn thiện Energy pickup, lượng Energy dùng chung đang mang và bộ đếm trên HUD. Icon Energy để thiết kế sau.
-5. Làm Settings bằng `AudioServer`, hỗ trợ bật/tắt âm thanh, thoát trò chơi và lưu lựa chọn âm thanh.
+5. **Đã hoàn thành:** Làm Settings bằng `AudioServer`, hỗ trợ bật/tắt âm thanh, thoát trò chơi và lưu lựa chọn âm thanh.
 
 ## 16. Quy Tắc Phát Triển Project
 

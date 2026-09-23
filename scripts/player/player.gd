@@ -2,6 +2,7 @@ extends CharacterBody2D
 
 signal health_changed(current_health: int, maximum_health: int)
 signal mana_changed(current_mana: int, maximum_mana: int)
+signal interaction_availability_changed(available: bool)
 
 const MAIN_AREA_SCENE_PATH := "res://scenes/maps/main.tscn"
 const DEATH_DIALOG_MESSAGE := "Bạn muốn tiếp tục chiến đấu hay quay về đảo hồi sinh?"
@@ -97,9 +98,12 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("dash"):
 		start_dash()
 
-	if Input.is_action_just_pressed("attack"):
-		if not try_interact():
-			attack()
+	var interaction_triggered := false
+	if Input.is_action_just_pressed("interact"):
+		interaction_triggered = try_interact()
+
+	if Input.is_action_just_pressed("attack") and not interaction_triggered:
+		attack()
 
 	if Input.is_action_just_pressed("heal"):
 		heal()
@@ -130,10 +134,22 @@ func get_hitbox_node(primary_name: String, fallback_name: String) -> Area2D:
 func register_interactable(interactable: Node) -> void:
 	if interactable not in nearby_interactables:
 		nearby_interactables.append(interactable)
+		interaction_availability_changed.emit(true)
 
 
 func unregister_interactable(interactable: Node) -> void:
 	nearby_interactables.erase(interactable)
+	interaction_availability_changed.emit(has_available_interactable())
+
+
+func has_available_interactable() -> bool:
+	for interactable in nearby_interactables.duplicate():
+		if not is_instance_valid(interactable):
+			nearby_interactables.erase(interactable)
+			continue
+		return true
+
+	return false
 
 
 func try_interact() -> bool:
@@ -400,6 +416,7 @@ func die() -> void:
 	is_dashing = false
 	is_knocked_back = false
 	nearby_interactables.clear()
+	interaction_availability_changed.emit(false)
 	update_health_bar()
 	print("Player died")
 
