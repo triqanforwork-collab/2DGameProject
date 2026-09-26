@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const ENERGY_PICKUP_SCENE := preload("res://scenes/pickups/EnergyPickup.tscn")
 
-@export var health: int = 5
+@export var health: int = 15
 @export_range(1, 5, 1) var min_energy_drop := 1
 @export_range(1, 5, 1) var max_energy_drop := 5
 @export var speed: float = 100.0
@@ -23,6 +23,10 @@ const ENERGY_PICKUP_SCENE := preload("res://scenes/pickups/EnergyPickup.tscn")
 
 @export var flip_sprite_to_direction: bool = true
 
+@export_category("Health Bar")
+@export var health_bar_position := Vector2(-18.0, 30.0)
+@export var health_bar_size := Vector2(36.0, 5.0)
+
 @onready var animated_sprite: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
 @onready var detection_area: Area2D = get_area_node("EnemyDetectionArea", "detection_area")
 @onready var attack_hitbox: Area2D = get_area_node("EnemyAttackHitbox", "enemy_hitbox")
@@ -41,10 +45,15 @@ var knockback_time_left: float = 0.0
 var knockback_direction: Vector2 = Vector2.ZERO
 var hit_flash_tween: Tween
 var energy_has_dropped := false
+var enemy_max_health: int
+var enemy_health_bar: Control
+var enemy_health_fill: ColorRect
 
 
 func _ready() -> void:
 	add_to_group("enemy")
+	enemy_max_health = health
+	create_enemy_health_bar()
 
 	player = get_tree().get_first_node_in_group("player") as CharacterBody2D
 	play_animation(idle_animation)
@@ -153,6 +162,7 @@ func take_damage(damage: int, attacker_position: Vector2 = Vector2.ZERO) -> void
 		return
 
 	health -= damage
+	update_enemy_health_bar()
 
 	print("Enemy HP: ", health)
 
@@ -209,6 +219,9 @@ func die() -> void:
 
 	is_dead = true
 	health = 0
+	update_enemy_health_bar()
+	if enemy_health_bar != null:
+		enemy_health_bar.visible = false
 	has_detected_player = false
 	can_attack_player = false
 	is_playing_attack_animation = false
@@ -232,6 +245,48 @@ func die() -> void:
 		return
 
 	animated_sprite.play(death_animation)
+
+
+func create_enemy_health_bar() -> void:
+	if has_node("BossHealthUI"):
+		return
+
+	enemy_health_bar = Control.new()
+	enemy_health_bar.name = "EnemyHealthBar"
+	enemy_health_bar.position = health_bar_position
+	enemy_health_bar.size = health_bar_size
+	enemy_health_bar.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	enemy_health_bar.z_index = 40
+	add_child(enemy_health_bar)
+
+	var background := ColorRect.new()
+	background.name = "Background"
+	background.position = Vector2.ZERO
+	background.size = health_bar_size
+	background.color = Color(0.08, 0.06, 0.06, 0.9)
+	background.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	enemy_health_bar.add_child(background)
+
+	enemy_health_fill = ColorRect.new()
+	enemy_health_fill.name = "Fill"
+	enemy_health_fill.position = Vector2(1.0, 1.0)
+	enemy_health_fill.size = Vector2(maxf(health_bar_size.x - 2.0, 0.0), maxf(health_bar_size.y - 2.0, 0.0))
+	enemy_health_fill.color = Color(0.86, 0.08, 0.08, 1.0)
+	enemy_health_fill.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	enemy_health_bar.add_child(enemy_health_fill)
+
+	update_enemy_health_bar()
+
+
+func update_enemy_health_bar() -> void:
+	if enemy_health_fill == null:
+		return
+
+	var health_ratio := 0.0
+	if enemy_max_health > 0:
+		health_ratio = clampf(float(health) / float(enemy_max_health), 0.0, 1.0)
+
+	enemy_health_fill.size.x = maxf(health_bar_size.x - 2.0, 0.0) * health_ratio
 
 
 func get_energy_drop_amount() -> int:

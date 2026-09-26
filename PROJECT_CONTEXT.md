@@ -119,12 +119,15 @@ Các scene NPC được tổ chức trong `res://scenes/npc/`. Monk hiện chỉ
 - Nếu Region còn khóa, Lancer thông báo điều kiện mở khóa và không chuyển scene.
 - Thứ tự mở khóa Region vẫn là Water, Earth, Light, Air và Life.
 
-Ánh xạ Gatekeeper đã chốt một phần:
+Ánh xạ Gatekeeper đã chốt:
 
 - Blue Lancer giữ cổng Water Region.
-- Black, Purple, Red và Yellow Lancer chưa được gán Region cụ thể.
+- Black Lancer giữ cổng Earth Region.
+- Yellow Lancer giữ cổng Light Region.
+- Purple Lancer giữ cổng Air Region.
+- Red Lancer giữ cổng Life Region.
 
-Không tự gán bốn Lancer còn lại cho Region khi chưa có xác nhận.
+Cả 5 Lancer hiện đã có dialog xác nhận và đường dẫn tới Region tương ứng. Ở giai đoạn prototype, các cổng đang được bật để kiểm tra chuyển map; logic khóa/mở theo progression sẽ được bổ sung sau.
 
 Lancer sử dụng dialog xác nhận Yes/No dùng chung. Khi Player ở trong vùng tương tác, phím Space ưu tiên mở dialog thay vì tấn công. Blue Lancer hỏi `"Bạn có muốn di chuyển đến Water Region không?"`; Yes chuyển map qua Loading Screen, No đóng dialog.
 

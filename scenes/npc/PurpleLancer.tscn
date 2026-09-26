@@ -103,6 +103,9 @@ radius = 12.0
 radius = 72.0
 [node name="PurpleLancer" type="CharacterBody2D" unique_id=1271496121 groups=["npc"]]
 script = ExtResource("2_gatekeeper")
+gate_enabled = true
+dialog_message = "Bạn có muốn di chuyển đến Air Region không?"
+target_scene_path = "res://scenes/maps/AirRegion.tscn"
 y_sort_enabled = true
 collision_mask = 0
 

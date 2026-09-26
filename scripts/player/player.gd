@@ -16,13 +16,14 @@ const MAIN_MENU_BUTTON_TEXT := "Về Main Menu"
 @export var max_health: int = 100
 @export var max_mana: int = 100
 @export var heal_amount: int = 10
-@export var attack_damage: int = 50
+@export var attack_damage: int = 10
 
 @export var dash_speed: float = 1000.0
 @export var dash_duration: float = 0.15
 @export var dash_cooldown: float = 0.6
 
 @export var invincibility_duration: float = 0.5
+@export var hit_flash_duration: float = 0.2
 @export var death_effect_duration: float = 3.0
 @export var death_blink_interval: float = 0.15
 
@@ -51,6 +52,7 @@ var dash_cooldown_left: float = 0.0
 
 var is_invincible: bool = false
 var invincibility_time_left: float = 0.0
+var hit_flash_tween: Tween
 
 var is_knocked_back: bool = false
 var knockback_time_left: float = 0.0
@@ -404,6 +406,7 @@ func take_damage(damage: int, attacker_position: Vector2) -> void:
 		die()
 		return
 
+	play_hit_flash()
 	is_invincible = true
 	invincibility_time_left = invincibility_duration
 
@@ -425,6 +428,11 @@ func die() -> void:
 	update_health_bar()
 	print("Player died")
 
+	if hit_flash_tween != null and hit_flash_tween.is_valid():
+		hit_flash_tween.kill()
+	if animated_sprite != null:
+		animated_sprite.modulate = Color.WHITE
+
 	if heal_effect_sprite != null:
 		heal_effect_sprite.visible = false
 		heal_effect_sprite.stop()
@@ -433,6 +441,21 @@ func die() -> void:
 		death_sound.play()
 
 	play_death_sequence()
+
+
+func play_hit_flash() -> void:
+	if animated_sprite == null:
+		return
+
+	if hit_flash_tween != null and hit_flash_tween.is_valid():
+		hit_flash_tween.kill()
+
+	animated_sprite.modulate = Color.WHITE
+	hit_flash_tween = create_tween()
+	hit_flash_tween.tween_property(animated_sprite, "modulate", Color(1.0, 0.2, 0.2, 0.35), hit_flash_duration * 0.25)
+	hit_flash_tween.tween_property(animated_sprite, "modulate", Color.WHITE, hit_flash_duration * 0.25)
+	hit_flash_tween.tween_property(animated_sprite, "modulate", Color(1.0, 0.2, 0.2, 0.35), hit_flash_duration * 0.25)
+	hit_flash_tween.tween_property(animated_sprite, "modulate", Color.WHITE, hit_flash_duration * 0.25)
 
 
 func play_death_sequence() -> void:
