@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://ybgb23q3rkf" path="res://scenes/npc/YellowLancer.tscn" id="19_yellow"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ConfirmationDialog.tscn" id="20_dialog"]
 [ext_resource type="AudioStream" uid="uid://fnteqekbug7" path="res://assets/audio/music/bgm_main_area.mp3" id="21_bgm"]
+[ext_resource type="Texture2D" path="res://assets/environment/energy_stones/energy_stone_highlight.png" id="22_energy_stone"]
+[ext_resource type="Shader" path="res://resources/shaders/energy_stone_recolor.gdshader" id="23_energy_stone_shader"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("2_drsin")
@@ -178,6 +180,79 @@ sources/8 = SubResource("TileSetAtlasSource_nvq0h")
 sources/9 = SubResource("TileSetAtlasSource_r2m11")
 sources/10 = SubResource("TileSetAtlasSource_og0nh")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_water_stone"]
+shader = ExtResource("23_energy_stone_shader")
+shader_parameter/target_hue = 0.56
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_earth_stone"]
+shader = ExtResource("23_energy_stone_shader")
+shader_parameter/target_hue = 0.32
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_light_stone"]
+shader = ExtResource("23_energy_stone_shader")
+shader_parameter/target_hue = 0.16
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_air_stone"]
+shader = ExtResource("23_energy_stone_shader")
+shader_parameter/target_hue = 0.76
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_life_stone"]
+shader = ExtResource("23_energy_stone_shader")
+shader_parameter/target_hue = 0.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energy_stone_0"]
+atlas = ExtResource("22_energy_stone")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energy_stone_1"]
+atlas = ExtResource("22_energy_stone")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energy_stone_2"]
+atlas = ExtResource("22_energy_stone")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energy_stone_3"]
+atlas = ExtResource("22_energy_stone")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energy_stone_4"]
+atlas = ExtResource("22_energy_stone")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_energy_stone_5"]
+atlas = ExtResource("22_energy_stone")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_energy_stone"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energy_stone_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energy_stone_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energy_stone_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energy_stone_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energy_stone_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_energy_stone_5")
+}],
+"loop": true,
+"name": &"sparkle",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_energy_stone"]
+radius = 20.0
+
 [node name="Main" type="Node2D" unique_id=1065976659]
 metadata/_edit_horizontal_guides_ = [-322.0]
 
@@ -246,6 +321,90 @@ y_sort_enabled = true
 
 [node name="Monk" parent="TileMap/NPCs" unique_id=21564800 instance=ExtResource("14_monk")]
 position = Vector2(603, 493)
+
+[node name="WaterStone" type="StaticBody2D" parent="TileMap/NPCs" groups=["energy_stone"]]
+position = Vector2(463, 493)
+metadata/region = "water"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TileMap/NPCs/WaterStone"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_water_stone")
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_energy_stone")
+animation = &"sparkle"
+autoplay = "sparkle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/NPCs/WaterStone"]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_energy_stone")
+
+[node name="EarthStone" type="StaticBody2D" parent="TileMap/NPCs" groups=["energy_stone"]]
+position = Vector2(523, 393)
+metadata/region = "earth"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TileMap/NPCs/EarthStone"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_earth_stone")
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_energy_stone")
+animation = &"sparkle"
+autoplay = "sparkle"
+frame = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/NPCs/EarthStone"]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_energy_stone")
+
+[node name="LightStone" type="StaticBody2D" parent="TileMap/NPCs" groups=["energy_stone"]]
+position = Vector2(603, 353)
+metadata/region = "light"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TileMap/NPCs/LightStone"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_light_stone")
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_energy_stone")
+animation = &"sparkle"
+autoplay = "sparkle"
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/NPCs/LightStone"]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_energy_stone")
+
+[node name="AirStone" type="StaticBody2D" parent="TileMap/NPCs" groups=["energy_stone"]]
+position = Vector2(683, 393)
+metadata/region = "air"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TileMap/NPCs/AirStone"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_air_stone")
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_energy_stone")
+animation = &"sparkle"
+autoplay = "sparkle"
+frame = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/NPCs/AirStone"]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_energy_stone")
+
+[node name="LifeStone" type="StaticBody2D" parent="TileMap/NPCs" groups=["energy_stone"]]
+position = Vector2(743, 493)
+metadata/region = "life"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="TileMap/NPCs/LifeStone"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_life_stone")
+scale = Vector2(0.75, 0.75)
+sprite_frames = SubResource("SpriteFrames_energy_stone")
+animation = &"sparkle"
+autoplay = "sparkle"
+frame = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TileMap/NPCs/LifeStone"]
+position = Vector2(0, 6)
+shape = SubResource("CircleShape2D_energy_stone")
 
 [node name="BlackLancer" parent="TileMap/NPCs" unique_id=946809432 instance=ExtResource("15_black")]
 position = Vector2(255, 577)

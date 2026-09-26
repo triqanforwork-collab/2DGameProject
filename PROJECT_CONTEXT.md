@@ -35,7 +35,7 @@ Player là người bảo hộ được giao nhiệm vụ đi qua 5 Region, tiê
 
 Khi một viên đá được nạp đủ mức Energy yêu cầu:
 
-- Player mở khóa một kỹ năng đặc biệt mới.
+- Player mở khóa phần thưởng progression mới như kỹ năng, vũ khí, nâng chỉ số hoặc chiến thắng.
 - Region tiếp theo được mở khóa.
 - Độ khó của hành trình tiếp tục tăng.
 
@@ -51,15 +51,15 @@ Tiến trình chính diễn ra theo thứ tự:
 4. Air.
 5. Life.
 
-Water Region được mở từ đầu. Các Region còn lại bị khóa và chỉ mở lần lượt khi viên đá của cấp trước đạt đủ mức Energy yêu cầu.
+Water Region được mở từ đầu. Các Region còn lại bị khóa và chỉ mở lần lượt khi viên đá của cấp trước đạt đủ mức Energy yêu cầu và Boss tương ứng đã bị đánh bại.
 
-| Cấp | Region | Enemy | Boss | Energy Stone | Energy yêu cầu |
-| --- | --- | --- | --- | --- | --- |
-| 1 | Water | Bomb Fish, Paddle Shark | Turtle | Water Stone | 100 |
-| 2 | Earth | Spider, Snake | Panda | Earth Stone | 150 |
-| 3 | Light | Hex Shaman, Torch Goblin | Minotaur | Light Stone | 200 |
-| 4 | Air | Imp, Bumblebee | Giant Bat | Air Stone | 250 |
-| 5 | Life | Thief, Spear Goblin | Troll | Life Stone | 300 |
+| Cấp | Region | Enemy | Boss | Energy Stone | Energy yêu cầu | Phần thưởng |
+| --- | --- | --- | --- | --- | --- | --- |
+| 1 | Water | Bomb Fish, Paddle Shark | Turtle | Water Stone | 100 | Kỹ năng hồi máu và Earth Region |
+| 2 | Earth | Spider, Snake | Panda | Earth Stone | 150 | Quyền trượng tấn công xa và Light Region |
+| 3 | Light | Hex Shaman, Torch Goblin | Minotaur | Light Stone | 200 | Kỹ năng tấn công diện rộng và Air Region |
+| 4 | Air | Imp, Bumblebee | Giant Bat | Air Stone | 250 | Hệ thống nâng chỉ số và Life Region |
+| 5 | Life | Thief, Spear Goblin | Troll | Life Stone | 300 | Hoàn thành trò chơi |
 
 Trạng thái prototype Water Region:
 
@@ -84,12 +84,14 @@ Main Area có:
 - Mức Energy đã nạp và mức Energy yêu cầu của từng viên đá.
 - Các NPC prototype: Monk, Black Lancer, Blue Lancer, Purple Lancer, Red Lancer và Yellow Lancer.
 
+Prototype hình ảnh của 5 Viên Đá Năng Lượng đã được đặt thành vòng cung quanh Monk trong Main Area. Cả 5 dùng chung sprite sheet Gold Stone Highlight gồm 6 frame, chạy animation lấp lánh lặp ở 6 FPS và lệch frame khởi đầu. Shader chỉ đổi màu phần tinh thể: Water xanh lam, Earth xanh lá, Light vàng, Air tím và Life đỏ. Các viên đá hiện có collision vật lý nhưng chưa có logic tương tác, nạp Energy hoặc hiển thị tiến độ.
+
 Main Area là nơi Player:
 
 - Bắt đầu hoặc tiếp tục hành trình.
 - Chọn cổng Region đã mở.
 - Hồi sinh sau khi chết.
-- Mang Energy dùng chung trở về và nhờ Monk nạp vào viên đá được chọn.
+- Mang Energy dùng chung trở về và nhờ Monk nạp vào viên đá hiện tại trong tiến trình tuần tự.
 - Nhận kỹ năng mới và mở khóa Region tiếp theo.
 
 Scene Main Area hiện đang được xây dựng tại:
@@ -107,8 +109,10 @@ Các scene NPC được tổ chức trong `res://scenes/npc/`. Monk hiện chỉ
 - Giới thiệu mục tiêu và hướng dẫn gameplay cho Player.
 - Khi Player lại gần và chủ động trò chuyện, Monk cho phép kiểm tra nhiệm vụ hiện tại.
 - Hiển thị tiến độ của Region đang thực hiện, lượng Energy đã thu thập hoặc đã nạp và điều kiện còn thiếu để hoàn thành cấp độ.
-- Monk là nơi Player gửi Energy đang mang theo vào từng Viên Đá Năng Lượng.
-- Player chọn viên đá cần nạp; Energy dùng chung được chuyển từ lượng đang mang sang tiến độ riêng của viên đá đó.
+- Monk là nơi Player gửi Energy đang mang theo vào Viên Đá Năng Lượng đang hoạt động trong tiến trình tuần tự.
+- Giao diện của Monk hiển thị Energy đang mang, tiến độ viên đá hiện tại, trạng thái Boss tương ứng và phần thưởng sắp mở.
+- Player có thể nộp từng phần. Giao diện hỗ trợ nộp toàn bộ lượng có thể hoặc nộp vừa đủ phần còn thiếu; lượng vượt quá sức chứa của đá vẫn được giữ lại.
+- Sau khi Air Stone được kích hoạt, Monk đồng thời cung cấp giao diện đổi Energy đang mang để nâng chỉ số.
 
 **Black Lancer, Blue Lancer, Purple Lancer, Red Lancer và Yellow Lancer** là 5 NPC giữ cổng:
 
@@ -131,7 +135,7 @@ Cả 5 Lancer hiện đã có dialog xác nhận và đường dẫn tới Regio
 
 Lancer sử dụng dialog xác nhận Yes/No dùng chung. Khi Player ở trong vùng tương tác, phím Space ưu tiên mở dialog thay vì tấn công. Blue Lancer hỏi `"Bạn có muốn di chuyển đến Water Region không?"`; Yes chuyển map qua Loading Screen, No đóng dialog.
 
-Hệ thống hội thoại nhiều nội dung, UI nhiệm vụ và tiến độ dành cho Monk là **TBD / Chưa thiết kế**.
+UI Monk và Energy Stone là **Planned / Chưa triển khai**. Thiết kế đã chốt gồm phần hội thoại nhiệm vụ, tiến độ đá, điều kiện Boss, thao tác nộp Energy và giao diện nâng chỉ số sau Air Stone.
 
 ## 5. Gameplay Loop Chính
 
@@ -145,12 +149,13 @@ Mỗi cấp độ sử dụng vòng lặp sau:
 6. Player vào boss arena và đánh boss.
 7. Player phải đánh bại boss để hoàn thành Region; lượng Energy cụ thể của boss chưa chốt.
 8. Player mang Energy trở về Main Area.
-9. Player trò chuyện với Monk và chọn viên đá để nạp Energy đang mang theo.
-10. Khi viên đá đạt đủ mức Energy yêu cầu, Player mở khóa kỹ năng mới và Region tiếp theo.
+9. Player trò chuyện với Monk và nộp Energy vào viên đá hiện tại; có thể nộp từng phần.
+10. Viên đá chỉ được kích hoạt khi vừa đạt đủ Energy vừa xác nhận Boss của Region tương ứng đã bị đánh bại.
+11. Khi kích hoạt, Player nhận phần thưởng của đá, cổng Region tiếp theo được mở và progression được lưu ngay lập tức.
 
-Vòng lặp tiếp tục cho tới khi Life Stone đạt 300 Energy.
+Vòng lặp tiếp tục cho tới khi Life Stone đạt 300 Energy và Troll đã bị đánh bại.
 
-Nội dung kết thúc sau khi hoàn thành Life Region là **TBD / Chưa thiết kế**.
+Khi hai điều kiện cuối cùng hoàn tất, Life Stone kích hoạt nghi thức kết thúc, đặt game_completed thành true và mở màn hình chiến thắng. Nội dung hình ảnh, lời thoại và khả năng tiếp tục chơi sau ending vẫn cần thiết kế chi tiết.
 
 ## 6. Hệ Thống Energy
 
@@ -166,40 +171,48 @@ Quy tắc đã chốt:
 - Player mang Energy dùng chung về Main Area và trò chuyện với Monk để nạp vào từng viên đá.
 - Mỗi viên đá lưu tiến độ riêng; Energy đã nạp vào một viên đá không đồng thời tăng các viên đá khác.
 - Mức Energy yêu cầu tăng thêm 50 theo từng cấp: Water 100, Earth 150, Light 200, Air 250 và Life 300.
+- Chỉ viên đá hiện tại trong tiến trình tuần tự nhận Energy. Energy có thể được nộp từng phần và không thể làm tiến độ vượt mức tối đa.
+- Energy dư sau khi đá đầy vẫn nằm trong lượng Energy Player đang mang.
+- Energy đã nạp vào đá là vĩnh viễn và không thể rút lại.
+- Đủ Energy chưa tự kích hoạt đá; Boss tương ứng cũng phải được đánh bại.
+- Sau khi Air Stone được kích hoạt, Energy đang mang có thể được dùng để nâng chỉ số hoặc tiếp tục dành cho Life Stone.
+- Player giữ nguyên Energy đang mang khi chết hoặc chuyển map; chỉ New Game mới reset về 0.
 - Icon Energy sẽ được thiết kế hoặc chọn sau; chưa dùng `coin_icon` làm icon chính thức.
 
 Các chi tiết chưa chốt:
 
 - Energy được tự động nhặt hay cần Player chạm vào pickup.
-- Player giữ hay mất Energy đang mang theo khi chết.
 - Enemy có respawn và tiếp tục rơi Energy hay không.
 - Lượng Energy cụ thể của boss.
-- Player nạp toàn bộ hay được chọn số lượng Energy mỗi lần nói chuyện với Monk.
-- Cách xử lý Energy dư khi viên đá đạt mức tối đa.
 
 Không tự quyết định các chi tiết này khi chưa có yêu cầu rõ.
 
 ## 7. Mở Khóa Map Và Kỹ Năng
 
-Mỗi Viên Đá Năng Lượng quản lý hai phần thưởng progression:
+Mỗi Viên Đá Năng Lượng quản lý phần thưởng gameplay và việc mở cổng tiếp theo:
 
-	Energy Stone đạt đủ mức Energy yêu cầu
-	-> mở khóa một kỹ năng đặc biệt
+	Energy Stone đạt đủ mức Energy yêu cầu + Boss tương ứng đã bị đánh bại
+	-> kích hoạt viên đá và mở khóa phần thưởng
 	-> mở khóa cổng của Region tiếp theo
 
 Quy tắc:
 
 - Water Region mở sẵn khi bắt đầu New Game.
-- Earth mở sau khi Water Stone đạt 100 Energy.
-- Light mở sau khi Earth Stone đạt 150 Energy.
-- Air mở sau khi Light Stone đạt 200 Energy.
-- Life mở sau khi Air Stone đạt 250 Energy.
-- Life Stone đạt 300 Energy là mốc hoàn thành progression chính hiện tại.
+- Earth mở sau khi Water Stone đạt 100 Energy và Turtle đã bị đánh bại. Phần thưởng là kỹ năng hồi máu.
+- Light mở sau khi Earth Stone đạt 150 Energy và Panda đã bị đánh bại. Phần thưởng là quyền trượng để tấn công từ xa.
+- Air mở sau khi Light Stone đạt 200 Energy và Minotaur đã bị đánh bại. Phần thưởng là kỹ năng tấn công diện rộng.
+- Life mở sau khi Air Stone đạt 250 Energy và Giant Bat đã bị đánh bại. Phần thưởng là hệ thống đổi Energy để nâng chỉ số.
+- Life Stone kích hoạt khi đạt 300 Energy và Troll đã bị đánh bại. Đây là điều kiện chiến thắng progression chính.
 
-Thiết kế cụ thể của 5 kỹ năng đặc biệt là **TBD / Chưa chốt**.
+Quy tắc phần thưởng đã chốt:
 
-Không mặc định kỹ năng hiện có của Player là phần thưởng của một viên đá nếu chưa được xác nhận.
-
+- **Hồi máu:** bị khóa khi bắt đầu New Game; Water Stone mở khóa kỹ năng. Giá trị cân bằng ban đầu là 25 Mana, hồi 30 HP và cooldown 5 giây.
+- **Quyền trượng:** Earth Stone mở khóa một chế độ vũ khí thứ hai. Player có thể chuyển giữa kiếm cận chiến và quyền trượng tấn công xa. Đòn đánh thường của quyền trượng không tốn Mana nhưng phải yếu hơn hoặc chậm hơn kiếm; thông số cuối cùng sẽ được cân bằng khi triển khai combat.
+- **Tấn công diện rộng:** Light Stone mở khóa kỹ năng gây sát thương quanh Player. Giá trị cân bằng ban đầu là 35 Mana, cooldown 8 giây và sát thương bằng 1.5 lần chỉ số Attack.
+- **Nâng chỉ số:** Air Stone mở khóa giao diện tại Monk để tăng vĩnh viễn Max HP, Attack hoặc Max Mana. Mỗi lần tăng lần lượt cộng 10 Max HP, 2 Attack hoặc 10 Max Mana.
+- Mỗi loại chỉ số có tối đa 5 cấp. Chi phí cho năm lần nâng cùng một chỉ số lần lượt là 50, 100, 150, 200 và 250 Energy.
+- Nâng chỉ số chỉ tiêu Energy đang mang, không trừ tiến độ đã nạp vào bất kỳ viên đá nào.
+- **Chiến thắng:** Life Stone đầy và Troll đã bị đánh bại sẽ kích hoạt ending và đánh dấu game đã hoàn thành.
 ## 8. Player Death Và Respawn
 
 Khi Player chết trong một Region:
@@ -239,7 +252,7 @@ Mobile Controls prototype hiện đã được triển khai trong GameHUD:
 
 - Joystick động bên trái điều khiển di chuyển 8 hướng.
 - Attack, Dash và Skill nằm bên phải; Dash hiển thị cooldown.
-- Skill hiện bị khóa vì thiết kế 5 kỹ năng đặc biệt vẫn chưa chốt.
+- Skill bắt đầu bị khóa và được bật theo progression. UI cuối cần có thao tác riêng cho hồi máu, tấn công diện rộng và chuyển đổi kiếm/quyền trượng; cách bố trí nút Android cụ thể sẽ được chốt khi triển khai.
 - Interact Button chỉ xuất hiện khi Player ở gần một interactable như Gatekeeper hoặc Return Whirlpool.
 - Bàn phím và cảm ứng dùng chung các InputMap action, không tách gameplay thành hai hệ thống.
 
@@ -330,8 +343,18 @@ Progression sau này cần lưu tối thiểu:
 - Lượng Energy đã nạp riêng vào Water, Earth, Light, Air và Life Stone.
 - Region nào đã mở.
 - Kỹ năng nào đã mở.
+- Chế độ vũ khí đang chọn và trạng thái quyền trượng đã mở.
+- Cấp nâng Max HP, Attack và Max Mana.
 - Trạng thái boss đã bị đánh bại.
+- Trạng thái game_completed.
 - Vị trí hoặc scene hồi sinh phù hợp nếu cần.
+
+Phân chia trách nhiệm dự kiến:
+
+- EnergyManager: quản lý Energy Player đang mang và thao tác cộng/trừ Energy.
+- ProgressionManager: quản lý tiến độ 5 viên đá, Boss, Region, kỹ năng, phần thưởng và chiến thắng.
+- PlayerUpgrades: cung cấp giá trị nâng Max HP, Attack và Max Mana cho mọi Player instance khi đổi map.
+- SaveManager: ghi và khôi phục toàn bộ progression; save ngay sau khi nộp Energy, kích hoạt đá, nâng chỉ số hoặc hoàn thành game.
 
 Không đặt progression data trực tiếp trong project.godot.
 
