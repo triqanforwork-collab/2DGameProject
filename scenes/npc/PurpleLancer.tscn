@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cwatdj6tdguth"]
 
 [ext_resource type="Texture2D" uid="uid://bochusm5c0df7" path="res://assets/npc/PurpleLancer/Lancer_Idle.png" id="1_idle"]
-[ext_resource type="Script" path="res://scripts/npc/gatekeeper.gd" id="2_gatekeeper"]
+[ext_resource type="Script" uid="uid://cy4eh0pmmgkwo" path="res://scripts/npc/gatekeeper.gd" id="2_gatekeeper"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0"]
 atlas = ExtResource("1_idle")
@@ -98,16 +98,16 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 12.0
 
-
 [sub_resource type="CircleShape2D" id="CircleShape2D_interaction"]
 radius = 72.0
+
 [node name="PurpleLancer" type="CharacterBody2D" unique_id=1271496121 groups=["npc"]]
+y_sort_enabled = true
+collision_mask = 0
 script = ExtResource("2_gatekeeper")
 gate_enabled = true
 dialog_message = "Bạn có muốn di chuyển đến Air Region không?"
 target_scene_path = "res://scenes/maps/AirRegion.tscn"
-y_sort_enabled = true
-collision_mask = 0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=592920268]
 texture_filter = 1
@@ -117,13 +117,26 @@ sprite_frames = SubResource("SpriteFrames_idle")
 animation = &"idle"
 autoplay = "idle"
 
+[node name="NameLabel" type="Label" parent="." unique_id=1054434979]
+z_index = 10
+offset_left = -48.0
+offset_top = 5.0
+offset_right = 48.0
+offset_bottom = 23.0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+text = "Air guardian"
+horizontal_alignment = 1
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1362615070]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_body")
-[node name="InteractionArea" type="Area2D" parent="."]
+
+[node name="InteractionArea" type="Area2D" parent="." unique_id=477055138]
 collision_layer = 0
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea" unique_id=143724187]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_interaction")

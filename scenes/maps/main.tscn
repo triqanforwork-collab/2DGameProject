@@ -13,14 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://bgccmghnopdoe" path="res://assets/tiny_swords/terrain/trees/Tree2.png" id="11_i6hks"]
 [ext_resource type="Texture2D" uid="uid://cgemfbrbbkyb6" path="res://assets/tiny_swords/terrain/trees/Tree3.png" id="12_cjexk"]
 [ext_resource type="PackedScene" uid="uid://b6mudu7j3kw7p" path="res://scenes/player/Player.tscn" id="13_7mwk5"]
-[ext_resource type="PackedScene" path="res://scenes/npc/Monk.tscn" id="14_monk"]
-[ext_resource type="PackedScene" path="res://scenes/npc/BlackLancer.tscn" id="15_black"]
-[ext_resource type="PackedScene" path="res://scenes/npc/BlueLancer.tscn" id="16_blue"]
-[ext_resource type="PackedScene" path="res://scenes/npc/PurpleLancer.tscn" id="17_purple"]
-[ext_resource type="PackedScene" path="res://scenes/npc/RedLancer.tscn" id="18_red"]
-[ext_resource type="PackedScene" path="res://scenes/npc/YellowLancer.tscn" id="19_yellow"]
+[ext_resource type="PackedScene" uid="uid://doh44ixqix7dx" path="res://scenes/npc/Monk.tscn" id="14_monk"]
+[ext_resource type="PackedScene" uid="uid://b7jjjlxx2nikh" path="res://scenes/npc/BlackLancer.tscn" id="15_black"]
+[ext_resource type="PackedScene" uid="uid://woqqnuie0utg" path="res://scenes/npc/BlueLancer.tscn" id="16_blue"]
+[ext_resource type="PackedScene" uid="uid://cwatdj6tdguth" path="res://scenes/npc/PurpleLancer.tscn" id="17_purple"]
+[ext_resource type="PackedScene" uid="uid://vue0fhorpn5g" path="res://scenes/npc/RedLancer.tscn" id="18_red"]
+[ext_resource type="PackedScene" uid="uid://ybgb23q3rkf" path="res://scenes/npc/YellowLancer.tscn" id="19_yellow"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ConfirmationDialog.tscn" id="20_dialog"]
-[ext_resource type="AudioStream" path="res://assets/audio/music/bgm_main_area.mp3" id="21_bgm"]
+[ext_resource type="AudioStream" uid="uid://fnteqekbug7" path="res://assets/audio/music/bgm_main_area.mp3" id="21_bgm"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("2_drsin")
@@ -181,7 +181,7 @@ sources/10 = SubResource("TileSetAtlasSource_og0nh")
 [node name="Main" type="Node2D" unique_id=1065976659]
 metadata/_edit_horizontal_guides_ = [-322.0]
 
-[node name="BackgroundMusic" type="AudioStreamPlayer" parent="."]
+[node name="BackgroundMusic" type="AudioStreamPlayer" parent="." unique_id=51855430]
 stream = ExtResource("21_bgm")
 volume_db = -8.0
 autoplay = true
@@ -248,20 +248,21 @@ y_sort_enabled = true
 position = Vector2(603, 493)
 
 [node name="BlackLancer" parent="TileMap/NPCs" unique_id=946809432 instance=ExtResource("15_black")]
-position = Vector2(383, 476)
+position = Vector2(255, 577)
 
 [node name="BlueLancer" parent="TileMap/NPCs" unique_id=1897968969 instance=ExtResource("16_blue")]
-position = Vector2(479, 538)
+position = Vector2(54, 661)
 
 [node name="PurpleLancer" parent="TileMap/NPCs" unique_id=160832497 instance=ExtResource("17_purple")]
 position = Vector2(602, 579)
 
 [node name="RedLancer" parent="TileMap/NPCs" unique_id=1688935382 instance=ExtResource("18_red")]
-position = Vector2(729, 536)
+position = Vector2(997, 549)
 
 [node name="YellowLancer" parent="TileMap/NPCs" unique_id=59405436 instance=ExtResource("19_yellow")]
-position = Vector2(828, 473)
-[node name="GateUI" type="CanvasLayer" parent="."]
+position = Vector2(1183, 477)
+
+[node name="GateUI" type="CanvasLayer" parent="." unique_id=535893416]
 layer = 50
 
-[node name="ConfirmationDialog" parent="GateUI" instance=ExtResource("20_dialog")]
+[node name="ConfirmationDialog" parent="GateUI" unique_id=982225280 instance=ExtResource("20_dialog")]

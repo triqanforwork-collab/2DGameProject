@@ -314,6 +314,4 @@ position = Vector2(1721, 543)
 [node name="RegionUI" type="CanvasLayer" parent="."]
 layer = 50
 
-[node name="ConfirmationDialog" parent="RegionUI" instance=ExtResource("
-17_dialog
-")]
+[node name="ConfirmationDialog" parent="RegionUI" instance=ExtResource("17_dialog")]

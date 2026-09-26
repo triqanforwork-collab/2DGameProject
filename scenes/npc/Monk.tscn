@@ -67,6 +67,19 @@ sprite_frames = SubResource("SpriteFrames_idle")
 animation = &"idle"
 autoplay = "idle"
 
+[node name="NameLabel" type="Label" parent="."]
+z_index = 10
+offset_left = -48.0
+offset_top = 5.0
+offset_right = 48.0
+offset_bottom = 23.0
+mouse_filter = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 12
+text = "Monk"
+horizontal_alignment = 1
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945010564]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_body")
