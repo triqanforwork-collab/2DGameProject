@@ -3,8 +3,8 @@ extends CharacterBody2D
 const ENERGY_PICKUP_SCENE := preload("res://scenes/pickups/EnergyPickup.tscn")
 
 @export var health: int = 15
-@export_range(1, 5, 1) var min_energy_drop := 1
-@export_range(1, 5, 1) var max_energy_drop := 5
+@export_range(1, 5, 1) var min_energy_drop := 10
+@export_range(1, 5, 1) var max_energy_drop := 50
 @export var speed: float = 100.0
 
 @export var attack_damage: int = 1

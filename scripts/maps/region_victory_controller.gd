@@ -4,6 +4,7 @@ const MAIN_AREA_SCENE := "res://scenes/maps/main.tscn"
 const MAIN_MENU_SCENE := "res://scenes/ui/MainMenu.tscn"
 
 @export_file("*.tscn") var replay_scene_path: String
+@export_enum("water", "earth", "light", "air", "life") var region_id := "water"
 @export_multiline var victory_message := "Chúc mừng! Bạn đã đánh bại Boss của khu vực này!"
 
 @onready var victory_sound: AudioStreamPlayer = $VictorySound
@@ -12,13 +13,33 @@ var victory_handled := false
 
 
 func _ready() -> void:
-	call_deferred("_connect_bosses")
+	call_deferred("_connect_encounter")
+
+
+func _connect_encounter() -> void:
+	var encounter := get_tree().get_first_node_in_group("region_encounter_controller")
+	if encounter != null:
+		var callback := Callable(self, "_on_boss_spawned")
+		if not encounter.is_connected("boss_spawned", callback):
+			encounter.connect("boss_spawned", callback)
+	_connect_bosses()
 
 
 func _connect_bosses() -> void:
 	for boss in get_tree().get_nodes_in_group("boss"):
-		if boss.has_signal("defeated") and not boss.defeated.is_connected(_on_boss_defeated):
-			boss.defeated.connect(_on_boss_defeated)
+		_connect_boss(boss)
+
+
+func _connect_boss(boss: Node) -> void:
+	if boss == null or not boss.has_signal("defeated"):
+		return
+	var callback := Callable(self, "_on_boss_defeated")
+	if not boss.is_connected("defeated", callback):
+		boss.connect("defeated", callback)
+
+
+func _on_boss_spawned(boss: Node) -> void:
+	_connect_boss(boss)
 
 
 func _on_boss_defeated(_boss: Node) -> void:
@@ -26,6 +47,7 @@ func _on_boss_defeated(_boss: Node) -> void:
 		return
 
 	victory_handled = true
+	ProgressionManager.mark_boss_defeated(StringName(region_id))
 	victory_sound.play()
 	await _wait_for_boss_energy()
 	_open_victory_dialog()

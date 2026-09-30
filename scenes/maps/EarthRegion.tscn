@@ -17,6 +17,9 @@
 [ext_resource type="PackedScene" path="res://scenes/enemies/Earth/Snake.tscn" id="16_snake"]
 [ext_resource type="PackedScene" uid="uid://dhp5xxaesww8q" path="res://scenes/portals/ReturnWhirlpool.tscn" id="17_return_portal"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ConfirmationDialog.tscn" id="18_dialog"]
+[ext_resource type="PackedScene" path="res://scenes/ui/RegionVictoryController.tscn" id="19_victory"]
+[ext_resource type="PackedScene" uid="uid://mc6hoals3i0n" path="res://scenes/bosses/Earth/Panda.tscn" id="20_panda"]
+[ext_resource type="PackedScene" path="res://scenes/maps/RegionEncounterController.tscn" id="21_encounter"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("3_nwfe1")
@@ -228,7 +231,7 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AABqAP3/CAACAAAAAAArAP7/CAACAAAAAABKAD8ACgAAAAEAAABTAC8ACgAAAAEAAAD2/zEACgAAAAEAAADv/y0ACgAAAAEAAADx/y0ACgAAAAEAAADv/ysACgAAAAEAAADx/ywACgAAAAEAAADg/w0ACgAAAAEAAADh/wsACgAAAAEAAADf/wwACgAAAAEAAADe/wwACgAAAAEAAABUAAoACgAAAAEAAABWAAgACgAAAAEAAABWAAkACgAAAAEAAABUAAgACgAAAAEAAABVAAgACgAAAAEAAABSAAkACgAAAAEAAAB0AA4ACgAAAAEAAAB3ABAACgAAAAEAAAB2AA4ACgAAAAEAAAB3AA4ACgAAAAEAAAB1ABAACgAAAAEAAAB2ADoACgAAAAEAAAB5AD0ACgAAAAEAAAB4ADoACgAAAAEAAAB3ADsACgAAAAEAAAB1ADwACgAAAAEAAAB1ADoACgAAAAEAAABmAGAACgAAAAEAAABpAGMACgAAAAEAAABrAGEACgAAAAEAAABrAGAACgAAAAEAAABqAGAACgAAAAEAAABrAGIACgAAAAEAAABuAGEACgAAAAEAAABsAGIACgAAAAEAAADl/2MACgAAAAEAAADi/2IACgAAAAEAAADn/18ACgAAAAEAAADk/14ACgAAAAEAAADl/18ACgAAAAEAAADk/2AACgAAAAEAAADk/2EACgAAAAEAAADn/2MACgAAAAEAAADp/2MACgAAAAEAAADp/2AACgAAAAEAAADo/2IACgAAAAEAAADn/2IACgAAAAEAAADn/2QACgAAAAEAAADl/2EACgAAAAEAAAAKAE0ACgAAAAEAAAASAFcACgAAAAEAAAAwAFQACgAAAAEAAAA6AFYACgAAAAEAAABBAE4ACgAAAAEAAABKAEcACgAAAAEAAAAuAP3/CgAAAAEAAAA1APv/CgAAAAEAAAA1AP7/CgAAAAEAAAA0AAEACgAAAAEAAAA0AP3/CgAAAAEAAAAtAAAACgAAAAEAAAAuAAEACgAAAAEAAAAxAAAACgAAAAEAAAArAAEACgAAAAEAAAAJAAMACgAAAAEAAAAHAAIACgAAAAEAAAAKAAAACgAAAAEAAAD4/wYACgAAAAEAAADp/wEACgAAAAEAAABlAAUACgAAAAEAAABXABYACgAAAAEAAADz/xYACgAAAAEAAAA8AAUACQADAAEAAAA5AAcACQADAAEAAAA+AAcACQADAAEAAAARAAMACQADAAEAAAAPAAUACQADAAEAAAAMAAcACQADAAEAAAAGAAoACQADAAEAAAD+/w8ACQADAAEAAAD+/xQACQADAAEAAAD6/xUACQADAAEAAADv/wQACQADAAEAAABhAAoACQADAAEAAABmAAkACQADAAEAAABeAA0ACQADAAEAAABjAA0ACQADAAEAAABpAAwACQADAAEAAABOABIACQADAAEAAAAEADEACQADAAEAAABOACIACQADAAEAAABDADUACQADAAEAAAATAD0ACQADAAEAAAAaAAYABwACAAMAAAAeAAUABwACAAMAAAAXAAkABwACAAMAAAAuAAUABwACAAMAAAA1AAEABwACAAMAAAALAAkABwACAAMAAABEAAkABwACAAMAAAA3AAoABwACAAMAAAA6AA4ABwACAAMAAAApAAMACAACAAAAAAASAAQACAACAAAAAABCAAwACAACAAAAAABHAA0ACAACAAAAAAACAA8ACAACAAAAAAAeAFUABwACAAMAAAApAFYABwACAAMAAABnAA4ACAACAAAAAAD4/xYACAACAAAAAAA0ADwAAwAAAAAAAAAHADUAAwAAAAAAAAAFAF4AAwAAAAAAAAAnAGcAAwAAAAAAAABBADkAAwAAAAAAAABMACgAAwAAAAAAAABkABQAAwAAAAAAAAA9ABQAAwAAAAAAAAATAA8AAwAAAAAAAAAkAAkAAwAAAAAAAAAxAAsAAwAAAAAAAAAHAA8AAwAAAAAAAAAGABUAAwAAAAAAAAD8/xsAAwAAAAAAAADx/wkAAwAAAAAAAABJABcAAwAAAAAAAABFABUAAwAAAAAAAAA9ABYAAgAAAAEAAABGABcAAgAAAAEAAAARABAAAgAAAAEAAAD9/xsAAgAAAAEAAADy/woAAgAAAAEAAAAiAAoAAgAAAAEAAABiABQAAgAAAAEAAABAADoAAgAAAAEAAAA1AD0AAgAAAAEAAAAJADUAAgAAAAEAAAA9ABgAAgAAAAEAAAAbAFoAAgAAAAEAAAAbAFsAAgAAAAEAAAArAFsAAgAAAAEAAAAdAFwAAQAAAAEAAAApAF0AAQAAAAEAAAA4AD4AAQAAAAEAAABMACYAAQAAAAEAAAAiAC4AAQAAAAEAAAAtACsAAQAAAAEAAAAWACUAAQAAAAEAAAA5ACMAAQAAAAEAAAAQABgAAQAAAAEAAAAQABkAAgAAAAEAAAAXACcAAgAAAAEAAAAjADAAAgAAAAEAAAAvACwAAgAAAAEAAAA6ACQAAgAAAAEAAAA/ABcAAgAAAAEAAAAZACcABgABAAEAAAARABcABgABAAEAAAAWABEABgABAAEAAAAuACgABgABAAEAAAA6ACEABgABAAEAAAA7ABYABgABAAEAAAAlAC8ABgABAAEAAAAJACgABgABAAEAAABCACgABgABAAEAAABJABUABgABAAEAAABjABMABgABAAEAAABtABEABgABAAEAAADv/wgABgABAAEAAAAHAA4ABgABAAEAAAD//xYABgABAAEAAAAQAAkABgABAAEAAAAtAAoABgABAAEAAAAZAD4ABgABAAEAAAA1AD4ABgABAAEAAABBADcABgABAAEAAABOACcABgABAAEAAAAoAGcABgABAAEAAAAWAGUABgABAAEAAAD6/yUABAACAAIAAAALACsABAACAAIAAABVABkABAACAAIAAABVABoABAACAAIAAAAyAF0ABAACAAIAAAAbAEgABAACAAIAAAAZAEYABAACAAIAAAAcAEUABQACAAIAAADi/yYABQACAAIAAAAMACwABQACAAIAAABUABoABQACAAIAAABVAB0ABQACAAIAAABQABoABQACAAIAAABqABkABQACAAIAAAA9ADwABQACAAIAAAA2AEQABQACAAIAAAAnAFwABQACAAIAAAAZAFwABQACAAIAAAAdAGgABQACAAIAAAA3AGYABQACAAIAAAAuAEcABgABAAEAAAAvAEQACQADAAEAAABNADAACQADAAEAAABVABsACAACAAAAAAD//y4ACAACAAAAAAD5/x0ACAACAAAAAAAnAEoABgABAAEAAAARAF0ABgABAAEAAAAxAGEABgABAAEAAAALADkABgABAAEAAAA5AEEABgABAAEAAAAgADcABgABAAEAAAAqADYABgABAAEAAAA2AC8ABgABAAEAAAAVAC4ABgABAAEAAAA9ACsABgABAAEAAAAgADgAAAABAAEAAAAWAC8AAAABAAEAAAAJACkAAAABAAEAAAA1ADAAAAABAAEAAAA+ACwAAAABAAEAAAAcAEcAAAABAAEAAAAcAEYAAAABAAEAAAAhADgAAQAAAAEAAAApADcAAQAAAAEAAAAxADMAAQAAAAEAAAAUADAAAQAAAAEAAAAKACwAAQAAAAEAAABCACkAAQAAAAEAAABMADQAAQAAAAEAAABOADUAAQAAAAEAAAA=")
 tile_set = SubResource("TileSet_jpyye")
 
-[node name="ReturnWhirlpool" parent="TileMap" instance=ExtResource("17_return_portal")]
+[node name="ReturnWhirlpool" parent="TileMap" unique_id=1199954714 instance=ExtResource("17_return_portal")]
 position = Vector2(558, 1516)
 
 [node name="Player" parent="TileMap" unique_id=1859360934 instance=ExtResource("14_3flie")]
@@ -253,37 +256,37 @@ position = Vector2(391, 180)
 position = Vector2(432, 361)
 
 [node name="Spider6" parent="TileMap/Enemies" unique_id=219839576 instance=ExtResource("15_spider")]
-position = Vector2(1198, 495)
+position = Vector2(750, 420)
 
 [node name="Spider7" parent="TileMap/Enemies" unique_id=1829962506 instance=ExtResource("15_spider")]
 position = Vector2(808, 486)
 
 [node name="Spider8" parent="TileMap/Enemies" unique_id=1756267968 instance=ExtResource("15_spider")]
-position = Vector2(541, 976)
+position = Vector2(633, 545)
 
 [node name="Spider9" parent="TileMap/Enemies" unique_id=2123344923 instance=ExtResource("15_spider")]
-position = Vector2(845, 894)
+position = Vector2(511, 418)
 
 [node name="Spider10" parent="TileMap/Enemies" unique_id=558480351 instance=ExtResource("15_spider")]
-position = Vector2(636, 1046)
+position = Vector2(681, 487)
 
 [node name="Spider11" parent="TileMap/Enemies" unique_id=6312042 instance=ExtResource("15_spider")]
-position = Vector2(190, 788)
+position = Vector2(359, 439)
 
 [node name="Spider12" parent="TileMap/Enemies" unique_id=291079407 instance=ExtResource("15_spider")]
-position = Vector2(990, 812)
+position = Vector2(900, 454)
 
 [node name="Spider13" parent="TileMap/Enemies" unique_id=801317714 instance=ExtResource("15_spider")]
-position = Vector2(487, 1051)
+position = Vector2(485, 592)
 
 [node name="Snake" parent="TileMap/Enemies" unique_id=492194821 instance=ExtResource("16_snake")]
 position = Vector2(431, 503)
 
 [node name="Snake2" parent="TileMap/Enemies" unique_id=63911499 instance=ExtResource("16_snake")]
-position = Vector2(14, 628)
+position = Vector2(513, 302)
 
 [node name="Snake3" parent="TileMap/Enemies" unique_id=1198244715 instance=ExtResource("16_snake")]
-position = Vector2(653, 886)
+position = Vector2(668, 357)
 
 [node name="Snake4" parent="TileMap/Enemies" unique_id=3110660 instance=ExtResource("16_snake")]
 position = Vector2(586, 293)
@@ -292,10 +295,10 @@ position = Vector2(586, 293)
 position = Vector2(605, 635)
 
 [node name="Snake6" parent="TileMap/Enemies" unique_id=91702029 instance=ExtResource("16_snake")]
-position = Vector2(287, 874)
+position = Vector2(589, 355)
 
 [node name="Snake7" parent="TileMap/Enemies" unique_id=54711025 instance=ExtResource("16_snake")]
-position = Vector2(19, 412)
+position = Vector2(711, 294)
 
 [node name="Snake8" parent="TileMap/Enemies" unique_id=978954520 instance=ExtResource("16_snake")]
 position = Vector2(739, 580)
@@ -304,12 +307,29 @@ position = Vector2(739, 580)
 position = Vector2(579, 448)
 
 [node name="Snake10" parent="TileMap/Enemies" unique_id=953287038 instance=ExtResource("16_snake")]
-position = Vector2(1145, 694)
+position = Vector2(517, 510)
 
 [node name="Snake11" parent="TileMap/Enemies" unique_id=1121129151 instance=ExtResource("16_snake")]
 position = Vector2(780, 354)
 
-[node name="RegionUI" type="CanvasLayer" parent="."]
+[node name="Bosses" type="Node2D" parent="TileMap" unique_id=551820056]
+y_sort_enabled = true
+
+[node name="BossSpawnPoint" type="Marker2D" parent="TileMap" unique_id=459266737]
+position = Vector2(564, 586)
+
+[node name="RegionUI" type="CanvasLayer" parent="." unique_id=1825088182]
 layer = 50
 
-[node name="ConfirmationDialog" parent="RegionUI" instance=ExtResource("18_dialog")]
+[node name="ConfirmationDialog" parent="RegionUI" unique_id=2129904410 instance=ExtResource("18_dialog")]
+
+[node name="RegionEncounterController" parent="." unique_id=168884415 instance=ExtResource("21_encounter")]
+enemies_container_path = NodePath("../TileMap/Enemies")
+boss_container_path = NodePath("../TileMap/Bosses")
+boss_spawn_point_path = NodePath("../TileMap/BossSpawnPoint")
+boss_scene = ExtResource("20_panda")
+boss_display_name = "PANDA"
+
+[node name="RegionVictoryController" parent="." unique_id=400219551 instance=ExtResource("19_victory")]
+replay_scene_path = "res://scenes/maps/EarthRegion.tscn"
+region_id = "earth"

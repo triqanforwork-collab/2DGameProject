@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/maps/region_encounter_controller.gd" id="1_controller"]
+[ext_resource type="PackedScene" path="res://scenes/ui/BossWarningOverlay.tscn" id="2_warning"]
+
+[node name="RegionEncounterController" type="Node" groups=["region_encounter_controller"]]
+script = ExtResource("1_controller")
+
+[node name="BossWarningOverlay" parent="." instance=ExtResource("2_warning")]

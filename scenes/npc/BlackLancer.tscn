@@ -106,6 +106,7 @@ y_sort_enabled = true
 collision_mask = 0
 script = ExtResource("2_gatekeeper")
 gate_enabled = true
+region_id = "earth"
 dialog_message = "Bạn có muốn di chuyển đến Earth Region không?"
 target_scene_path = "res://scenes/maps/EarthRegion.tscn"
 

@@ -1,0 +1,92 @@
+[gd_scene load_steps=19 format=3]
+
+[ext_resource type="Script" path="res://scripts/enemies/bomb_projectile.gd" id="1_script"]
+[ext_resource type="Texture2D" path="res://assets/enemies/Bomb Fish/Bomb_Spinning.png" id="2_spin"]
+[ext_resource type="Texture2D" path="res://assets/enemies/Bomb Fish/Bomb_FuseLit.png" id="3_fuse"]
+[ext_resource type="Texture2D" path="res://assets/enemies/Explosion_02.png" id="4_explosion"]
+
+[sub_resource type="AtlasTexture" id="Spin0"]
+atlas = ExtResource("2_spin")
+region = Rect2(0, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="Spin1"]
+atlas = ExtResource("2_spin")
+region = Rect2(128, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="Spin2"]
+atlas = ExtResource("2_spin")
+region = Rect2(256, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="Spin3"]
+atlas = ExtResource("2_spin")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Fuse0"]
+atlas = ExtResource("3_fuse")
+region = Rect2(0, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="Fuse1"]
+atlas = ExtResource("3_fuse")
+region = Rect2(128, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="Fuse2"]
+atlas = ExtResource("3_fuse")
+region = Rect2(256, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="Fuse3"]
+atlas = ExtResource("3_fuse")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="Explosion0"]
+atlas = ExtResource("4_explosion")
+region = Rect2(0, 0, 192, 192)
+[sub_resource type="AtlasTexture" id="Explosion1"]
+atlas = ExtResource("4_explosion")
+region = Rect2(192, 0, 192, 192)
+[sub_resource type="AtlasTexture" id="Explosion2"]
+atlas = ExtResource("4_explosion")
+region = Rect2(384, 0, 192, 192)
+[sub_resource type="AtlasTexture" id="Explosion3"]
+atlas = ExtResource("4_explosion")
+region = Rect2(576, 0, 192, 192)
+[sub_resource type="AtlasTexture" id="Explosion4"]
+atlas = ExtResource("4_explosion")
+region = Rect2(768, 0, 192, 192)
+[sub_resource type="AtlasTexture" id="Explosion5"]
+atlas = ExtResource("4_explosion")
+region = Rect2(960, 0, 192, 192)
+[sub_resource type="AtlasTexture" id="Explosion6"]
+atlas = ExtResource("4_explosion")
+region = Rect2(1152, 0, 192, 192)
+[sub_resource type="AtlasTexture" id="Explosion7"]
+atlas = ExtResource("4_explosion")
+region = Rect2(1344, 0, 192, 192)
+[sub_resource type="AtlasTexture" id="Explosion8"]
+atlas = ExtResource("4_explosion")
+region = Rect2(1536, 0, 192, 192)
+[sub_resource type="AtlasTexture" id="Explosion9"]
+atlas = ExtResource("4_explosion")
+region = Rect2(1728, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="Frames"]
+animations = [{
+"frames": [{"duration": 1.0, "texture": SubResource("Explosion0")}, {"duration": 1.0, "texture": SubResource("Explosion1")}, {"duration": 1.0, "texture": SubResource("Explosion2")}, {"duration": 1.0, "texture": SubResource("Explosion3")}, {"duration": 1.0, "texture": SubResource("Explosion4")}, {"duration": 1.0, "texture": SubResource("Explosion5")}, {"duration": 1.0, "texture": SubResource("Explosion6")}, {"duration": 1.0, "texture": SubResource("Explosion7")}, {"duration": 1.0, "texture": SubResource("Explosion8")}, {"duration": 1.0, "texture": SubResource("Explosion9")}],
+"loop": false,
+"name": &"explosion",
+"speed": 12.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Fuse0")}, {"duration": 1.0, "texture": SubResource("Fuse1")}, {"duration": 1.0, "texture": SubResource("Fuse2")}, {"duration": 1.0, "texture": SubResource("Fuse3")}],
+"loop": true,
+"name": &"fuse",
+"speed": 12.0
+}, {
+"frames": [{"duration": 1.0, "texture": SubResource("Spin0")}, {"duration": 1.0, "texture": SubResource("Spin1")}, {"duration": 1.0, "texture": SubResource("Spin2")}, {"duration": 1.0, "texture": SubResource("Spin3")}],
+"loop": true,
+"name": &"spinning",
+"speed": 12.0
+}]
+
+[node name="BombProjectile" type="Node2D"]
+z_index = 25
+script = ExtResource("1_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("Frames")
+animation = &"spinning"
+autoplay = "spinning"

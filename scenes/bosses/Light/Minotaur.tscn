@@ -1,12 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dhn6w58gcwlxs"]
 
-[ext_resource type="Script" path="res://scripts/bosses/boss.gd" id="1_4onte"]
-[ext_resource type="Texture2D" path="res://assets/bosses/Light/Minotaur/Minotaur_Attack.png" id="2_a4sb5"]
-[ext_resource type="Texture2D" path="res://assets/bosses/Light/Minotaur/Minotaur_Idle.png" id="3_okqmt"]
-[ext_resource type="Texture2D" path="res://assets/bosses/Light/Minotaur/Minotaur_Walk.png" id="4_6ag8v"]
-[ext_resource type="Texture2D" path="res://assets/enemies/Fire_03.png" id="5_1ylak"]
-[ext_resource type="Texture2D" path="res://assets/enemies/Dust_02.png" id="6_gsrp5"]
-[ext_resource type="Texture2D" path="res://assets/effect/MagicBarrier_64x64.png" id="7_y0h06"]
+[ext_resource type="Script" uid="uid://bbjr2qksjjegy" path="res://scripts/bosses/boss.gd" id="1_4onte"]
+[ext_resource type="Texture2D" uid="uid://crulfest5x2hg" path="res://assets/bosses/Light/Minotaur/Minotaur_Attack.png" id="2_a4sb5"]
+[ext_resource type="Texture2D" uid="uid://dg1r44obajdnj" path="res://assets/bosses/Light/Minotaur/Minotaur_Idle.png" id="3_okqmt"]
+[ext_resource type="Texture2D" uid="uid://cmotcnwfh1cqb" path="res://assets/bosses/Light/Minotaur/Minotaur_Walk.png" id="4_6ag8v"]
+[ext_resource type="Texture2D" uid="uid://nrjed3uwjpsf" path="res://assets/enemies/Fire_03.png" id="5_1ylak"]
+[ext_resource type="Texture2D" uid="uid://bglydjb6frmih" path="res://assets/enemies/Dust_02.png" id="6_gsrp5"]
+[ext_resource type="Texture2D" uid="uid://bpt1t8w0uo4pc" path="res://assets/effect/MagicBarrier_64x64.png" id="7_y0h06"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jgn0y"]
 atlas = ExtResource("2_a4sb5")
@@ -656,7 +656,7 @@ knockback_force = 140.0
 knockback_duration = 0.08
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1896551210]
-scale = Vector2(0.45, 0.45)
+scale = Vector2(1.5, 1.5)
 sprite_frames = SubResource("SpriteFrames_3jvuy")
 animation = &"Idle"
 

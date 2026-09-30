@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://1l1t2shqwci2"]
+
+[ext_resource type="Script" uid="uid://ceffn218o2407" path="res://scripts/player/player_magic_beam.gd" id="1_script"]
+
+[node name="PlayerMagicBeam" type="Node2D" unique_id=530887992]
+z_index = 6
+script = ExtResource("1_script")
+duration = 0.5
+beam_width = 20.0
+hit_radius = 30.0

@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://scripts/enemies/enemy.gd" id="1_eh2q0"]
+[ext_resource type="Script" path="res://scripts/enemies/bomb_fish.gd" id="1_eh2q0"]
 [ext_resource type="Texture2D" path="res://assets/enemies/Bomb Fish/Bomb Fish_Shoot.png" id="2_pbmvr"]
 [ext_resource type="Texture2D" path="res://assets/enemies/Bomb Fish/Bomb Fish_Idle.png" id="3_sam1d"]
 [ext_resource type="Texture2D" path="res://assets/enemies/Bomb Fish/Bomb Fish_Run.png" id="4_cnq3t"]
@@ -536,13 +536,14 @@ radius = 19.0
 radius = 180.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_v0o38"]
-radius = 55.0
+radius = 150.0
 
 [node name="BombFish" type="CharacterBody2D" unique_id=244624417]
 collision_layer = 4
 collision_mask = 7
 script = ExtResource("1_eh2q0")
-attack_range = 55.0
+attack_range = 150.0
+attack_cooldown = 4.0
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=968590830]
 scale = Vector2(0.5, 0.5)

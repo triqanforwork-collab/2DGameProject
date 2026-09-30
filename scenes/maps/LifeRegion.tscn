@@ -17,6 +17,9 @@
 [ext_resource type="PackedScene" path="res://scenes/enemies/Life/SpearGoblin.tscn" id="15_spear"]
 [ext_resource type="PackedScene" uid="uid://dhp5xxaesww8q" path="res://scenes/portals/ReturnWhirlpool.tscn" id="16_return_portal"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ConfirmationDialog.tscn" id="17_dialog"]
+[ext_resource type="PackedScene" path="res://scenes/ui/RegionVictoryController.tscn" id="18_victory"]
+[ext_resource type="PackedScene" uid="uid://cveratgnbpc3f" path="res://scenes/bosses/Life/Troll.tscn" id="19_troll"]
+[ext_resource type="PackedScene" path="res://scenes/maps/RegionEncounterController.tscn" id="20_encounter"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("2_om1er")
@@ -229,7 +232,7 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AAA3ADsACgAAAAEAAAA0AD0ACgAAAAEAAAA1AD0ACgAAAAEAAABzAEgACgAAAAEAAAB8AC0ACgAAAAEAAAA+AEQACgAAAAEAAAAGAC0ACgAAAAEAAAA5AAAACgAAAAEAAAAEAAMACgAAAAEAAAB3AAMACgAAAAEAAACBADkACgAAAAEAAAAKAB4ACQADAAEAAAANAB8ACQADAAEAAABkAAQABwACAAMAAAB5AA0ABwACAAMAAAByAC0ABwACAAMAAABlADQABwACAAMAAABMAP//BwACAAMAAABHAAIABwACAAMAAABDAP//BwACAAMAAABMAAIABwACAAMAAABCAAMACAACAAAAAABeAPz/CAACAAAAAABqAP3/CAACAAAAAABuAAQACAACAAAAAABnAAUACAACAAAAAAB9AA8ACAACAAAAAAB1AC8ACAACAAAAAAArAP7/CAACAAAAAAAtAAEABwACAAMAAAAJAAMACQADAAEAAAAGAAYACQADAAEAAAAJAAgACQADAAEAAAAFACMACQADAAEAAAAaABIACQADAAEAAAAwAA8ACQADAAEAAAA9ABIACQADAAEAAAAaADYACQADAAEAAAAdADcACQADAAEAAAAGADoACQADAAEAAAAJAC8ACQADAAEAAAApAB4ACQADAAEAAAAmACAACQADAAEAAAA1ADIACQADAAEAAABGAEEACQADAAEAAABgAEkACQADAAEAAABgAEoACQADAAEAAAAaADwABAACAAIAAAAHADMABAACAAIAAAAGACUABAACAAIAAAAKACQABAACAAIAAAApACQABAACAAIAAAB4AD0ABAACAAIAAABsADgABAACAAIAAABOAEgABAACAAIAAAA5AAUABAACAAIAAAAtABUABAACAAIAAAAQAAMABAACAAIAAAAOAAYABAACAAIAAAAKABYABAACAAIAAAARAAUABQACAAIAAAAMABYABQACAAIAAAAIAAwABQACAAIAAAAnACUABQACAAIAAAAyABQABQACAAIAAAA/ABUABQACAAIAAABiAC0ABQACAAIAAABxABkABQACAAIAAABkACwABQACAAIAAAB5ABUABQACAAIAAAByAAoABQACAAIAAABcAAIABQACAAIAAABHAAkABQACAAIAAAA+AAYABQACAAIAAAA+AAwABQACAAIAAABZACkABQACAAIAAAAuADAABgABAAEAAAAiADgABgABAAEAAAAUACkABgABAAEAAAAGAB0ABgABAAEAAAAxABYABgABAAEAAAAxAAkABgABAAEAAAA6AA0ABgABAAEAAABGAC0ABgABAAEAAABYAD8ABgABAAEAAAB5ADUABgABAAEAAABzACUABgABAAEAAAB2AAgABgABAAEAAAAUAAIABgABAAEAAAAQACIAAwAAAAAAAAAUABsAAwAAAAAAAAAGABEAAwAAAAAAAAAvABQAAwAAAAAAAAAcABUAAwAAAAAAAABCACIAAwAAAAAAAABGADQAAwAAAAAAAABRADQAAwAAAAAAAABSAE0AAwAAAAAAAAA4AEgAAwAAAAAAAAA3AEYABgABAAEAAABHADQABgABAAEAAABSADUABgABAAEAAABqAAwABgABAAEAAABxABcABgABAAEAAABvABkAAwAAAAAAAABkAAsAAwAAAAAAAABFAAkAAwAAAAAAAABTAAEAAwAAAAAAAABRAAIAAwAAAAAAAAAUAAQAAwAAAAAAAAAkACIAAwAAAAAAAAALADQAAwAAAAAAAAAJAD4AAwAAAAAAAAAwACYAAwAAAAAAAABdAE0AAwAAAAAAAABeAE4AAgAAAAEAAABTAE4AAgAAAAEAAAA2AEkAAgAAAAEAAAALAD4AAgAAAAEAAAALADIAAgAAAAEAAAAyACcAAgAAAAEAAABCACQAAgAAAAEAAAA/ABYAAgAAAAEAAAAaABcAAgAAAAEAAAAHABAAAgAAAAEAAAAOABcAAgAAAAEAAABlAA0AAgAAAAEAAABvABsAAgAAAAEAAAB3AD0AAgAAAAEAAABpADkAAgAAAAEAAAByADQAAgAAAAEAAAB4ADgAAgAAAAEAAABIADYAAgAAAAEAAABGACYAAgAAAAEAAABNACwAAgAAAAEAAABLAAoAAgAAAAEAAABdACUABgABAAEAAABeACYAAAABAAEAAABdACYAAAABAAEAAABLABsAAQAAAAEAAABVABIAAQAAAAEAAABCABYAAQAAAAEAAABJABkABgABAAEAAABJABsAAAABAAEAAABWABIAAAABAAEAAABBABYAAAABAAEAAABVABAABgABAAEAAABCABQABgABAAEAAAA=")
 tile_set = SubResource("TileSet_jpyye")
 
-[node name="ReturnWhirlpool" parent="TileMap" instance=ExtResource("16_return_portal")]
+[node name="ReturnWhirlpool" parent="TileMap" unique_id=312441574 instance=ExtResource("16_return_portal")]
 position = Vector2(897, 1057)
 
 [node name="Player" parent="TileMap" unique_id=1859360934 instance=ExtResource("2_1olqt")]
@@ -242,7 +245,7 @@ position = Vector2(473, 107)
 scale = Vector2(2, 2)
 
 [node name="Thief2" parent="TileMap/Enemies" unique_id=1672080403 instance=ExtResource("14_thief")]
-position = Vector2(423, 77)
+position = Vector2(531, 270)
 
 [node name="Thief3" parent="TileMap/Enemies" unique_id=877012700 instance=ExtResource("14_thief")]
 position = Vector2(535, 193)
@@ -263,10 +266,10 @@ position = Vector2(1265, 176)
 position = Vector2(1396, 731)
 
 [node name="Thief9" parent="TileMap/Enemies" unique_id=1682592162 instance=ExtResource("14_thief")]
-position = Vector2(1724, 791)
+position = Vector2(1278, 404)
 
 [node name="Thief10" parent="TileMap/Enemies" unique_id=651031128 instance=ExtResource("14_thief")]
-position = Vector2(1478, 895)
+position = Vector2(690, 662)
 
 [node name="Thief11" parent="TileMap/Enemies" unique_id=277379195 instance=ExtResource("14_thief")]
 position = Vector2(1548, 504)
@@ -275,7 +278,7 @@ position = Vector2(1548, 504)
 position = Vector2(1716, 355)
 
 [node name="Thief13" parent="TileMap/Enemies" unique_id=1507319872 instance=ExtResource("14_thief")]
-position = Vector2(1573, 589)
+position = Vector2(1399, 563)
 
 [node name="SpearGoblin" parent="TileMap/Enemies" unique_id=1083693753 instance=ExtResource("15_spear")]
 position = Vector2(427, 595)
@@ -285,7 +288,7 @@ scale = Vector2(2, 2)
 position = Vector2(564, 730)
 
 [node name="SpearGoblin3" parent="TileMap/Enemies" unique_id=1903183495 instance=ExtResource("15_spear")]
-position = Vector2(653, 886)
+position = Vector2(644, 709)
 
 [node name="SpearGoblin4" parent="TileMap/Enemies" unique_id=84281478 instance=ExtResource("15_spear")]
 position = Vector2(418, 741)
@@ -294,7 +297,7 @@ position = Vector2(418, 741)
 position = Vector2(605, 635)
 
 [node name="SpearGoblin6" parent="TileMap/Enemies" unique_id=958690956 instance=ExtResource("15_spear")]
-position = Vector2(287, 874)
+position = Vector2(490, 674)
 
 [node name="SpearGoblin7" parent="TileMap/Enemies" unique_id=1421826853 instance=ExtResource("15_spear")]
 position = Vector2(1199, 516)
@@ -306,12 +309,29 @@ position = Vector2(1311, 306)
 position = Vector2(1616, 274)
 
 [node name="SpearGoblin10" parent="TileMap/Enemies" unique_id=664167057 instance=ExtResource("15_spear")]
-position = Vector2(1627, 419)
+position = Vector2(1516, 424)
 
 [node name="SpearGoblin11" parent="TileMap/Enemies" unique_id=2068778239 instance=ExtResource("15_spear")]
-position = Vector2(1721, 543)
+position = Vector2(1412, 385)
 
-[node name="RegionUI" type="CanvasLayer" parent="."]
+[node name="Bosses" type="Node2D" parent="TileMap" unique_id=1993563794]
+y_sort_enabled = true
+
+[node name="BossSpawnPoint" type="Marker2D" parent="TileMap" unique_id=295593303]
+position = Vector2(1035, 487)
+
+[node name="RegionUI" type="CanvasLayer" parent="." unique_id=418727250]
 layer = 50
 
-[node name="ConfirmationDialog" parent="RegionUI" instance=ExtResource("17_dialog")]
+[node name="ConfirmationDialog" parent="RegionUI" unique_id=112408015 instance=ExtResource("17_dialog")]
+
+[node name="RegionEncounterController" parent="." unique_id=365778772 instance=ExtResource("20_encounter")]
+enemies_container_path = NodePath("../TileMap/Enemies")
+boss_container_path = NodePath("../TileMap/Bosses")
+boss_spawn_point_path = NodePath("../TileMap/BossSpawnPoint")
+boss_scene = ExtResource("19_troll")
+boss_display_name = "TROLL"
+
+[node name="RegionVictoryController" parent="." unique_id=1959989270 instance=ExtResource("18_victory")]
+replay_scene_path = "res://scenes/maps/LifeRegion.tscn"
+region_id = "life"

@@ -17,6 +17,9 @@
 [ext_resource type="PackedScene" path="res://scenes/enemies/Air/Bumblebee.tscn" id="15_dtktt"]
 [ext_resource type="PackedScene" uid="uid://dhp5xxaesww8q" path="res://scenes/portals/ReturnWhirlpool.tscn" id="16_return_portal"]
 [ext_resource type="PackedScene" path="res://scenes/ui/ConfirmationDialog.tscn" id="17_dialog"]
+[ext_resource type="PackedScene" path="res://scenes/ui/RegionVictoryController.tscn" id="18_victory"]
+[ext_resource type="PackedScene" uid="uid://bfprmkfec5soe" path="res://scenes/bosses/Air/GiantBat.tscn" id="19_giant_bat"]
+[ext_resource type="PackedScene" path="res://scenes/maps/RegionEncounterController.tscn" id="20_encounter"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("2_oj3g5")
@@ -229,7 +232,7 @@ y_sort_enabled = true
 tile_map_data = PackedByteArray("AAA3ADsACgAAAAEAAAA0AD0ACgAAAAEAAAA1AD0ACgAAAAEAAABzAEgACgAAAAEAAAB8AC0ACgAAAAEAAAA+AEQACgAAAAEAAAAGAC0ACgAAAAEAAAA5AAAACgAAAAEAAAAEAAMACgAAAAEAAAB3AAMACgAAAAEAAACBADkACgAAAAEAAAAKAB4ACQADAAEAAAANAB8ACQADAAEAAABkAAQABwACAAMAAABdABMABwACAAMAAAB5AA0ABwACAAMAAAByAC0ABwACAAMAAABlADQABwACAAMAAABMAP//BwACAAMAAABHAAIABwACAAMAAABDAP//BwACAAMAAABMAAIABwACAAMAAABCAAMACAACAAAAAABeAPz/CAACAAAAAABqAP3/CAACAAAAAABuAAQACAACAAAAAABnAAUACAACAAAAAABaABQACAACAAAAAABgABMACAACAAAAAAB9AA8ACAACAAAAAAB1AC8ACAACAAAAAAArAP7/CAACAAAAAAAtAAEABwACAAMAAAAJAAMACQADAAEAAAAGAAYACQADAAEAAAAJAAgACQADAAEAAAAFACMACQADAAEAAAAaABIACQADAAEAAAAwAA8ACQADAAEAAAA9ABIACQADAAEAAAAaADYACQADAAEAAAAdADcACQADAAEAAAAGADoACQADAAEAAAAJAC8ACQADAAEAAAApAB4ACQADAAEAAAAmACAACQADAAEAAAA1ADIACQADAAEAAABGAEEACQADAAEAAABgAEkACQADAAEAAABgAEoACQADAAEAAAAaADwABAACAAIAAAAHADMABAACAAIAAAAGACUABAACAAIAAAAKACQABAACAAIAAAApACQABAACAAIAAABHABwABAACAAIAAAB4AD0ABAACAAIAAABsADgABAACAAIAAABOAEgABAACAAIAAAA5AAUABAACAAIAAAAtABUABAACAAIAAAAQAAMABAACAAIAAAAOAAYABAACAAIAAAAKABYABAACAAIAAAARAAUABQACAAIAAAAMABYABQACAAIAAAAIAAwABQACAAIAAAAnACUABQACAAIAAAAyABQABQACAAIAAAA/ABUABQACAAIAAABiAC0ABQACAAIAAABxABkABQACAAIAAABkACwABQACAAIAAAB5ABUABQACAAIAAAByAAoABQACAAIAAABcAAIABQACAAIAAABHAAkABQACAAIAAAA+AAYABQACAAIAAAA+AAwABQACAAIAAABZACkABQACAAIAAAAuADAABgABAAEAAAAiADgABgABAAEAAAAUACkABgABAAEAAAAGAB0ABgABAAEAAAAxABYABgABAAEAAAAxAAkABgABAAEAAAA6AA0ABgABAAEAAABNABwABgABAAEAAABGAC0ABgABAAEAAABYAD8ABgABAAEAAAB5ADUABgABAAEAAABzACUABgABAAEAAAB2AAgABgABAAEAAAAUAAIABgABAAEAAAAQACIAAwAAAAAAAAAUABsAAwAAAAAAAAAGABEAAwAAAAAAAAAvABQAAwAAAAAAAAAcABUAAwAAAAAAAABCACIAAwAAAAAAAABGADQAAwAAAAAAAABRADQAAwAAAAAAAABSAE0AAwAAAAAAAAA4AEgAAwAAAAAAAAA3AEYABgABAAEAAABHADQABgABAAEAAABSADUABgABAAEAAABqAAwABgABAAEAAABxABcABgABAAEAAABvABkAAwAAAAAAAABdABsAAwAAAAAAAABkAAsAAwAAAAAAAABFAAkAAwAAAAAAAABTAAEAAwAAAAAAAABRAAIAAwAAAAAAAAAUAAQAAwAAAAAAAAAkACIAAwAAAAAAAAALADQAAwAAAAAAAAAJAD4AAwAAAAAAAAAwACYAAwAAAAAAAABdAE0AAwAAAAAAAABeAE4AAgAAAAEAAABTAE4AAgAAAAEAAAA2AEkAAgAAAAEAAAALAD4AAgAAAAEAAAALADIAAgAAAAEAAAAyACcAAgAAAAEAAABCACQAAgAAAAEAAABJAB0AAgAAAAEAAAA/ABYAAgAAAAEAAAAaABcAAgAAAAEAAAAHABAAAgAAAAEAAAAOABcAAgAAAAEAAABlAA0AAgAAAAEAAABvABsAAgAAAAEAAABbABwAAgAAAAEAAAB3AD0AAgAAAAEAAABpADkAAgAAAAEAAAByADQAAgAAAAEAAAB4ADgAAgAAAAEAAABIADYAAgAAAAEAAABGACYAAgAAAAEAAABNACwAAgAAAAEAAABLAAoAAgAAAAEAAAA=")
 tile_set = SubResource("TileSet_jpyye")
 
-[node name="ReturnWhirlpool" parent="TileMap" instance=ExtResource("16_return_portal")]
+[node name="ReturnWhirlpool" parent="TileMap" unique_id=640315200 instance=ExtResource("16_return_portal")]
 position = Vector2(860, 108)
 
 [node name="Player" parent="TileMap" unique_id=1859360934 instance=ExtResource("13_td18n")]
@@ -238,80 +241,97 @@ position = Vector2(860, 108)
 [node name="Enemies" type="Node2D" parent="TileMap" unique_id=1681791939]
 
 [node name="Imp" parent="TileMap/Enemies" unique_id=970021736 instance=ExtResource("14_5mg4d")]
-position = Vector2(473, 107)
+position = Vector2(666, 395)
 scale = Vector2(2, 2)
 
 [node name="Imp2" parent="TileMap/Enemies" unique_id=1672080403 instance=ExtResource("14_5mg4d")]
-position = Vector2(423, 77)
+position = Vector2(616, 365)
 
 [node name="Imp3" parent="TileMap/Enemies" unique_id=877012700 instance=ExtResource("14_5mg4d")]
-position = Vector2(535, 193)
+position = Vector2(728, 481)
 
 [node name="Imp4" parent="TileMap/Enemies" unique_id=526651792 instance=ExtResource("14_5mg4d")]
-position = Vector2(391, 180)
+position = Vector2(584, 468)
 
 [node name="Imp5" parent="TileMap/Enemies" unique_id=1719256678 instance=ExtResource("14_5mg4d")]
-position = Vector2(556, 101)
+position = Vector2(749, 389)
 
 [node name="Imp6" parent="TileMap/Enemies" unique_id=942131979 instance=ExtResource("14_5mg4d")]
-position = Vector2(1333, 477)
+position = Vector2(774, 444)
 
 [node name="Imp7" parent="TileMap/Enemies" unique_id=426966718 instance=ExtResource("14_5mg4d")]
-position = Vector2(1265, 176)
+position = Vector2(887, 400)
 
 [node name="Imp8" parent="TileMap/Enemies" unique_id=1032619395 instance=ExtResource("14_5mg4d")]
-position = Vector2(1461, 747)
+position = Vector2(1028, 704)
 
 [node name="Imp9" parent="TileMap/Enemies" unique_id=1682592162 instance=ExtResource("14_5mg4d")]
-position = Vector2(1610, 1002)
+position = Vector2(949, 760)
 
 [node name="Imp10" parent="TileMap/Enemies" unique_id=651031128 instance=ExtResource("14_5mg4d")]
-position = Vector2(1803, 940)
+position = Vector2(1020, 646)
 
 [node name="Imp11" parent="TileMap/Enemies" unique_id=277379195 instance=ExtResource("14_5mg4d")]
-position = Vector2(1548, 504)
+position = Vector2(769, 529)
 
 [node name="Imp12" parent="TileMap/Enemies" unique_id=1855150644 instance=ExtResource("14_5mg4d")]
-position = Vector2(1716, 355)
+position = Vector2(823, 488)
 
 [node name="Imp13" parent="TileMap/Enemies" unique_id=1507319872 instance=ExtResource("14_5mg4d")]
-position = Vector2(1573, 589)
+position = Vector2(852, 671)
 
 [node name="Bumblebee" parent="TileMap/Enemies" unique_id=1083693753 instance=ExtResource("15_dtktt")]
-position = Vector2(427, 595)
+position = Vector2(368, 447)
 scale = Vector2(2, 2)
 
 [node name="Bumblebee2" parent="TileMap/Enemies" unique_id=914436615 instance=ExtResource("15_dtktt")]
-position = Vector2(564, 730)
+position = Vector2(869, 731)
 
 [node name="Bumblebee3" parent="TileMap/Enemies" unique_id=1903183495 instance=ExtResource("15_dtktt")]
-position = Vector2(653, 886)
+position = Vector2(781, 692)
 
 [node name="Bumblebee4" parent="TileMap/Enemies" unique_id=84281478 instance=ExtResource("15_dtktt")]
-position = Vector2(418, 741)
+position = Vector2(539, 363)
 
 [node name="Bumblebee5" parent="TileMap/Enemies" unique_id=287905397 instance=ExtResource("15_dtktt")]
-position = Vector2(605, 635)
+position = Vector2(495, 445)
 
 [node name="Bumblebee6" parent="TileMap/Enemies" unique_id=958690956 instance=ExtResource("15_dtktt")]
-position = Vector2(287, 874)
+position = Vector2(1193, 530)
 
 [node name="Bumblebee7" parent="TileMap/Enemies" unique_id=1421826853 instance=ExtResource("15_dtktt")]
-position = Vector2(1309, 624)
+position = Vector2(872, 529)
 
 [node name="Bumblebee8" parent="TileMap/Enemies" unique_id=1131962466 instance=ExtResource("15_dtktt")]
-position = Vector2(1311, 306)
+position = Vector2(913, 458)
 
 [node name="Bumblebee9" parent="TileMap/Enemies" unique_id=1413398622 instance=ExtResource("15_dtktt")]
-position = Vector2(1616, 274)
+position = Vector2(987, 434)
 
 [node name="Bumblebee10" parent="TileMap/Enemies" unique_id=664167057 instance=ExtResource("15_dtktt")]
-position = Vector2(1627, 419)
+position = Vector2(992, 522)
 
 [node name="Bumblebee11" parent="TileMap/Enemies" unique_id=2068778239 instance=ExtResource("15_dtktt")]
-position = Vector2(1721, 543)
+position = Vector2(938, 668)
 
-[node name="RegionUI" type="CanvasLayer" parent="."]
+[node name="Bosses" type="Node2D" parent="TileMap" unique_id=1452368394]
+y_sort_enabled = true
+
+[node name="BossSpawnPoint" type="Marker2D" parent="TileMap" unique_id=1983006566]
+position = Vector2(1051, 503)
+
+[node name="RegionUI" type="CanvasLayer" parent="." unique_id=492829579]
 layer = 50
 
-[node name="ConfirmationDialog" parent="RegionUI" instance=ExtResource("17_dialog")]
+[node name="ConfirmationDialog" parent="RegionUI" unique_id=1642282287 instance=ExtResource("17_dialog")]
+
+[node name="RegionEncounterController" parent="." unique_id=1381984860 instance=ExtResource("20_encounter")]
+enemies_container_path = NodePath("../TileMap/Enemies")
+boss_container_path = NodePath("../TileMap/Bosses")
+boss_spawn_point_path = NodePath("../TileMap/BossSpawnPoint")
+boss_scene = ExtResource("19_giant_bat")
+boss_display_name = "GIANT BAT"
+
+[node name="RegionVictoryController" parent="." unique_id=1375139599 instance=ExtResource("18_victory")]
+replay_scene_path = "res://scenes/maps/AirRegion.tscn"
+region_id = "air"

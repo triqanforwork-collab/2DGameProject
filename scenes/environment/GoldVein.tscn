@@ -1,0 +1,64 @@
+[gd_scene format=3 uid="uid://4r5wg6yowulr"]
+
+[ext_resource type="Texture2D" uid="uid://d1vkf6s4tar6m" path="res://assets/environment/gold/Gold Stone 5_Highlight.png" id="1_oab8u"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j4eyp"]
+atlas = ExtResource("1_oab8u")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q65qo"]
+atlas = ExtResource("1_oab8u")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nohog"]
+atlas = ExtResource("1_oab8u")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hjx8e"]
+atlas = ExtResource("1_oab8u")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tdwrr"]
+atlas = ExtResource("1_oab8u")
+region = Rect2(512, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ghti"]
+atlas = ExtResource("1_oab8u")
+region = Rect2(640, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4wl4v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j4eyp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q65qo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nohog")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hjx8e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tdwrr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ghti")
+}],
+"loop": 1,
+"name": &"shine",
+"speed": 5.0
+}]
+
+[node name="GoldVein" type="Node2D" unique_id=1959937885]
+y_sort_enabled = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=904694704]
+texture_filter = 1
+position = Vector2(0, -20)
+sprite_frames = SubResource("SpriteFrames_4wl4v")
+animation = &"shine"
+autoplay = "shine"
+frame_progress = 0.58703995

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://qdmqkj8jaml4"]
 
-[ext_resource type="Script" uid="uid://bbjr2qksjjegy" path="res://scripts/bosses/boss.gd" id="1_cngck"]
+[ext_resource type="Script" path="res://scripts/bosses/turtle.gd" id="1_cngck"]
 [ext_resource type="Texture2D" uid="uid://b183un0b0csrs" path="res://assets/bosses/Water/Turtle/Turtle_Attack.png" id="2_08x1o"]
 [ext_resource type="Texture2D" uid="uid://di3jfm53gwmig" path="res://assets/bosses/Water/Turtle/Turtle_Idle.png" id="3_s1obt"]
 [ext_resource type="Texture2D" uid="uid://orcud5a0ases" path="res://assets/bosses/Water/Turtle/Turtle_Walk.png" id="4_ckxwf"]
@@ -578,7 +578,7 @@ radius = 29.0
 radius = 320.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g8hwc"]
-radius = 80.0
+radius = 230.0
 
 [node name="Turtle" type="CharacterBody2D" unique_id=453899154]
 collision_layer = 4
@@ -588,8 +588,8 @@ boss_name = "TURTLE"
 max_health = 55
 speed = 60.0
 attack_damage = 2
-attack_range = 80.0
-attack_cooldown = 1.2
+attack_range = 230.0
+attack_cooldown = 2.5
 knockback_force = 140.0
 knockback_duration = 0.08
 

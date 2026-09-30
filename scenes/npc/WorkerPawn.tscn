@@ -1,0 +1,260 @@
+[gd_scene format=3 uid="uid://b8qs0i1yufoqn"]
+
+[ext_resource type="Texture2D" uid="uid://c66vx0rw2aytj" path="res://assets/npc/Pawn/Pawn_Interact Axe.png" id="1_axe"]
+[ext_resource type="Texture2D" uid="uid://chcw7i1mqso3d" path="res://assets/npc/Pawn/Pawn_Interact Pickaxe.png" id="2_pickaxe"]
+[ext_resource type="Script" uid="uid://80wasg8dfdh3" path="res://scripts/npc/worker_pawn.gd" id="3_script"]
+[ext_resource type="Texture2D" uid="uid://cbd6fct386w0q" path="res://assets/npc/Pawn/Pawn_Run Axe.png" id="4_axe_run"]
+[ext_resource type="Texture2D" uid="uid://fl0br37fhhmm" path="res://assets/npc/Pawn/Pawn_Run Pickaxe.png" id="5_pickaxe_run"]
+
+[sub_resource type="AtlasTexture" id="Axe_0"]
+atlas = ExtResource("1_axe")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Axe_1"]
+atlas = ExtResource("1_axe")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Axe_2"]
+atlas = ExtResource("1_axe")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Axe_3"]
+atlas = ExtResource("1_axe")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Axe_4"]
+atlas = ExtResource("1_axe")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Axe_5"]
+atlas = ExtResource("1_axe")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AxeRun_0"]
+atlas = ExtResource("4_axe_run")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AxeRun_1"]
+atlas = ExtResource("4_axe_run")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AxeRun_2"]
+atlas = ExtResource("4_axe_run")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AxeRun_3"]
+atlas = ExtResource("4_axe_run")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AxeRun_4"]
+atlas = ExtResource("4_axe_run")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="AxeRun_5"]
+atlas = ExtResource("4_axe_run")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Pickaxe_0"]
+atlas = ExtResource("2_pickaxe")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Pickaxe_1"]
+atlas = ExtResource("2_pickaxe")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Pickaxe_2"]
+atlas = ExtResource("2_pickaxe")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Pickaxe_3"]
+atlas = ExtResource("2_pickaxe")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Pickaxe_4"]
+atlas = ExtResource("2_pickaxe")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="Pickaxe_5"]
+atlas = ExtResource("2_pickaxe")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="PickaxeRun_0"]
+atlas = ExtResource("5_pickaxe_run")
+region = Rect2(0, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="PickaxeRun_1"]
+atlas = ExtResource("5_pickaxe_run")
+region = Rect2(192, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="PickaxeRun_2"]
+atlas = ExtResource("5_pickaxe_run")
+region = Rect2(384, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="PickaxeRun_3"]
+atlas = ExtResource("5_pickaxe_run")
+region = Rect2(576, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="PickaxeRun_4"]
+atlas = ExtResource("5_pickaxe_run")
+region = Rect2(768, 0, 192, 192)
+
+[sub_resource type="AtlasTexture" id="PickaxeRun_5"]
+atlas = ExtResource("5_pickaxe_run")
+region = Rect2(960, 0, 192, 192)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_work"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Axe_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Axe_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Axe_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Axe_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Axe_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Axe_5")
+}],
+"loop": 1,
+"name": &"axe",
+"speed": 13.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AxeRun_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AxeRun_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AxeRun_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AxeRun_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AxeRun_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AxeRun_5")
+}],
+"loop": 1,
+"name": &"axe_run",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("Pickaxe_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("Pickaxe_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("Pickaxe_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("Pickaxe_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("Pickaxe_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("Pickaxe_5")
+}],
+"loop": 1,
+"name": &"pickaxe",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("PickaxeRun_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("PickaxeRun_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("PickaxeRun_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("PickaxeRun_3")
+}, {
+"duration": 1.0,
+"texture": SubResource("PickaxeRun_4")
+}, {
+"duration": 1.0,
+"texture": SubResource("PickaxeRun_5")
+}],
+"loop": 1,
+"name": &"pickaxe_run",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detector"]
+radius = 46.52956
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bubble"]
+bg_color = Color(1, 1, 1, 0.92)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="WorkerPawn" type="CharacterBody2D" unique_id=584447596 groups=["npc"]]
+y_sort_enabled = true
+collision_layer = 4
+script = ExtResource("3_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=131848779]
+texture_filter = 1
+position = Vector2(0, -28)
+scale = Vector2(0.8, 0.8)
+sprite_frames = SubResource("SpriteFrames_work")
+animation = &"axe"
+frame_progress = 0.7518599
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1321119832]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_body")
+
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=1022611227]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=528964967]
+position = Vector2(0, -6)
+shape = SubResource("CircleShape2D_detector")
+
+[node name="ReturnDelay" type="Timer" parent="." unique_id=1836242639]
+wait_time = 0.5
+one_shot = true
+
+[node name="SpeechBubble" type="Label" parent="." unique_id=868448569]
+z_index = 20
+offset_left = -42.0
+offset_top = -78.0
+offset_right = 42.0
+offset_bottom = -52.0
+theme_override_colors/font_color = Color(0.12, 0.12, 0.12, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_bubble")
+text = "I'm sorry!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpeechTimer" type="Timer" parent="." unique_id=1900189872]
+wait_time = 1.5
+one_shot = true
+
+[node name="SpeechCooldown" type="Timer" parent="." unique_id=1721805428]
+wait_time = 5.0
+one_shot = true

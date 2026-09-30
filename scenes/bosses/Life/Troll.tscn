@@ -1,12 +1,12 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cveratgnbpc3f"]
 
-[ext_resource type="Script" path="res://scripts/bosses/boss.gd" id="1_4jnuk"]
-[ext_resource type="Texture2D" path="res://assets/bosses/Life/Troll/Troll_Attack.png" id="2_ktc0g"]
-[ext_resource type="Texture2D" path="res://assets/bosses/Life/Troll/Troll_Idle.png" id="3_kinuf"]
-[ext_resource type="Texture2D" path="res://assets/bosses/Life/Troll/Troll_Walk.png" id="4_hkoqm"]
-[ext_resource type="Texture2D" path="res://assets/enemies/Fire_03.png" id="5_a38jt"]
-[ext_resource type="Texture2D" path="res://assets/enemies/Dust_02.png" id="6_8u5vd"]
-[ext_resource type="Texture2D" path="res://assets/effect/MagicBarrier_64x64.png" id="7_tdb2r"]
+[ext_resource type="Script" uid="uid://bbjr2qksjjegy" path="res://scripts/bosses/boss.gd" id="1_4jnuk"]
+[ext_resource type="Texture2D" uid="uid://bwsq77n3kqg1r" path="res://assets/bosses/Life/Troll/Troll_Attack.png" id="2_ktc0g"]
+[ext_resource type="Texture2D" uid="uid://dyat4lhdx30pf" path="res://assets/bosses/Life/Troll/Troll_Idle.png" id="3_kinuf"]
+[ext_resource type="Texture2D" uid="uid://brda78f5ri2wd" path="res://assets/bosses/Life/Troll/Troll_Walk.png" id="4_hkoqm"]
+[ext_resource type="Texture2D" uid="uid://nrjed3uwjpsf" path="res://assets/enemies/Fire_03.png" id="5_a38jt"]
+[ext_resource type="Texture2D" uid="uid://bglydjb6frmih" path="res://assets/enemies/Dust_02.png" id="6_8u5vd"]
+[ext_resource type="Texture2D" uid="uid://bpt1t8w0uo4pc" path="res://assets/effect/MagicBarrier_64x64.png" id="7_tdb2r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wdu36"]
 atlas = ExtResource("2_ktc0g")
@@ -601,7 +601,6 @@ knockback_force = 140.0
 knockback_duration = 0.08
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=2004697932]
-scale = Vector2(0.375, 0.375)
 sprite_frames = SubResource("SpriteFrames_7ns8n")
 animation = &"Idle"
 

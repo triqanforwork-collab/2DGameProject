@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://etpohdfr2jey"]
+
+[ext_resource type="Texture2D" uid="uid://w5m2hrl8uddg" path="res://assets/npc/Sheep/Sheep_Move.png" id="1_move"]
+[ext_resource type="Script" uid="uid://bm43qg5bwsnbw" path="res://scripts/npc/sheep.gd" id="2_script"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0"]
+atlas = ExtResource("1_move")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1"]
+atlas = ExtResource("1_move")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2"]
+atlas = ExtResource("1_move")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3"]
+atlas = ExtResource("1_move")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_move"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3")
+}],
+"loop": 1,
+"name": &"move",
+"speed": 6.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_body"]
+radius = 9.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_detector"]
+radius = 41.109608
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bubble"]
+bg_color = Color(1, 1, 1, 0.92)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+
+[node name="Sheep" type="CharacterBody2D" unique_id=810268436 groups=["npc"]]
+y_sort_enabled = true
+collision_layer = 4
+script = ExtResource("2_script")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1886911047]
+texture_filter = 1
+position = Vector2(0, -17)
+sprite_frames = SubResource("SpriteFrames_move")
+animation = &"move"
+autoplay = "move"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1659466323]
+position = Vector2(0, -4)
+shape = SubResource("CircleShape2D_body")
+
+[node name="PlayerDetector" type="Area2D" parent="." unique_id=1796814765]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector" unique_id=593913186]
+position = Vector2(-1, -18)
+shape = SubResource("CircleShape2D_detector")
+
+[node name="SpeechBubble" type="Label" parent="." unique_id=1350673810]
+z_index = 20
+offset_left = -42.0
+offset_top = -66.0
+offset_right = 42.0
+offset_bottom = -40.0
+theme_override_colors/font_color = Color(0.12, 0.12, 0.12, 1)
+theme_override_font_sizes/font_size = 13
+theme_override_styles/normal = SubResource("StyleBoxFlat_bubble")
+text = "Beeeeee!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SpeechTimer" type="Timer" parent="." unique_id=323109168]
+wait_time = 1.5
+one_shot = true
+
+[node name="SpeechCooldown" type="Timer" parent="." unique_id=1030791969]
+wait_time = 5.0
+one_shot = true

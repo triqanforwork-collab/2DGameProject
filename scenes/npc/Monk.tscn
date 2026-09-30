@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://doh44ixqix7dx"]
 
 [ext_resource type="Texture2D" uid="uid://bdamx45vfq6rt" path="res://assets/npc/Monk/Idle.png" id="1_idle"]
+[ext_resource type="Script" path="res://scripts/npc/monk.gd" id="2_script"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0"]
 atlas = ExtResource("1_idle")
@@ -55,9 +56,13 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_body"]
 radius = 12.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_interaction"]
+radius = 74.0
+
 [node name="Monk" type="CharacterBody2D" unique_id=475587732 groups=["npc"]]
 y_sort_enabled = true
 collision_mask = 0
+script = ExtResource("2_script")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1577604123]
 texture_filter = 1
@@ -83,3 +88,11 @@ horizontal_alignment = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1945010564]
 position = Vector2(0, -8)
 shape = SubResource("CircleShape2D_body")
+
+[node name="InteractionArea" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractionArea"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_interaction")
