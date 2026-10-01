@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cveratgnbpc3f"]
 
-[ext_resource type="Script" uid="uid://bbjr2qksjjegy" path="res://scripts/bosses/boss.gd" id="1_4jnuk"]
+[ext_resource type="Script" path="res://scripts/bosses/troll.gd" id="1_4jnuk"]
 [ext_resource type="Texture2D" uid="uid://bwsq77n3kqg1r" path="res://assets/bosses/Life/Troll/Troll_Attack.png" id="2_ktc0g"]
 [ext_resource type="Texture2D" uid="uid://dyat4lhdx30pf" path="res://assets/bosses/Life/Troll/Troll_Idle.png" id="3_kinuf"]
 [ext_resource type="Texture2D" uid="uid://brda78f5ri2wd" path="res://assets/bosses/Life/Troll/Troll_Walk.png" id="4_hkoqm"]
@@ -595,8 +595,8 @@ boss_name = "TROLL"
 max_health = 50
 speed = 70.0
 attack_damage = 3
-attack_range = 80.0
-attack_cooldown = 1.2
+attack_range = 260.0
+attack_cooldown = 0.4
 knockback_force = 140.0
 knockback_duration = 0.08
 

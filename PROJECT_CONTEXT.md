@@ -99,7 +99,7 @@ Mọi chuyển scene gameplay phải đi qua `SceneLoader` và `LoadingScreen.ts
 - Boss không tồn tại khi map vừa tải. Sau cảnh báo, controller spawn đúng Boss của Region tại `BossSpawnPoint`.
 - Cảnh báo hiện có overlay, camera pan, rung camera và vòng phép; **chưa có âm thanh cảnh báo/spawn**.
 - `RegionVictoryController` đăng ký Boss spawn động, ghi nhận Boss vào progression, chờ nhặt boss Energy rồi mở victory dialog.
-- Turtle có AI Boss riêng với ba đòn có telegraph: ba loạt đạn nước hình quạt, ba laser xoay quanh thân và ba lần lao bằng mai rùa. Các Boss còn lại vẫn dùng AI cơ bản kế thừa Enemy.
+- Cả 5 Boss có AI riêng với telegraph và recovery ngắn. Turtle dùng đạn nước, laser xoay và lao mai; Panda dùng sóng đất, lăn lao và mưa đá; Minotaur dùng húc, chém sáng và cột sáng; Giant Bat dùng bổ nhào, lưỡi gió và lốc; Troll có bão đạn phân nhánh, loạt Fireball dày, bão đá gây choáng, hút sinh lực và chuỗi húc. Minotaur, Giant Bat và Troll tăng nhịp hoặc số đợt khi còn dưới 50% HP.
 
 ### Menu Và Settings
 

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://mc6hoals3i0n"]
 
-[ext_resource type="Script" uid="uid://bbjr2qksjjegy" path="res://scripts/bosses/boss.gd" id="1_eot77"]
+[ext_resource type="Script" path="res://scripts/bosses/panda.gd" id="1_eot77"]
 [ext_resource type="Texture2D" uid="uid://deytpilrml65x" path="res://assets/bosses/Earth/Panda/Panda_Attack.png" id="2_egb8f"]
 [ext_resource type="Texture2D" uid="uid://brx7q5iutktu5" path="res://assets/bosses/Earth/Panda/Panda_Idle.png" id="3_v03s5"]
 [ext_resource type="Texture2D" uid="uid://dg4augkimlarj" path="res://assets/bosses/Earth/Panda/Panda_Run.png" id="4_ut0na"]
@@ -602,8 +602,8 @@ boss_name = "PANDA"
 max_health = 45
 speed = 75.0
 attack_damage = 2
-attack_range = 80.0
-attack_cooldown = 1.2
+attack_range = 220.0
+attack_cooldown = 0.4
 knockback_force = 140.0
 knockback_duration = 0.08
 

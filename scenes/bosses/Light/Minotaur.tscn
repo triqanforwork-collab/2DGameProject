@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dhn6w58gcwlxs"]
 
-[ext_resource type="Script" uid="uid://bbjr2qksjjegy" path="res://scripts/bosses/boss.gd" id="1_4onte"]
+[ext_resource type="Script" path="res://scripts/bosses/minotaur.gd" id="1_4onte"]
 [ext_resource type="Texture2D" uid="uid://crulfest5x2hg" path="res://assets/bosses/Light/Minotaur/Minotaur_Attack.png" id="2_a4sb5"]
 [ext_resource type="Texture2D" uid="uid://dg1r44obajdnj" path="res://assets/bosses/Light/Minotaur/Minotaur_Idle.png" id="3_okqmt"]
 [ext_resource type="Texture2D" uid="uid://cmotcnwfh1cqb" path="res://assets/bosses/Light/Minotaur/Minotaur_Walk.png" id="4_6ag8v"]
@@ -650,8 +650,8 @@ script = ExtResource("1_4onte")
 boss_name = "MINOTAUR"
 speed = 105.0
 attack_damage = 3
-attack_range = 80.0
-attack_cooldown = 1.2
+attack_range = 230.0
+attack_cooldown = 0.4
 knockback_force = 140.0
 knockback_duration = 0.08
 

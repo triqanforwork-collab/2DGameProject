@@ -94,6 +94,7 @@ var is_attacking: bool = false
 var is_casting: bool = false
 var is_dead: bool = false
 var controls_locked: bool = false
+var stun_time_left := 0.0
 
 var is_dashing: bool = false
 var dash_time_left: float = 0.0
@@ -150,7 +151,9 @@ func _physics_process(delta: float) -> void:
 		velocity = Vector2.ZERO
 		return
 
-	if controls_locked:
+	stun_time_left = maxf(stun_time_left - delta, 0.0)
+
+	if controls_locked or stun_time_left > 0.0:
 		velocity = Vector2.ZERO
 		if not is_attacking and not is_casting:
 			update_player_animation(Vector2.ZERO)
@@ -221,6 +224,10 @@ func set_cinematic_locked(locked: bool) -> void:
 	knockback_time_left = 0.0
 	if not is_attacking and not is_casting:
 		update_player_animation(Vector2.ZERO)
+
+
+func apply_stun(duration: float) -> void:
+	stun_time_left = maxf(stun_time_left, duration)
 
 
 func get_hitbox_node(primary_name: String, fallback_name: String) -> Area2D:

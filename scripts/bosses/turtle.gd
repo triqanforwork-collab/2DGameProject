@@ -51,7 +51,7 @@ func _run_special_attack(attack_name: StringName) -> void:
 	if not is_inside_tree() or is_dead:
 		return
 	play_animation(idle_animation)
-	await get_tree().create_timer(0.8).timeout
+	await get_tree().create_timer(0.27).timeout
 	if not is_inside_tree() or is_dead:
 		return
 	special_active = false

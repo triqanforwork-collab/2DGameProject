@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bfprmkfec5soe"]
 
-[ext_resource type="Script" uid="uid://bbjr2qksjjegy" path="res://scripts/bosses/boss.gd" id="1_d0g44"]
+[ext_resource type="Script" path="res://scripts/bosses/giant_bat.gd" id="1_d0g44"]
 [ext_resource type="Texture2D" uid="uid://b03kol7240taf" path="res://assets/bosses/Air/Giant Bat/Giant Bat_Attack.png" id="2_u3ac7"]
 [ext_resource type="Texture2D" uid="uid://bxwoh5u38kxw5" path="res://assets/bosses/Air/Giant Bat/Giant Bat_Idle.png" id="3_ogw3u"]
 [ext_resource type="Texture2D" uid="uid://cimpptbnmnjuf" path="res://assets/bosses/Air/Giant Bat/Giant Bat_Move.png" id="4_fymmm"]
@@ -518,8 +518,8 @@ boss_name = "GIANT BAT"
 max_health = 30
 speed = 120.0
 attack_damage = 2
-attack_range = 80.0
-attack_cooldown = 1.2
+attack_range = 250.0
+attack_cooldown = 0.4
 knockback_force = 140.0
 knockback_duration = 0.08
 
