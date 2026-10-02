@@ -47,6 +47,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _on_upgrade_pressed() -> void:
 	var result := ProgressionManager.purchase_stat_upgrade(stone_id)
+	AudioManager.play_sfx(&"upgrade" if bool(result.get("success", false)) else &"denied")
 	notice = str(result.get("message", ""))
 	_refresh()
 

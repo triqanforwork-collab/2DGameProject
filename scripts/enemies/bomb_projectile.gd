@@ -16,6 +16,7 @@ var landing_position := Vector2.ZERO
 var damage := 1
 var target: Node2D
 var configured := false
+var fuse_beep_left := 0.0
 
 
 func setup(from: Vector2, to: Vector2, attack_damage: int, player: Node2D) -> void:
@@ -45,6 +46,11 @@ func _process(delta: float) -> void:
 			_set_phase(Phase.FUSE)
 	elif phase == Phase.FUSE and phase_time >= fuse_duration:
 		_explode()
+	elif phase == Phase.FUSE:
+		fuse_beep_left -= delta
+		if fuse_beep_left <= 0.0:
+			AudioManager.play_sfx(&"bomb_fuse", 1.0 + phase_time / fuse_duration * 0.45, -9.0)
+			fuse_beep_left = 0.4
 
 	queue_redraw()
 
@@ -60,6 +66,7 @@ func _set_phase(next_phase: Phase) -> void:
 
 
 func _explode() -> void:
+	AudioManager.play_sfx(&"bomb_explosion", 1.0, -5.0)
 	_set_phase(Phase.EXPLODING)
 	if is_instance_valid(target) and global_position.distance_to(target.global_position) <= explosion_radius:
 		target.take_damage(damage, global_position)

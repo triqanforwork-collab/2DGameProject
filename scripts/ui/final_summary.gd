@@ -8,12 +8,20 @@ const MAIN_MENU_SCENE := "res://scenes/ui/MainMenu.tscn"
 @onready var leaderboard_button: Button = $Center/Panel/Margin/Content/Buttons/LeaderboardButton
 @onready var continue_button: Button = $Center/Panel/Margin/Content/Buttons/ContinueButton
 @onready var menu_button: Button = $Center/Panel/Margin/Content/Buttons/MenuButton
+@onready var background_music: AudioStreamPlayer = $BackgroundMusic
 
 var has_summary := false
+var paused_background_music: AudioStreamPlayer
 
 
 func _ready() -> void:
+	background_music.finished.connect(background_music.play)
 	visible = false
+
+
+func play_music() -> void:
+	if not background_music.playing:
+		background_music.play()
 
 
 func open_summary(stats: Dictionary) -> void:
@@ -42,6 +50,11 @@ func open_leaderboard() -> void:
 
 
 func _open() -> void:
+	var scene_music := get_tree().current_scene.get_node_or_null("BackgroundMusic") as AudioStreamPlayer
+	if scene_music != null and scene_music != background_music:
+		paused_background_music = scene_music
+		paused_background_music.stream_paused = true
+	play_music()
 	visible = true
 	get_tree().paused = true
 	continue_button.grab_focus()
@@ -72,12 +85,27 @@ func _build_leaderboard_text() -> String:
 	var entries := SaveManager.get_leaderboard()
 	if entries.is_empty():
 		return "[center][font_size=22]Chưa có lượt hoàn thành nào.[/font_size][/center]"
-	var lines := PackedStringArray(["[font_size=18][table=7]", "[cell]Hạng[/cell][cell]Ngày[/cell][cell]Thời gian[/cell][cell]Energy[/cell][cell]Quái[/cell][cell]Bị hạ[/cell][cell]Nâng cấp[/cell]"])
+	var lines := PackedStringArray([
+		"[font_size=16][table=7]",
+		"[cell=1 padding=6,6,6,8][center][b]Hạng[/b][/center][/cell]",
+		"[cell=2 padding=6,6,6,8][center][b]Ngày[/b][/center][/cell]",
+		"[cell=2 padding=6,6,6,8][center][b]Thời gian[/b][/center][/cell]",
+		"[cell=1 padding=6,6,6,8][center][b]Energy[/b][/center][/cell]",
+		"[cell=1 padding=6,6,6,8][center][b]Quái[/b][/center][/cell]",
+		"[cell=1 padding=6,6,6,8][center][b]Bị hạ[/b][/center][/cell]",
+		"[cell=1 padding=6,6,6,8][center][b]Nâng cấp[/b][/center][/cell]",
+	])
 	for index in entries.size():
 		var entry := entries[index] as Dictionary
 		var completed_at := str(entry.get("completed_at", ""))
 		lines.append(
-			"[cell]%d[/cell][cell]%s[/cell][cell]%s[/cell][cell]%d[/cell][cell]%d[/cell][cell]%d[/cell][cell]%d[/cell]" % [
+			("[cell=1 padding=6,5,6,5][center]%d[/center][/cell]"
+			+ "[cell=2 padding=6,5,6,5][center]%s[/center][/cell]"
+			+ "[cell=2 padding=6,5,6,5][center]%s[/center][/cell]"
+			+ "[cell=1 padding=6,5,6,5][center]%d[/center][/cell]"
+			+ "[cell=1 padding=6,5,6,5][center]%d[/center][/cell]"
+			+ "[cell=1 padding=6,5,6,5][center]%d[/center][/cell]"
+			+ "[cell=1 padding=6,5,6,5][center]%d[/center][/cell]") % [
 				index + 1,
 				completed_at.left(10),
 				_format_time(int(entry.get("elapsed_seconds", 0))),
@@ -114,6 +142,10 @@ func _on_menu_button_pressed() -> void:
 func _close() -> void:
 	visible = false
 	get_tree().paused = false
+	if is_instance_valid(paused_background_music):
+		background_music.stop()
+		paused_background_music.stream_paused = false
+		paused_background_music = null
 
 
 func _exit_tree() -> void:

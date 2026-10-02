@@ -56,8 +56,10 @@ func _on_deposit_pressed() -> void:
 	if bool(result.get("activated", false)):
 		notice = _get_activation_notice(stone_id)
 	elif deposited > 0:
+		AudioManager.play_sfx(&"energy_pickup", 0.8, -2.0)
 		notice = "Đã nộp %d Energy." % deposited
 	else:
+		AudioManager.play_sfx(&"denied")
 		notice = "Không có Energy để nộp."
 	_refresh()
 

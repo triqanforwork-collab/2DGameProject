@@ -8,6 +8,7 @@ func attack_player() -> void:
 		return
 
 	var bomb := BOMB_SCENE.instantiate()
+	AudioManager.play_sfx(&"bomb_throw", 1.0, -6.0)
 	get_tree().current_scene.add_child(bomb)
 	bomb.setup(global_position, player.global_position, attack_damage, player)
 	play_attack_animation()

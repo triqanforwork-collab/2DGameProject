@@ -20,11 +20,13 @@ func attack_player() -> void:
 
 func dive_attack() -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"wind", 0.9, 0.0)
 	var landing := player.global_position
 	animated_sprite.visible = false
 	spawn_hazard(landing, 62.0, 1.0, 5, Color(0.55, 0.85, 1.0))
 	await get_tree().create_timer(0.95).timeout
 	global_position = landing
+	AudioManager.play_sfx(&"earth_slam", 1.1, 0.0)
 	animated_sprite.visible = true
 	spawn_sheet_effect(landing, DIVE_IMPACT, Vector2i(96, 96), 49, 24.0, false, Vector2(1.4, 1.4), Color(0.55, 0.9, 1.0))
 	play_attack_animation()
@@ -36,6 +38,7 @@ func wind_blades() -> void:
 	var waves := 4 if health <= max_health / 2 else 3
 	for wave in waves:
 		if not can_special_attack(): return
+		AudioManager.play_sfx(&"wind", 1.0 + wave * 0.04, -2.0)
 		var aim := global_position.direction_to(player.global_position)
 		var blades := 6 if health <= max_health / 2 else 5
 		for index in blades:
@@ -47,6 +50,7 @@ func wind_blades() -> void:
 
 func tornadoes() -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"tornado", 0.9, -2.0)
 	var count := 4 if health <= max_health / 2 else 3
 	for index in count:
 		var angle := TAU * index / count

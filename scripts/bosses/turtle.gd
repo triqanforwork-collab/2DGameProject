@@ -64,6 +64,7 @@ func _water_volley() -> void:
 	for wave in 3:
 		if not _can_attack():
 			return
+		AudioManager.play_sfx(&"water_shot", 1.0 + wave * 0.04, -2.0)
 		var aim := global_position.direction_to(player.global_position)
 		for angle_degrees in [-25.0, -12.5, 0.0, 12.5, 25.0]:
 			var projectile := WATER_PROJECTILE.instantiate()
@@ -75,6 +76,7 @@ func _water_volley() -> void:
 
 func _rotating_lasers() -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"boss_laser")
 	var lasers := LASER_ATTACK.new()
 	get_tree().current_scene.add_child(lasers)
 	lasers.setup(global_position, player, laser_damage)
@@ -86,6 +88,7 @@ func _shell_dash() -> void:
 		if not _can_attack():
 			return
 		dash_direction = global_position.direction_to(player.global_position)
+		AudioManager.play_sfx(&"dash", 0.82, 1.0)
 		dash_telegraph = true
 		queue_redraw()
 		play_attack_animation()

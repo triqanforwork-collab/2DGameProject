@@ -24,6 +24,7 @@ var current_confirm_action: ConfirmAction = ConfirmAction.NONE
 
 func _ready() -> void:
 	SaveManager.pause_run_timer()
+	final_summary.call("play_music")
 	hide_confirmation()
 	continue_button.disabled = not SaveManager.has_save_game()
 	await get_tree().process_frame
@@ -52,14 +53,17 @@ func animate_background() -> void:
 
 
 func _on_new_game_pressed() -> void:
+	AudioManager.play_sfx(&"ui_click")
 	show_confirmation("Bạn có muốn bắt đầu lại từ đầu không?", ConfirmAction.NEW_GAME)
 
 
 func _on_continue_pressed() -> void:
+	AudioManager.play_sfx(&"ui_click")
 	continue_game()
 
 
 func _on_exit_pressed() -> void:
+	AudioManager.play_sfx(&"ui_click")
 	show_confirmation("Bạn có muốn thoát game không?", ConfirmAction.EXIT_GAME)
 
 

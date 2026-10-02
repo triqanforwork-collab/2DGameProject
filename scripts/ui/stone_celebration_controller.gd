@@ -18,6 +18,7 @@ func _show_recovered_summary() -> void:
 
 func _on_stone_activated(stone_id: StringName, _reward_id: StringName) -> void:
 	var data := ProgressionManager.get_stone_data(stone_id)
+	AudioManager.play_sfx(&"stone_activate")
 	celebration_sound.play()
 	fireworks.play()
 	await overlay.play_celebration(

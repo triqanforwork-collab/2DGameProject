@@ -329,6 +329,7 @@ func attack() -> void:
 		return
 
 	is_attacking = true
+	AudioManager.play_sfx(&"magic_cast" if weapon_mode == WeaponMode.STAFF else &"sword_swing")
 	staff_attack_sequence += 1
 	if weapon_mode == WeaponMode.STAFF:
 		_fire_staff_beam_after_windup(staff_attack_sequence)
@@ -344,9 +345,11 @@ func toggle_weapon() -> void:
 		return
 
 	if weapon_mode == WeaponMode.SWORD and not staff_unlocked:
+		AudioManager.play_sfx(&"denied")
 		return
 
 	weapon_mode = WeaponMode.STAFF if weapon_mode == WeaponMode.SWORD else WeaponMode.SWORD
+	AudioManager.play_sfx(&"weapon_switch")
 	animated_sprite.stop()
 	animated_sprite.sprite_frames = STAFF_SPRITE_FRAMES if weapon_mode == WeaponMode.STAFF else sword_sprite_frames
 	update_player_animation(Vector2.ZERO)
@@ -365,6 +368,7 @@ func _fire_staff_beam_after_windup(attack_sequence: int) -> void:
 		return
 
 	var beam := MAGIC_BEAM_SCENE.instantiate()
+	AudioManager.play_sfx(&"staff_beam")
 	beam_parent.add_child(beam)
 	beam.call(
 		"setup",
@@ -377,6 +381,7 @@ func _fire_staff_beam_after_windup(attack_sequence: int) -> void:
 
 func heal() -> void:
 	if not heal_unlocked or heal_cooldown_left > 0.0:
+		AudioManager.play_sfx(&"denied")
 		return
 
 	if is_attacking or is_casting:
@@ -386,6 +391,7 @@ func heal() -> void:
 		return
 
 	if not use_mana(heal_mana_cost):
+		AudioManager.play_sfx(&"denied")
 		return
 
 	health = min(health + heal_amount, max_health)
@@ -393,21 +399,25 @@ func heal() -> void:
 	update_health_bar()
 	print("Player HP: ", health)
 	play_castspell_animation()
+	AudioManager.play_sfx(&"heal")
 
 
 func area_attack() -> void:
 	if not area_attack_unlocked or area_attack_cooldown_left > 0.0:
+		AudioManager.play_sfx(&"denied")
 		return
 
 	if is_dead or is_attacking or is_casting:
 		return
 
 	if not use_mana(area_attack_mana_cost):
+		AudioManager.play_sfx(&"denied")
 		return
 
 	area_attack_cooldown_left = area_attack_cooldown
 	area_attack_cast_sequence += 1
 	play_castspell_animation(false)
+	AudioManager.play_sfx(&"ultimate_cast")
 	_fire_area_attack_after_windup(area_attack_cast_sequence)
 
 
@@ -493,6 +503,8 @@ func apply_attack_damage() -> void:
 		if body.has_method("take_damage"):
 			body.take_damage(attack_damage, global_position)
 			damaged_enemies.append(body)
+	if not damaged_enemies.is_empty():
+		AudioManager.play_sfx(&"hit")
 
 
 func play_attack_animation() -> bool:
@@ -521,6 +533,7 @@ func start_dash() -> void:
 		return
 
 	is_dashing = true
+	AudioManager.play_sfx(&"dash")
 	dash_time_left = dash_duration
 	dash_cooldown_left = dash_cooldown
 
@@ -614,6 +627,7 @@ func take_damage(damage: int, attacker_position: Vector2) -> void:
 		return
 
 	health -= damage
+	AudioManager.play_sfx(&"player_hurt", randf_range(0.94, 1.06))
 	update_health_bar()
 	print("Player HP: ", health)
 
@@ -652,9 +666,6 @@ func die() -> void:
 	if heal_effect_sprite != null:
 		heal_effect_sprite.visible = false
 		heal_effect_sprite.stop()
-
-	if death_sound != null:
-		death_sound.play()
 
 	play_death_sequence()
 
@@ -698,6 +709,8 @@ func play_death_sequence() -> void:
 
 
 func open_death_dialog() -> void:
+	if death_sound != null:
+		death_sound.play()
 	var dialog := get_tree().get_first_node_in_group("confirmation_dialog")
 	if dialog == null:
 		push_error("Player death could not find the shared confirmation dialog.")
@@ -721,23 +734,18 @@ func open_death_dialog() -> void:
 
 
 func _on_death_dialog_option_selected(option_index: int) -> void:
+	if option_index == 0:
+		var current_scene_path := get_tree().current_scene.scene_file_path
+		SceneLoader.change_scene(current_scene_path if not current_scene_path.is_empty() else MAIN_AREA_SCENE_PATH)
+		return
+
 	var destination := get_death_destination(option_index)
 	if not destination.is_empty():
 		SceneLoader.change_scene(destination)
 		return
 
-	if option_index != 0:
-		push_warning("Unknown death dialog option: %d" % option_index)
-		SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
-		return
-
-	var respawn_point := get_tree().get_first_node_in_group("region_respawn_point") as Node2D
-	if respawn_point == null:
-		push_error("Current Region does not have a respawn point.")
-		SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
-		return
-
-	respawn_at(respawn_point.global_position)
+	push_warning("Unknown death dialog option: %d" % option_index)
+	SceneLoader.change_scene(MAIN_AREA_SCENE_PATH)
 
 
 func get_death_destination(option_index: int) -> String:

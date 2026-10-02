@@ -65,6 +65,7 @@ func finish_dialog(option_index: int) -> void:
 		return
 
 	is_open = false
+	AudioManager.play_sfx(&"ui_click")
 	visible = false
 	get_tree().paused = false
 	option_selected.emit(option_index)

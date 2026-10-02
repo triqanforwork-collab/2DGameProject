@@ -108,7 +108,7 @@ mouse_filter = 0
 color = Color(0, 0, 0, 0.45)
 
 [node name="SettingsPanel" type="PanelContainer" parent="Overlay"]
-custom_minimum_size = Vector2(300, 246)
+custom_minimum_size = Vector2(300, 302)
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -116,7 +116,7 @@ anchor_right = 1.0
 offset_left = -320.0
 offset_top = 88.0
 offset_right = -20.0
-offset_bottom = 334.0
+offset_bottom = 390.0
 grow_horizontal = 0
 theme_override_styles/panel = SubResource("StyleBox_panel")
 
@@ -154,14 +154,24 @@ stretch_mode = 5
 [node name="Separator" type="HSeparator" parent="Overlay/SettingsPanel/InnerMargin/Content"]
 layout_mode = 2
 
-[node name="SoundToggle" type="CheckButton" parent="Overlay/SettingsPanel/InnerMargin/Content"]
+[node name="MusicToggle" type="CheckButton" parent="Overlay/SettingsPanel/InnerMargin/Content"]
 custom_minimum_size = Vector2(0, 44)
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
 theme_override_font_sizes/font_size = 18
 button_pressed = true
-text = "Âm thanh"
+text = "Nhạc nền"
+icon = ExtResource("3_music")
+
+[node name="SFXToggle" type="CheckButton" parent="Overlay/SettingsPanel/InnerMargin/Content"]
+custom_minimum_size = Vector2(0, 44)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.9, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 18
+button_pressed = true
+text = "Hiệu ứng âm thanh"
 icon = ExtResource("3_music")
 
 [node name="MainMenuButton" type="Button" parent="Overlay/SettingsPanel/InnerMargin/Content"]

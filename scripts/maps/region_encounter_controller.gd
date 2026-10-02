@@ -23,6 +23,7 @@ const BOSS_SPAWN_EFFECT_SCENE: PackedScene = preload("res://scenes/effects/BossS
 @export_range(0.1, 2.0, 0.05) var camera_return_duration := 0.5
 
 @onready var warning_overlay: BossWarningOverlay = $BossWarningOverlay
+@onready var combat_music: AudioStreamPlayer = $CombatMusic
 
 var encounter_state := EncounterState.CLEARING
 var enemies_container: Node
@@ -34,7 +35,17 @@ var spawned_boss: Node
 
 
 func _ready() -> void:
+	_enable_music_loop(combat_music)
 	call_deferred("_initialize_encounter")
+
+
+func _enable_music_loop(player_node: AudioStreamPlayer) -> void:
+	if player_node.stream is AudioStreamWAV:
+		(player_node.stream as AudioStreamWAV).loop_mode = AudioStreamWAV.LOOP_FORWARD
+	if not player_node.finished.is_connected(player_node.play):
+		player_node.finished.connect(player_node.play)
+	if not player_node.playing:
+		player_node.play()
 
 
 func _initialize_encounter() -> void:
@@ -98,6 +109,7 @@ func _begin_boss_warning() -> void:
 		return
 
 	encounter_state = EncounterState.WARNING
+	var warning_sound := AudioManager.play_sfx(&"boss_warning")
 	_set_player_locked(true)
 
 	var camera := _get_player_camera()
@@ -112,8 +124,12 @@ func _begin_boss_warning() -> void:
 		pan_tween.tween_property(camera, "position", target_camera_position, camera_pan_duration)
 
 	await warning_overlay.play_warning(boss_display_name, warning_hold_duration)
+	if is_instance_valid(warning_sound):
+		warning_sound.stop()
+		warning_sound.queue_free()
 
 	var spawn_effect := BOSS_SPAWN_EFFECT_SCENE.instantiate() as BossSpawnEffect
+	AudioManager.play_sfx(&"boss_spawn")
 	boss_container.add_child(spawn_effect)
 	spawn_effect.global_position = boss_spawn_point.global_position
 	spawn_effect.play()

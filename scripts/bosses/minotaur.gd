@@ -23,6 +23,7 @@ func attack_player() -> void:
 
 func charge() -> void:
 	var direction := global_position.direction_to(player.global_position)
+	AudioManager.play_sfx(&"boss_phase", 0.78, 0.0)
 	play_attack_animation()
 	await show_line_telegraph(direction, 0.75, Color(0.15, 0.8, 1.0), 280.0)
 	var hit := false
@@ -37,11 +38,13 @@ func charge() -> void:
 		await get_tree().physics_frame
 	stop_moving()
 	spawn_hazard(global_position, 82.0, 0.15, 3, Color(0.15, 0.8, 1.0))
+	AudioManager.play_sfx(&"light_burst", 0.9, 1.0)
 	spawn_sheet_effect(global_position, HOLY_EXPLOSION, Vector2i(96, 96), 28, 22.0, false, Vector2(1.75, 1.75), Color(0.45, 0.9, 1.0))
 
 
 func light_slash(delay := 0.7) -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"light_slash")
 	await get_tree().create_timer(delay).timeout
 	if not can_special_attack(): return
 	var aim := global_position.direction_to(player.global_position)
@@ -52,6 +55,7 @@ func light_slash(delay := 0.7) -> void:
 
 func light_pillars() -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"magic_cast", 0.85, 0.0)
 	var count := 4 if health <= max_health / 2 else 3
 	for _index in count:
 		if not can_special_attack(): return
@@ -59,6 +63,7 @@ func light_pillars() -> void:
 		spawn_hazard(pillar_position, 68.0, 0.8, 4, Color(0.25, 0.9, 1.0))
 		spawn_sheet_effect(pillar_position, LIGHT_CAST, Vector2i(96, 96), 48, 24.0, false, Vector2(1.55, 1.55), Color(0.45, 0.9, 1.0))
 		await get_tree().create_timer(0.75).timeout
+		AudioManager.play_sfx(&"light_burst", 1.0 + _index * 0.03, -1.0)
 		spawn_sheet_effect(pillar_position, LIGHT_CORE, Vector2i(64, 64), 60, 30.0, false, Vector2(1.25, 2.8), Color(0.6, 0.95, 1.0))
 		await get_tree().create_timer(0.2).timeout
 	await get_tree().create_timer(0.8).timeout

@@ -16,6 +16,7 @@ var navigation_agent: NavigationAgent2D
 var navigation_repath_time := 0.0
 var navigation_stuck_time := 0.0
 var last_navigation_position := Vector2.ZERO
+var phase_sound_played := false
 
 
 func _ready() -> void:
@@ -100,6 +101,9 @@ func _has_line_of_sight_to_player() -> bool:
 
 func take_damage(damage: int, attacker_position: Vector2 = Vector2.ZERO) -> void:
 	super(damage, attacker_position)
+	if not phase_sound_played and not is_dead and health <= max_health / 2:
+		phase_sound_played = true
+		AudioManager.play_sfx(&"boss_phase", 0.9, 2.0)
 	update_health_bar()
 
 

@@ -26,6 +26,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_body_entered(body: Node2D) -> void:
+	AudioManager.play_sfx(&"water_impact", randf_range(0.95, 1.08), -3.0)
 	if body.is_in_group("player"):
 		body.take_damage(damage, global_position)
 	queue_free()

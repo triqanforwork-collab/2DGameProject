@@ -27,6 +27,7 @@ func fireball_volley() -> void:
 	var waves := 7 if health <= max_health / 2 else 5
 	for wave in waves:
 		if not can_special_attack(): return
+		AudioManager.play_sfx(&"fireball", 0.92 + wave * 0.02, -2.0)
 		var aim := global_position.direction_to(player.global_position)
 		for angle in [-36.0, -24.0, -12.0, 0.0, 12.0, 24.0, 36.0]:
 			var fireball := spawn_projectile(aim.rotated(deg_to_rad(angle + wave * 2.0)), 245.0, 4, Color(1.0, 0.35, 0.08), 14.0, 2.5)
@@ -36,6 +37,7 @@ func fireball_volley() -> void:
 
 func energy_storm() -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"energy_storm", 0.9, 0.0)
 	await get_tree().create_timer(0.8).timeout
 	var waves := 5 if health <= max_health / 2 else 3
 	for wave in waves:
@@ -48,6 +50,7 @@ func energy_storm() -> void:
 
 func rock_storm() -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"rock_impact", 0.78, 1.0)
 	var count := 8 if health <= max_health / 2 else 6
 	for index in count:
 		var offset := Vector2.from_angle(TAU * index / count) * randf_range(45.0, 150.0)
@@ -59,6 +62,7 @@ func rock_storm() -> void:
 
 func life_drain() -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"life_drain", 0.9, 0.0)
 	spawn_hazard(global_position, 145.0 if health <= max_health / 2 else 120.0, 0.9, 0, Color(0.55, 0.1, 0.75), 2.6)
 	spawn_sheet_effect(global_position, LIFE_DRAIN, Vector2i(96, 96), 40, 18.0, false, Vector2(2.5, 2.5), Color(0.75, 0.45, 1.0))
 	await get_tree().create_timer(0.9).timeout
@@ -76,6 +80,7 @@ func chained_charge() -> void:
 	for charge_index in charges:
 		if not can_special_attack(): return
 		var direction := global_position.direction_to(player.global_position)
+		AudioManager.play_sfx(&"dash", 0.72 + charge_index * 0.03, 1.0)
 		play_attack_animation()
 		await show_line_telegraph(direction, 0.65 if charge_index == 0 else 0.4, Color(0.75, 0.15, 1.0), 300.0)
 		var hit := false

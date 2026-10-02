@@ -18,6 +18,7 @@ func attack_player() -> void:
 
 func earth_wave() -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"earth_wave", 0.9, 1.0)
 	await get_tree().create_timer(0.7).timeout
 	if not can_special_attack(): return
 	var aim := global_position.direction_to(player.global_position)
@@ -27,6 +28,7 @@ func earth_wave() -> void:
 
 func rolling_charge() -> void:
 	var direction := global_position.direction_to(player.global_position)
+	AudioManager.play_sfx(&"earth_slam", 0.82, 1.0)
 	play_attack_animation()
 	await show_line_telegraph(direction, 0.7, Color(1.0, 0.55, 0.1), 230.0)
 	if not can_special_attack(): return
@@ -45,6 +47,7 @@ func rolling_charge() -> void:
 
 func rock_rain() -> void:
 	play_attack_animation()
+	AudioManager.play_sfx(&"rock_impact", 0.9, 0.0)
 	var count := 6 if health <= max_health / 2 else 4
 	var radius := 70.0 if health <= max_health / 2 else 62.0
 	for index in count:

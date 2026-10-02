@@ -153,6 +153,7 @@ func attack_player() -> void:
 		return
 
 	player.take_damage(attack_damage, global_position)
+	AudioManager.play_sfx(&"enemy_attack", randf_range(0.9, 1.1), -3.0)
 	play_attack_animation()
 	attack_cooldown_left = attack_cooldown
 
@@ -162,6 +163,7 @@ func take_damage(damage: int, attacker_position: Vector2 = Vector2.ZERO) -> void
 		return
 
 	health -= damage
+	AudioManager.play_sfx(&"enemy_hurt", randf_range(0.9, 1.1), -4.0)
 	update_enemy_health_bar()
 
 	print("Enemy HP: ", health)
@@ -218,6 +220,7 @@ func die() -> void:
 		return
 
 	is_dead = true
+	AudioManager.play_sfx(&"enemy_death", randf_range(0.9, 1.1), -2.0)
 	SaveManager.record_enemy_defeated()
 	health = 0
 	update_enemy_health_bar()

@@ -1,9 +1,16 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=4 format=3]
 
 [ext_resource type="Script" path="res://scripts/maps/region_encounter_controller.gd" id="1_controller"]
 [ext_resource type="PackedScene" path="res://scenes/ui/BossWarningOverlay.tscn" id="2_warning"]
+[ext_resource type="AudioStream" path="res://assets/audio/music/goblins_dance_battle.wav" id="3_music"]
 
 [node name="RegionEncounterController" type="Node" groups=["region_encounter_controller"]]
 script = ExtResource("1_controller")
+
+[node name="CombatMusic" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_music")
+volume_db = -4.0
+autoplay = true
+bus = &"Music"
 
 [node name="BossWarningOverlay" parent="." instance=ExtResource("2_warning")]

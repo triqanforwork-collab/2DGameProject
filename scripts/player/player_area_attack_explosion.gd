@@ -7,6 +7,7 @@ var damage_applied := false
 
 
 func _ready() -> void:
+	AudioManager.play_sfx(&"ultimate_explosion")
 	animated_sprite.animation_finished.connect(queue_free)
 	animated_sprite.play(&"explode")
 	_apply_damage.call_deferred()

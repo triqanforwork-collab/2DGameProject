@@ -84,6 +84,7 @@ func _on_body_entered(body: Node2D) -> void:
 	collision_shape.set_deferred("disabled", true)
 	remove_from_group("boss_energy_pickup")
 	EnergyManager.add_energy(energy_value)
+	AudioManager.play_sfx(&"energy_pickup", randf_range(0.95, 1.12), -5.0)
 
 	visuals.visible = false
 	aura_particles.emitting = false
