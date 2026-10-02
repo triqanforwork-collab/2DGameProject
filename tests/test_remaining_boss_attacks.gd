@@ -19,6 +19,7 @@ func run_test() -> void:
 		root.add_child(boss)
 		assert(boss.has_method("attack_player"))
 		assert(boss.attack_cooldown <= 0.83)
+		assert(boss.get_node_or_null("NavigationAgent2D") != null)
 		if boss_name != "Turtle":
 			assert(boss.has_method("finish_special"))
 			assert(boss.attack_range >= 220.0)

@@ -164,6 +164,7 @@ func purchase_stat_upgrade(stone_id: StringName) -> Dictionary:
 	level += 1
 	stat_upgrade_levels[stone_id] = level
 	stat_upgrade_changed.emit(stone_id, level)
+	SaveManager.save_game()
 	return {"success": true, "message": "Nâng cấp thành công lên cấp %d." % level}
 
 
@@ -177,6 +178,7 @@ func mark_boss_defeated(region_id: StringName) -> void:
 
 	defeated_bosses[region_id] = true
 	boss_defeated.emit(region_id)
+	SaveManager.save_game()
 
 
 func deposit_to_current_stone(requested_amount: int) -> Dictionary:
@@ -194,6 +196,7 @@ func deposit_to_current_stone(requested_amount: int) -> Dictionary:
 		stone_energy_changed.emit(stone_id, get_stone_energy(stone_id), required_energy)
 
 	var activated := try_activate_current_stone()
+	SaveManager.save_game()
 	return {"stone_id": stone_id, "deposited": deposited, "activated": activated}
 
 
@@ -232,3 +235,66 @@ func _activate_stone(stone_id: StringName) -> void:
 	if stone_id == &"life":
 		has_completed_game = true
 		game_completed.emit()
+
+
+func get_save_data() -> Dictionary:
+	return {
+		"stone_energy": _string_key_dictionary(stone_energy),
+		"defeated_bosses": _string_key_dictionary(defeated_bosses),
+		"activated_stones": _string_key_dictionary(activated_stones),
+		"stat_upgrade_levels": _string_key_dictionary(stat_upgrade_levels),
+		"has_completed_game": has_completed_game,
+	}
+
+
+func load_save_data(data: Dictionary) -> void:
+	reset_progression()
+	var saved_energy := _safe_dictionary(data.get("stone_energy", {}))
+	var saved_bosses := _safe_dictionary(data.get("defeated_bosses", {}))
+	var saved_stones := _safe_dictionary(data.get("activated_stones", {}))
+	var saved_upgrades := _safe_dictionary(data.get("stat_upgrade_levels", {}))
+
+	for stone_id in STONE_ORDER:
+		var key := str(stone_id)
+		stone_energy[stone_id] = clampi(int(saved_energy.get(key, 0)), 0, get_required_energy(stone_id))
+		defeated_bosses[stone_id] = bool(saved_bosses.get(key, false))
+		activated_stones[stone_id] = bool(saved_stones.get(key, false))
+		stat_upgrade_levels[stone_id] = clampi(int(saved_upgrades.get(key, 0)), 0, UPGRADE_COSTS.size())
+
+	unlocked_regions.clear()
+	unlocked_rewards.clear()
+	unlocked_regions[&"water"] = true
+	for stone_id in STONE_ORDER:
+		if not bool(activated_stones[stone_id]):
+			continue
+		var stone_data := get_stone_data(stone_id)
+		var reward_id := stone_data.get("reward_id", &"") as StringName
+		var next_region := stone_data.get("next_region", &"") as StringName
+		if reward_id != &"":
+			unlocked_rewards[reward_id] = true
+		if next_region != &"":
+			unlocked_regions[next_region] = true
+	has_completed_game = bool(data.get("has_completed_game", false)) and bool(activated_stones[&"life"])
+	progression_reset.emit()
+
+
+func get_completed_upgrade_count() -> int:
+	var total := 0
+	for level in stat_upgrade_levels.values():
+		total += int(level)
+	return total
+
+
+func get_max_upgrade_count() -> int:
+	return STONE_ORDER.size() * UPGRADE_COSTS.size()
+
+
+func _string_key_dictionary(source: Dictionary) -> Dictionary:
+	var result := {}
+	for key in source:
+		result[str(key)] = source[key]
+	return result
+
+
+func _safe_dictionary(value: Variant) -> Dictionary:
+	return value if value is Dictionary else {}

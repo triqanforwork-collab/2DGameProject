@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/stone_celebration_controller.gd" id="1_controller"]
 [ext_resource type="PackedScene" path="res://scenes/ui/BossWarningOverlay.tscn" id="2_overlay"]
 [ext_resource type="PackedScene" path="res://scenes/ui/VictoryFireworks.tscn" id="3_fireworks"]
 [ext_resource type="AudioStream" path="res://assets/audio/sfx/victory.mp3" id="4_sound"]
+[ext_resource type="PackedScene" path="res://scenes/ui/FinalSummary.tscn" id="5_summary"]
 
 [node name="StoneCelebrationController" type="Node"]
 process_mode = 3
@@ -16,6 +17,12 @@ process_mode = 3
 layer = 91
 
 [node name="VictoryFireworks" parent="CelebrationLayer" instance=ExtResource("3_fireworks")]
+
+[node name="FinalSummaryLayer" type="CanvasLayer" parent="."]
+process_mode = 3
+layer = 92
+
+[node name="FinalSummary" parent="FinalSummaryLayer" instance=ExtResource("5_summary")]
 
 [node name="CelebrationSound" type="AudioStreamPlayer" parent="."]
 process_mode = 3

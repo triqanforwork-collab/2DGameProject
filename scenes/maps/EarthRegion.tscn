@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/RegionVictoryController.tscn" id="19_victory"]
 [ext_resource type="PackedScene" uid="uid://mc6hoals3i0n" path="res://scenes/bosses/Earth/Panda.tscn" id="20_panda"]
 [ext_resource type="PackedScene" path="res://scenes/maps/RegionEncounterController.tscn" id="21_encounter"]
+[ext_resource type="PackedScene" path="res://scenes/maps/RegionNavigation.tscn" id="22_navigation"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("3_nwfe1")
@@ -329,6 +330,8 @@ boss_container_path = NodePath("../TileMap/Bosses")
 boss_spawn_point_path = NodePath("../TileMap/BossSpawnPoint")
 boss_scene = ExtResource("20_panda")
 boss_display_name = "PANDA"
+
+[node name="RegionNavigation" parent="." instance=ExtResource("22_navigation")]
 
 [node name="RegionVictoryController" parent="." unique_id=400219551 instance=ExtResource("19_victory")]
 replay_scene_path = "res://scenes/maps/EarthRegion.tscn"

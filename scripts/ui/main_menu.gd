@@ -15,13 +15,17 @@ enum ConfirmAction {
 @onready var background: TextureRect = $Background
 @onready var confirm_overlay: Control = $ConfirmOverlay
 @onready var message_label: Label = $ConfirmOverlay/ConfirmPanel/DialogLayout/MessageLabel
+@onready var continue_button: TextureButton = $MenuButtons/ContinueButton
+@onready var final_summary: Control = $FinalSummary
 
 var background_base_position := Vector2.ZERO
 var current_confirm_action: ConfirmAction = ConfirmAction.NONE
 
 
 func _ready() -> void:
+	SaveManager.pause_run_timer()
 	hide_confirmation()
+	continue_button.disabled = not SaveManager.has_save_game()
 	await get_tree().process_frame
 	setup_background_motion()
 
@@ -86,14 +90,17 @@ func _on_confirm_no_pressed() -> void:
 
 
 func new_game() -> void:
-	# Later: reset save data and the remaining progression state before entering the main area.
-	EnergyManager.reset_energy()
+	SaveManager.start_new_game()
 	SceneLoader.change_scene(MAIN_SCENE_PATH)
 
 
 func continue_game() -> void:
-	# Later: load the saved scene, player position, and progression before continuing.
-	SceneLoader.change_scene(MAIN_SCENE_PATH)
+	if SaveManager.load_game():
+		SceneLoader.change_scene(MAIN_SCENE_PATH)
+
+
+func _on_leaderboard_pressed() -> void:
+	final_summary.call("open_leaderboard")
 
 
 func exit_game() -> void:

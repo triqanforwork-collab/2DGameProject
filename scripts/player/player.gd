@@ -632,6 +632,7 @@ func die() -> void:
 		return
 
 	is_dead = true
+	SaveManager.record_death()
 	health = 0
 	velocity = Vector2.ZERO
 	is_attacking = false

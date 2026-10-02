@@ -1,9 +1,10 @@
-[gd_scene format=3 uid="uid://coerh56at88e"]
+[gd_scene load_steps=12 format=3 uid="uid://coerh56at88e"]
 
 [ext_resource type="Script" uid="uid://57nr4bvwndq6" path="res://scripts/ui/main_menu.gd" id="1_4ksn6"]
 [ext_resource type="Texture2D" uid="uid://dl336n0r375jx" path="res://assets/ui/main_menu_background.png" id="2_426nm"]
 [ext_resource type="Texture2D" uid="uid://v1h3lh6iq6lo" path="res://assets/ui/sprite_sheet_button.webp" id="3_0p3m7"]
 [ext_resource type="Texture2D" uid="uid://pmhtjahv3tob" path="res://assets/ui/banner.png" id="4_2ysvc"]
+[ext_resource type="PackedScene" path="res://scenes/ui/FinalSummary.tscn" id="5_summary"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_new_game"]
 atlas = ExtResource("3_0p3m7")
@@ -182,8 +183,28 @@ grow_horizontal = 2
 texture = ExtResource("4_2ysvc")
 expand_mode = 1
 
+[node name="LeaderboardButton" type="Button" parent="."]
+custom_minimum_size = Vector2(220, 44)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -82.0
+offset_right = 110.0
+offset_bottom = -38.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_font_sizes/font_size = 18
+text = "BẢNG XẾP HẠNG"
+
+[node name="FinalSummary" parent="." instance=ExtResource("5_summary")]
+
 [connection signal="pressed" from="MenuButtons/NewGameButton" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="MenuButtons/ContinueButton" to="." method="_on_continue_pressed"]
 [connection signal="pressed" from="MenuButtons/ExitButton" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="LeaderboardButton" to="." method="_on_leaderboard_pressed"]
 [connection signal="pressed" from="ConfirmOverlay/ConfirmPanel/DialogLayout/DialogButtons/YesButton" to="." method="_on_confirm_yes_pressed"]
 [connection signal="pressed" from="ConfirmOverlay/ConfirmPanel/DialogLayout/DialogButtons/NoButton" to="." method="_on_confirm_no_pressed"]

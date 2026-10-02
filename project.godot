@@ -21,6 +21,7 @@ SceneLoader="*res://scripts/ui/scene_loader.gd"
 SettingsManager="*res://scripts/ui/settings_manager.gd"
 EnergyManager="*res://scripts/managers/energy_manager.gd"
 ProgressionManager="*res://scripts/managers/progression_manager.gd"
+SaveManager="*res://scripts/managers/save_manager.gd"
 
 [display]
 

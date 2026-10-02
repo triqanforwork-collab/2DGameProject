@@ -218,6 +218,7 @@ func die() -> void:
 		return
 
 	is_dead = true
+	SaveManager.record_enemy_defeated()
 	health = 0
 	update_enemy_health_bar()
 	if enemy_health_bar != null:

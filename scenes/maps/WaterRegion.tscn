@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/ConfirmationDialog.tscn" id="18_dialog"]
 [ext_resource type="PackedScene" path="res://scenes/ui/RegionVictoryController.tscn" id="19_victory"]
 [ext_resource type="PackedScene" path="res://scenes/maps/RegionEncounterController.tscn" id="20_encounter"]
+[ext_resource type="PackedScene" path="res://scenes/maps/RegionNavigation.tscn" id="21_navigation"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("2_oj3g5")
@@ -327,6 +328,8 @@ boss_container_path = NodePath("../TileMap/Bosses")
 boss_spawn_point_path = NodePath("../TileMap/BossSpawnPoint")
 boss_scene = ExtResource("16_turtle")
 boss_display_name = "TURTLE"
+
+[node name="RegionNavigation" parent="." instance=ExtResource("21_navigation")]
 
 [node name="RegionVictoryController" parent="." unique_id=2020945078 instance=ExtResource("19_victory")]
 replay_scene_path = "res://scenes/maps/WaterRegion.tscn"

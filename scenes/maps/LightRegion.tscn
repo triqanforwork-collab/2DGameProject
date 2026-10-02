@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" path="res://scenes/ui/RegionVictoryController.tscn" id="18_victory"]
 [ext_resource type="PackedScene" uid="uid://dhn6w58gcwlxs" path="res://scenes/bosses/Light/Minotaur.tscn" id="19_minotaur"]
 [ext_resource type="PackedScene" path="res://scenes/maps/RegionEncounterController.tscn" id="20_encounter"]
+[ext_resource type="PackedScene" path="res://scenes/maps/RegionNavigation.tscn" id="21_navigation"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jmgym"]
 texture = ExtResource("2_a1a54")
@@ -328,6 +329,8 @@ boss_container_path = NodePath("../TileMap/Bosses")
 boss_spawn_point_path = NodePath("../TileMap/BossSpawnPoint")
 boss_scene = ExtResource("19_minotaur")
 boss_display_name = "MINOTAUR"
+
+[node name="RegionNavigation" parent="." instance=ExtResource("21_navigation")]
 
 [node name="RegionVictoryController" parent="." unique_id=2147242938 instance=ExtResource("18_victory")]
 replay_scene_path = "res://scenes/maps/LightRegion.tscn"

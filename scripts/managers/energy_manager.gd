@@ -10,6 +10,7 @@ func add_energy(amount: int) -> void:
 		return
 
 	carried_energy += amount
+	SaveManager.record_energy(amount)
 	energy_changed.emit(carried_energy)
 
 
@@ -24,4 +25,9 @@ func deposit_energy(amount: int) -> int:
 
 func reset_energy() -> void:
 	carried_energy = 0
+	energy_changed.emit(carried_energy)
+
+
+func set_energy(amount: int) -> void:
+	carried_energy = maxi(amount, 0)
 	energy_changed.emit(carried_energy)

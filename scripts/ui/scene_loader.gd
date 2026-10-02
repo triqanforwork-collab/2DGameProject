@@ -18,6 +18,7 @@ func change_scene(scene_path: String) -> void:
 	if transition_in_progress:
 		return
 
+	SaveManager.save_game()
 	pending_scene_path = scene_path
 	transition_in_progress = true
 
